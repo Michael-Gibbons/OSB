@@ -1,8 +1,0 @@
-import path from 'path';
-
-export default {
-  'config': path.resolve('./db', 'config/config.js'),
-  'models-path': path.resolve('./db', 'models'),
-  'migrations-path': path.resolve('./db', 'migrations'),
-  'seeders-path': path.resolve('./db', 'seeders')
-}
