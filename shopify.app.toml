@@ -1,0 +1,2 @@
+name = "OSB"
+scopes = "write_products,write_customers,write_draft_orders,read_themes"
