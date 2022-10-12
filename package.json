@@ -5,13 +5,13 @@
     "build": "npm run build:client",
     "build:client": "vite build --outDir dist/client",
     "debug": "node --inspect-brk server/index.js",
+    "serve": "npx shopify app dev",
     "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch ./server",
+    "dev:client": "cross-env NODE_ENV=development",
     "prepare": "husky install",
-    "preserve": "npm run build",
-    "serve": "cross-env NODE_ENV=production node server/index.js",
-    "start": "npm run serve",
-    "test": "vitest --reporter=verbose",
-    "info": "shopify app info"
+    "prebuild": "npm run build",
+    "start": "cross-env NODE_ENV=production node server/index.js",
+    "test": "vitest --reporter=verbose"
   },
   "type": "module",
   "license": "UNLICENSED",
