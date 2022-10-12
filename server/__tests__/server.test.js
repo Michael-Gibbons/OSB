@@ -131,9 +131,7 @@ describe("shopify-app-node server", async () => {
           shop: "test-shop",
         }
       );
-      expect(app.get("active-shopify-shops")).toEqual({
-        "test-shop": "write_products",
-      });
+
       expect(response.status).toEqual(302);
       expect(response.headers.location).toEqual(
         "/?shop=test-shop&host=test-shop-host"

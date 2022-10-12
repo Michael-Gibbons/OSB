@@ -2,6 +2,9 @@ import { Shopify } from "@shopify/shopify-api";
 
 import topLevelAuthRedirect from "../helpers/top-level-auth-redirect.js";
 
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
 export default function applyAuthMiddleware(app) {
   app.get("/auth", async (req, res) => {
     if (!req.signedCookies[app.get("top-level-oauth-cookie")]) {
@@ -49,12 +52,18 @@ export default function applyAuthMiddleware(app) {
       );
 
       const host = req.query.host;
-      app.set(
-        "active-shopify-shops",
-        Object.assign(app.get("active-shopify-shops"), {
-          [session.shop]: session.scope,
-        })
-      );
+
+      const foundShop = await prisma.activeShops.findFirst({
+        where: { shop: session.shop },
+      });
+      if (!foundShop) {
+        await prisma.activeShops.create({
+          data: {
+            shop: session.shop,
+            scope: session.scope,
+          },
+        });
+      }
 
       const response = await Shopify.Webhooks.Registry.register({
         shop: session.shop,

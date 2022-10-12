@@ -7,6 +7,14 @@ import "dotenv/config";
 
 import applyAuthMiddleware from "./middleware/auth.js";
 import verifyRequest from "./middleware/verify-request.js";
+import {
+  storeCallback,
+  loadCallback,
+  deleteCallback,
+} from "./helpers/custom-session-storage.js";
+
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 const USE_ONLINE_TOKENS = true;
 const TOP_LEVEL_OAUTH_COOKIE = "shopify_top_level_oauth";
@@ -22,7 +30,11 @@ Shopify.Context.initialize({
   API_VERSION: ApiVersion.April22,
   IS_EMBEDDED_APP: true,
   // This should be replaced with your preferred storage strategy
-  SESSION_STORAGE: new Shopify.Session.MemorySessionStorage(),
+  SESSION_STORAGE: new Shopify.Session.CustomSessionStorage(
+    storeCallback,
+    loadCallback,
+    deleteCallback
+  ),
 });
 
 // Storing the currently active shops in memory will force them to re-login when your server restarts. You should
@@ -41,8 +53,10 @@ export async function createServer(
   isProd = process.env.NODE_ENV === "production"
 ) {
   const app = express();
+  const activeShops = await prisma.activeShops.findMany();
+  console.log(activeShops);
+
   app.set("top-level-oauth-cookie", TOP_LEVEL_OAUTH_COOKIE);
-  app.set("active-shopify-shops", ACTIVE_SHOPIFY_SHOPS);
   app.set("use-online-tokens", USE_ONLINE_TOKENS);
 
   app.use(cookieParser(Shopify.Context.API_SECRET_KEY));
@@ -99,12 +113,14 @@ export async function createServer(
     next();
   });
 
-  app.use("/*", (req, res, next) => {
+  app.use("/*", async (req, res, next) => {
     const { shop } = req.query;
 
     // Detect whether we need to reinstall the app, any request from Shopify will
     // include a shop in the query parameters.
-    if (app.get("active-shopify-shops")[shop] === undefined && shop) {
+    const foundShop = await prisma.activeShops.findFirst({ where: { shop } });
+
+    if (!foundShop && shop) {
       res.redirect(`/auth?${new URLSearchParams(req.query).toString()}`);
     } else {
       next();
