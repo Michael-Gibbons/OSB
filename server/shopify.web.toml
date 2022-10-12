@@ -1,4 +1,4 @@
-type="backend"
+type="frontend"
 
 [commands]
 dev = "npm run dev"
