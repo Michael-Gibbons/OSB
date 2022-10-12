@@ -5,7 +5,7 @@
     "build": "npm run build:client",
     "build:client": "vite build --outDir dist/client",
     "debug": "node --inspect-brk server/index.js",
-    "serve": "npx shopify app dev",
+    "serve": "npx shopify app dev --skip-dependencies-installation",
     "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch ./server",
     "dev:client": "cross-env NODE_ENV=development",
     "prepare": "husky install",
