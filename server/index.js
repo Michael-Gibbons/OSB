@@ -29,7 +29,6 @@ Shopify.Context.initialize({
   HOST_NAME: process.env.HOST.replace(/https:\/\//, ""),
   API_VERSION: ApiVersion.April22,
   IS_EMBEDDED_APP: true,
-  // This should be replaced with your preferred storage strategy
   SESSION_STORAGE: new Shopify.Session.CustomSessionStorage(
     storeCallback,
     loadCallback,
@@ -37,8 +36,6 @@ Shopify.Context.initialize({
   ),
 });
 
-// Storing the currently active shops in memory will force them to re-login when your server restarts. You should
-// persist this object in your app.
 const ACTIVE_SHOPIFY_SHOPS = {};
 Shopify.Webhooks.Registry.addHandler("APP_UNINSTALLED", {
   path: "/webhooks",
@@ -53,8 +50,6 @@ export async function createServer(
   isProd = process.env.NODE_ENV === "production"
 ) {
   const app = express();
-  const activeShops = await prisma.activeShops.findMany();
-  console.log(activeShops);
 
   app.set("top-level-oauth-cookie", TOP_LEVEL_OAUTH_COOKIE);
   app.set("use-online-tokens", USE_ONLINE_TOKENS);
@@ -172,5 +167,10 @@ export async function createServer(
 }
 
 if (!isTest) {
-  createServer().then(({ app }) => app.listen(PORT));
+  console.log("creating server");
+  createServer().then(({ app }) => {
+    console.log(`listening on port ${PORT}`);
+    app.listen(PORT);
+  });
+  console.log("server finished");
 }
