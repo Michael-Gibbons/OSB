@@ -2,6 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.md)
 
+> V2 OF THIS BOILER IS CURRENTLY IN DEVELOPMENT, improvements include shopify cli v3, prisma, cli, and addon infrastructure. Use that information as you will.
+
 > This framework is under active development, I believe it is in a usable state, however caution should be used.
 
 This is an opinionated, full stack, sample app to help developers bootstrap their Shopify app development.
