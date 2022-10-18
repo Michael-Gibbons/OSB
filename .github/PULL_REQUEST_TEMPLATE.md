@@ -20,3 +20,10 @@ Fixes #0000 <!-- link to issue if one exists -->
   Summary of the changes committed.
   Before / after screenshots appreciated for UI changes.
 -->
+
+### Checklist
+
+**Note**: once this PR is merged, it becomes a new release for this template.
+
+- [ ] I have added/updated tests for this change
+- [ ] I have made changes to the `README.md` file and other related documentation, if applicable
