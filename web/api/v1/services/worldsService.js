@@ -15,7 +15,7 @@ const parameters = [
 
 
 //TODO: turn this into object with parameter object
-const getWorldById = () => {
+const getWorldById = (req, res, next) => {
   // hard coded data as example
   res.status(200).send({
     data: [{ id: '1', type: "thing", attributes: { mything: true } }, { id: '2', type: "thing", attributes: { mything: true } }],
@@ -23,7 +23,7 @@ const getWorldById = () => {
   });
 }
 
-const getWorldByName = () => {
+const getWorldByName = (req, res, next) => {
   // hard coded data as example
   res.status(200).send({
     data: [{ id: '1', type: "thing", attributes: { mything: true } }, { id: '2', type: "thing", attributes: { mything: true } }],
