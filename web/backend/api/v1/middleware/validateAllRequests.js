@@ -2,12 +2,14 @@ import OpenAPIRequestValidator from 'openapi-request-validator';
 const OpenAPIRequestValidatorConstructor = OpenAPIRequestValidator.default
 
 function validateAllRequests(req, res, next){
-  const parameters = res.locals.parameters
+  const service = res.locals.service
+  const parameters = service.parameters
+  
   if(!parameters){
     next()
   }
 
-  const requestValidator = new OpenAPIRequestValidatorConstructor({ parameters: res.locals.parameters });
+  const requestValidator = new OpenAPIRequestValidatorConstructor({ parameters });
 
   const errors = requestValidator.validateRequest(req)
   if (errors) {

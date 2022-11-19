@@ -1,18 +1,11 @@
 import validateAllRequests from '../middleware/validateAllRequests.js';
+import validateServiceParameters from '../middleware/validateServiceParameters.js'
+import applyCommonMiddleware from '../util/applyCommonMiddleware.js';
 
 export default function (worldsService) {
   let operations = {};
 
-  const handleAllRequests = (req, res, next) => {
-
-    if(!worldsService.parameters) throw 'parameters required'
-
-    res.locals.parameters = worldsService.parameters // used in validateAllRequests middleware
-    next()
-  }
-
-  operations.GET = [handleAllRequests, validateAllRequests, worldsService.getWorldByName]
-
+  operations.GET = [worldsService.getWorldByName]
 
   operations.GET.apiDoc = {
     summary: 'Returns worlds by name.',
@@ -41,6 +34,9 @@ export default function (worldsService) {
       }
     }
   };
+
+  const commonMiddleware = [validateServiceParameters(worldsService), validateAllRequests]
+  operations = applyCommonMiddleware(operations, commonMiddleware)
 
   return operations;
 }
