@@ -14,7 +14,8 @@ const createApiV1 = async (app) => {
     apiDoc: {
       ...v1ApiDoc,
       'x-express-openapi-additional-middleware': [validateAllResponses],
-      'x-express-openapi-validation-strict': true
+      'x-express-openapi-validation-strict': true,
+      'x-express-openapi-disable-validation-middleware': true
     },
     dependencies: {
       ...serviceDependencies
@@ -26,7 +27,7 @@ const createApiV1 = async (app) => {
   const registeredRoutes = []
   app._router.stack.forEach(function (r) {
     if (r.route && r.route.path) {
-      registeredRoutes.push(r.route.path)
+      registeredRoutes.push(`${r.route.path} ${r.route.stack[0].method.toUpperCase()}`)
     }
   })
 

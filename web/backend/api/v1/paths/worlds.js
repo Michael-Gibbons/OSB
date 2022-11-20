@@ -1,16 +1,26 @@
 import validateAllRequests from '../middleware/validateAllRequests.js';
-import validateServiceParameters from '../middleware/validateServiceParameters.js'
 import applyCommonMiddleware from '../util/applyCommonMiddleware.js';
 
 export default function (worldsService) {
-  let operations = {};
+  let operations = {
+    GET: [worldsService.getWorldByName],
+    // POST: [],
+    // PUT: [],
+    // PATCH: [],
+    // DELETE: [],
+  };
 
-  operations.GET = [worldsService.getWorldByName]
 
   operations.GET.apiDoc = {
     summary: 'Returns worlds by name.',
     operationId: 'getWorldByName',
-    parameters: worldsService.parameters.map(param => ({ in: param.in, name: param.name })),
+    parameters: [
+      {
+        in: 'query',
+        name: 'name',
+        required: true,
+      }
+    ],
     responses: {
       200: {
         description: 'A list of worlds that match the requested name.',
@@ -35,7 +45,7 @@ export default function (worldsService) {
     }
   };
 
-  const commonMiddleware = [validateServiceParameters(worldsService), validateAllRequests]
+  const commonMiddleware = [validateAllRequests]
   operations = applyCommonMiddleware(operations, commonMiddleware)
 
   return operations;

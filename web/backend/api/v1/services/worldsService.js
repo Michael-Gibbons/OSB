@@ -1,20 +1,3 @@
-const parameters = [
-  {
-    in: 'query',
-    type: 'string',
-    name: 'name',
-    required: true
-  },
-  {
-    in: 'query',
-    type: 'string',
-    name: 'stinky',
-    required: true
-  }
-]
-
-
-//TODO: turn this into object with parameter object
 const getWorldById = (req, res, next) => {
   // hard coded data as example
   res.status(200).send({
@@ -32,7 +15,6 @@ const getWorldByName = (req, res, next) => {
 }
 
 export default {
-  parameters,
   getWorldById,
   getWorldByName
 };

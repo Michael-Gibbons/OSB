@@ -2,9 +2,8 @@ import OpenAPIRequestValidator from 'openapi-request-validator';
 const OpenAPIRequestValidatorConstructor = OpenAPIRequestValidator.default
 
 function validateAllRequests(req, res, next){
-  const service = res.locals.service
-  const parameters = service.parameters
-  
+  const parameters = req.operationDoc.parameters
+
   if(!parameters){
     next()
   }
@@ -13,7 +12,10 @@ function validateAllRequests(req, res, next){
 
   const errors = requestValidator.validateRequest(req)
   if (errors) {
-    res.status(errors.status).send({ errors: [{ id: '1', status: errors.status.toString(), title: errors.errors[0].message }] })
+    res.status(errors.status).send({ errors: errors.errors.map((error, index) => {
+      return { id: (index + 1).toString(), status: errors.status.toString(), title: error.errorCode, detail: error.message }
+    })})
+
     return
   }
   next()
