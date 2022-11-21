@@ -1,4 +1,7 @@
 // @ts-nocheck
+import dotenv from 'dotenv'
+dotenv.config()
+
 import { join } from "path";
 import { readFileSync } from "fs";
 import express from "express";
@@ -15,14 +18,11 @@ import { AppInstallations } from "./app_installations.js";
 
 import createApiV1 from "./api/v1/config/createApiV1.js";
 
-const USE_ONLINE_TOKENS = false;
 
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
 
 const DEV_INDEX_PATH = `${process.cwd()}/../frontend/`;
 const PROD_INDEX_PATH = `${process.cwd()}/../frontend/dist/`;
-
-const DB_PATH = `${process.cwd()}/database.sqlite`;
 
 Shopify.Context.initialize({
   API_KEY: process.env.SHOPIFY_API_KEY,
@@ -34,7 +34,7 @@ Shopify.Context.initialize({
   IS_EMBEDDED_APP: true,
   // This should be replaced with your preferred storage strategy
   // See note below regarding using CustomSessionStorage with this template.
-  SESSION_STORAGE: new Shopify.Session.SQLiteSessionStorage(DB_PATH),
+  SESSION_STORAGE: new Shopify.Session.PostgreSQLSessionStorage(process.env.DATABASE_URL),
   ...(process.env.SHOP_CUSTOM_DOMAIN && { CUSTOM_SHOP_DOMAINS: [process.env.SHOP_CUSTOM_DOMAIN] }),
 });
 
@@ -77,7 +77,6 @@ export async function createServer(
 ) {
   const app = express();
 
-  app.set("use-online-tokens", USE_ONLINE_TOKENS);
   app.use(cookieParser(Shopify.Context.API_SECRET_KEY));
 
   await createApiV1(app)
@@ -113,8 +112,7 @@ export async function createServer(
   app.get("/api/products/count", async (req, res) => {
     const session = await Shopify.Utils.loadCurrentSession(
       req,
-      res,
-      app.get("use-online-tokens")
+      res
     );
     const { Product } = await import(
       `@shopify/shopify-api/dist/rest-resources/${Shopify.Context.API_VERSION}/index.js`
@@ -127,8 +125,7 @@ export async function createServer(
   app.get("/api/products/create", async (req, res) => {
     const session = await Shopify.Utils.loadCurrentSession(
       req,
-      res,
-      app.get("use-online-tokens")
+      res
     );
     let status = 200;
     let error = null;
