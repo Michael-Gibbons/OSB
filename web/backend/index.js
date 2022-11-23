@@ -17,8 +17,7 @@ import { BillingInterval } from "./helpers/ensure-billing.js";
 import { AppInstallations } from "./app_installations.js";
 
 import createApiV1 from "./api/v1/config/createApiV1.js";
-
-import withSession from './middleware/with-session.js';
+import './redis/index.js'
 
 
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
