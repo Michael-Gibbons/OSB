@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "web/index.js",
   "license": "UNLICENSED",
+  "repository": "https://github.com/Michael-Gibbons/OSB",
   "scripts": {
     "shopify": "shopify",
     "build": "shopify app build",
@@ -18,5 +19,34 @@
     "openapi-default-setter": "^12.0.2",
     "openapi-request-coercer": "^12.0.2",
     "openapi-request-validator": "^12.0.2"
-  }
+  },
+  "devDependencies": {
+    "@michael.gibbons/doc-me": "^1.1.0"
+  },
+  "doc": [
+    {
+      "name": "prisma",
+      "value": "https://www.prisma.io/docs/guides"
+    },
+    {
+      "name": "bullmq",
+      "value": "https://docs.bullmq.io/guide/introduction"
+    },
+    {
+      "name": "polaris",
+      "value": "https://polaris.shopify.com/components"
+    },
+    {
+      "name": "shopify REST api",
+      "value": "https://shopify.dev/api/admin-rest"
+    },
+    {
+      "name": "OSB",
+      "value": "https://github.com/Michael-Gibbons/OSB"
+    },
+    {
+      "name": "react query",
+      "value": "https://react-query-v3.tanstack.com/overview"
+    }
+  ]
 }
