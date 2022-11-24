@@ -14,7 +14,7 @@ import { setupGDPRWebHooks } from "./gdpr.js";
 import productCreator from "./helpers/product-creator.js";
 import redirectToAuth from "./helpers/redirect-to-auth.js";
 import { BillingInterval } from "./helpers/ensure-billing.js";
-import { AppInstallations } from "./app_installations.js";
+import { AppInstallations } from "./helpers/app_installations.js";
 
 import buildBullBoard from './middleware/build-bull-board.js'
 import setSecurityPolicy from './middleware/set-security-policy.js';
