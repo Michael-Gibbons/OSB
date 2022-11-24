@@ -17,6 +17,7 @@ import { BillingInterval } from "./helpers/ensure-billing.js";
 import { AppInstallations } from "./app_installations.js";
 
 import buildBullBoard from './middleware/build-bull-board.js'
+import setSecurityPolicy from './middleware/set-security-policy.js';
 import createApiV1 from "./api/v1/config/createApiV1.js";
 import './redis/index.js'
 
@@ -144,20 +145,7 @@ export async function createServer(
   // attribute, as a result of the express.json() middleware
   app.use(express.json());
 
-  app.use((req, res, next) => {
-    const shop = Shopify.Utils.sanitizeShop(req.query.shop);
-    if (Shopify.Context.IS_EMBEDDED_APP && shop) {
-      res.setHeader(
-        "Content-Security-Policy",
-        `frame-ancestors https://${encodeURIComponent(
-          shop
-        )} https://admin.shopify.com;`
-      );
-    } else {
-      res.setHeader("Content-Security-Policy", `frame-ancestors 'none';`);
-    }
-    next();
-  });
+  app.use(setSecurityPolicy);
 
   if (isProd) {
     const compression = await import("compression").then(
