@@ -41,7 +41,7 @@ in order to avoid automatic removal of keys which would cause unexpected errors 
 const REDIS_CONFIG = {
   connection: {...connections[env]},
   defaultJobOptions: {
-    removeOnComplete: true,
+    removeOnComplete: 1000,// keep the last 1000 completed jobs as reference
     attempts: 100,
     delay: 1000,
     backoff: {

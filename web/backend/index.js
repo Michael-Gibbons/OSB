@@ -16,6 +16,7 @@ import redirectToAuth from "./helpers/redirect-to-auth.js";
 import { BillingInterval } from "./helpers/ensure-billing.js";
 import { AppInstallations } from "./app_installations.js";
 
+import buildBullBoard from './middleware/build-bull-board.js'
 import createApiV1 from "./api/v1/config/createApiV1.js";
 import './redis/index.js'
 
@@ -79,6 +80,8 @@ export async function createServer(
   const app = express();
 
   app.use(cookieParser(Shopify.Context.API_SECRET_KEY));
+
+  app.use("/api/admin/queues", buildBullBoard("/api/admin/queues"))
 
   await createApiV1(app)
 
