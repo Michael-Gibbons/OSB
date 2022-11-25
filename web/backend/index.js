@@ -10,7 +10,6 @@ import Shopify from "./helpers/shopify-context.js";
 
 import applyAuthMiddleware from "./middleware/auth.js";
 import verifyRequest from "./middleware/verify-request.js";
-import { setupGDPRWebHooks } from "./gdpr.js";
 import productCreator from "./helpers/product-creator.js";
 import redirectToAuth from "./helpers/redirect-to-auth.js";
 import { BillingInterval } from "./helpers/ensure-billing.js";
@@ -34,12 +33,6 @@ const PROD_INDEX_PATH = `${process.cwd()}/../frontend/dist/`;
 // required for the app_installations.js component in this template to
 // work properly.
 
-Shopify.Webhooks.Registry.addHandler("APP_UNINSTALLED", {
-  path: "/api/webhooks",
-  webhookHandler: async (_topic, shop, _body) => {
-    await AppInstallations.delete(shop);
-  },
-});
 
 // The transactions with Shopify will always be marked as test transactions, unless NODE_ENV is production.
 // See the ensureBilling helper to learn more about billing in this template.
@@ -51,14 +44,6 @@ const BILLING_SETTINGS = {
   // currencyCode: "USD",
   // interval: BillingInterval.OneTime,
 };
-
-// This sets up the mandatory GDPR webhooks. You’ll need to fill in the endpoint
-// in the “GDPR mandatory webhooks” section in the “App setup” tab, and customize
-// the code when you store customer data.
-//
-// More details can be found on shopify.dev:
-// https://shopify.dev/apps/webhooks/configuration/mandatory-webhooks
-setupGDPRWebHooks("/api/webhooks");
 
 // export for test use only
 export async function createServer(
@@ -75,22 +60,6 @@ export async function createServer(
 
   applyAuthMiddleware(app, {
     billing: billingSettings,
-  });
-
-  // Do not call app.use(express.json()) before processing webhooks with
-  // Shopify.Webhooks.Registry.process().
-  // See https://github.com/Shopify/shopify-api-node/blob/main/docs/usage/webhooks.md#note-regarding-use-of-body-parsers
-  // for more details.
-  app.post("/api/webhooks", async (req, res) => {
-    try {
-      await Shopify.Webhooks.Registry.process(req, res);
-      console.log(`Webhook processed, returned status code 200`);
-    } catch (e) {
-      console.log(`Failed to process webhook: ${e.message}`);
-      if (!res.headersSent) {
-        res.status(500).send(e.message);
-      }
-    }
   });
 
   // All endpoints after this point will require an active session
