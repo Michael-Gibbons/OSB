@@ -5,6 +5,8 @@ import {
   MutationCache,
 } from "react-query";
 
+import { ReactQueryDevtools } from 'react-query/devtools'
+
 /**
  * Sets up the QueryClientProvider from react-query.
  * @desc See: https://react-query.tanstack.com/reference/QueryClientProvider#_top
@@ -15,5 +17,9 @@ export function QueryProvider({ children }) {
     mutationCache: new MutationCache(),
   });
 
-  return <QueryClientProvider client={client}>{children}</QueryClientProvider>;
+  return (
+  <QueryClientProvider client={client}>
+    {children}
+    <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+  </QueryClientProvider>);
 }
