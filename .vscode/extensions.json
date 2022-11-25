@@ -1,5 +1,7 @@
 {
   "recommendations": [
-    "shopify.polaris-for-vscode"
+    "shopify.polaris-for-vscode",
+    "prisma.prisma",
+    "rangav.vscode-thunder-client"
   ]
 }
