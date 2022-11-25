@@ -16,10 +16,11 @@ import redirectToAuth from "./helpers/redirect-to-auth.js";
 import { BillingInterval } from "./helpers/ensure-billing.js";
 import { AppInstallations } from "./helpers/app-installations.js";
 
-import buildBullBoard from './middleware/build-bull-board.js'
 import setSecurityPolicy from './middleware/set-security-policy.js';
 import createApiV1 from "./api/v1/config/createApiV1.js";
 import './redis/index.js'
+
+import rootRouter from './routes/index.js'
 
 
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
@@ -68,7 +69,7 @@ export async function createServer(
 
   app.use(cookieParser(Shopify.Context.API_SECRET_KEY));
 
-  app.use("/api/admin/queues", buildBullBoard("/api/admin/queues"))
+  app.use("/", rootRouter)
 
   await createApiV1(app)
 
