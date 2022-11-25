@@ -3,6 +3,6 @@ const router = express.Router()
 
 import bullBoardRouter from './bull-board.js'
 
-router.use('/', bullBoardRouter)
+router.use('/admin', bullBoardRouter)
 
 export default router
