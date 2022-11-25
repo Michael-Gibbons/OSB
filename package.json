@@ -41,6 +41,14 @@
       "value": "https://shopify.dev/api/admin-rest"
     },
     {
+      "name": "shopify webhook topics",
+      "value": "https://shopify.dev/api/admin-rest/2022-01/resources/webhook#resource-object"
+    },
+    {
+      "name": "shopify access scopes",
+      "value": "https://shopify.dev/api/usage/access-scopes"
+    },
+    {
       "name": "OSB",
       "value": "https://github.com/Michael-Gibbons/OSB"
     },
