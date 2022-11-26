@@ -22,6 +22,10 @@
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
     "express": "^4.17.3",
+    "express-openapi": "^12.0.2",
+    "openapi-default-setter": "^12.0.2",
+    "openapi-request-coercer": "^12.0.2",
+    "openapi-request-validator": "^12.0.2",
     "serve-static": "^1.14.1"
   },
   "devDependencies": {
