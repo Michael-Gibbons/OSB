@@ -5,6 +5,7 @@ import ensureBilling, {
 import redirectToAuth from "../helpers/redirect-to-auth.js";
 
 import returnTopLevelRedirection from "../helpers/return-top-level-redirection.js";
+import { BILLING_SETTINGS } from "../BILLING_SETTINGS.js";
 
 const TEST_GRAPHQL_QUERY = `
 {
@@ -14,10 +15,24 @@ const TEST_GRAPHQL_QUERY = `
 }`;
 
 export default function verifyRequest(
-  app,
-  { billing = { required: false } } = { billing: { required: false } }
+  app
 ) {
   return async (req, res, next) => {
+    if(!app){
+      res.status(401).send({
+        "errors": [
+          {
+            "id": "1",
+            "status": "401",
+            "title": "Unauthorized",
+            "detail": "This route is using the verifyRequest middleware yet an attempt has been made to access it from outside the Shopify Admin. Please Remove the verifyRequest middleware or remove the request for this resource."
+          }
+        ]
+      })
+
+      return
+    }
+
     const session = await Shopify.Utils.loadCurrentSession(
       req,
       res
@@ -37,11 +52,11 @@ export default function verifyRequest(
 
     if (session?.isActive()) {
       try {
-        if (billing.required) {
+        if (BILLING_SETTINGS.required) {
           // The request to check billing status serves to validate that the access token is still valid.
           const [hasPayment, confirmationUrl] = await ensureBilling(
             session,
-            billing
+            BILLING_SETTINGS
           );
 
           if (!hasPayment) {
