@@ -25,6 +25,14 @@ export default function applyAuthMiddleware(
         accessToken: session.accessToken,
       });
 
+      let webhookLog = ''
+      for (const registeredWebhook in Shopify.Webhooks.Registry.webhookRegistry) {
+        if (Object.hasOwnProperty.call(Shopify.Webhooks.Registry.webhookRegistry, registeredWebhook)) {
+          webhookLog += `${registeredWebhook} \n`
+        }
+      }
+      console.log(`Registered Shopify Webhooks:\n${webhookLog}`)
+
       Object.entries(responses).map(([topic, response]) => {
         // The response from registerAll will include errors for the GDPR topics.  These can be safely ignored.
         // To register the GDPR topics, please set the appropriate webhook endpoint in the
