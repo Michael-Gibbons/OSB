@@ -23,22 +23,20 @@ import applyProductionMiddleware from './middleware/applyProductionMiddleware.js
 
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
 
-// The transactions with Shopify will always be marked as test transactions, unless NODE_ENV is production.
-// See the ensureBilling helper to learn more about billing in this template.
-const BILLING_SETTINGS = {
-  required: false,
-  // This is an example configuration that would do a one-time charge for $5 (only USD is currently supported)
-  // chargeName: "My Shopify One-Time Charge",
-  // amount: 5.0,
-  // currencyCode: "USD",
-  // interval: BillingInterval.OneTime,
-};
 
 // export for test use only
-export async function createServer(
-  isProd = process.env.NODE_ENV === "production",
-  billingSettings = BILLING_SETTINGS
-) {
+export async function createServer() {
+  // The transactions with Shopify will always be marked as test transactions, unless NODE_ENV is production.
+  // See the ensureBilling helper to learn more about billing in this template.
+  const BILLING_SETTINGS = {
+    required: false,
+    // This is an example configuration that would do a one-time charge for $5 (only USD is currently supported)
+    // chargeName: "My Shopify One-Time Charge",
+    // amount: 5.0,
+    // currencyCode: "USD",
+    // interval: BillingInterval.OneTime,
+  };
+
   const app = express();
 
   app.use(cookieParser(Shopify.Context.API_SECRET_KEY));
@@ -48,14 +46,14 @@ export async function createServer(
   await createApiV1(app)
 
   applyAuthMiddleware(app, {
-    billing: billingSettings,
+    billing: BILLING_SETTINGS,
   });
 
   // All endpoints after this point will require an active session
   app.use(
     "/api/*",
     verifyRequest(app, {
-      billing: billingSettings,
+      billing: BILLING_SETTINGS,
     })
   );
 
