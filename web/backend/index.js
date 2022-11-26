@@ -26,7 +26,7 @@ import { BILLING_SETTINGS } from './BILLING_SETTINGS.js';
 export async function createServer() {
   const app = express();
 
-  // Makes Cookies accessible to the Shopify context.
+  // Makes Cookies accessible to the Shopify context, using the API_SECRET_KEY to sign the cookies
   app.use(cookieParser(Shopify.Context.API_SECRET_KEY));
 
   // Defines /auth routes for Shopify's OAuth handshake
