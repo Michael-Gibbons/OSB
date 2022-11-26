@@ -17,4 +17,11 @@ Shopify.Context.initialize({
   ...(process.env.SHOP_CUSTOM_DOMAIN && { CUSTOM_SHOP_DOMAINS: [process.env.SHOP_CUSTOM_DOMAIN] }),
 });
 
+// NOTE: If you choose to implement your own storage strategy using
+// Shopify.Session.CustomSessionStorage, you MUST implement the optional
+// findSessionsByShopCallback and deleteSessionsCallback methods. These are
+// required for the app_installations.js component in this template to
+// work properly.
+
+
 export default Shopify

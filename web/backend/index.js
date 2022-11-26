@@ -23,13 +23,6 @@ import applyProductionMiddleware from './middleware/applyProductionMiddleware.js
 
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
 
-// NOTE: If you choose to implement your own storage strategy using
-// Shopify.Session.CustomSessionStorage, you MUST implement the optional
-// findSessionsByShopCallback and deleteSessionsCallback methods.  These are
-// required for the app_installations.js component in this template to
-// work properly.
-
-
 // The transactions with Shopify will always be marked as test transactions, unless NODE_ENV is production.
 // See the ensureBilling helper to learn more about billing in this template.
 const BILLING_SETTINGS = {
