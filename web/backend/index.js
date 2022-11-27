@@ -14,6 +14,7 @@ import applyProductionMiddleware from './middleware/applyProductionMiddleware.js
 import catchAllHandler from './middleware/catch-all-handler.js';
 
 import './redis/index.js'
+import logger from './services/logger/index.js';
 
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
 
@@ -52,6 +53,10 @@ export async function createServer() {
   // Anything not handled by this point will be redirected to /api/auth for OAuth verification.
   // Or simply rejected with a error if not applicable
   app.use("/*", catchAllHandler);
+
+  logger.warn('my super cool warning', {someError: 'hey this is some warning data', time: Date.now()})
+  logger.error('my super cool error', {someError: 'hey this is some error data', time: Date.now()})
+  logger.debug('my super cool debug', {someError: 'hey this is some debug data', time: Date.now()})
 
   return { app };
 }

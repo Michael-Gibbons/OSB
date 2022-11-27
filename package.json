@@ -4,10 +4,12 @@
   "main": "web/index.js",
   "license": "UNLICENSED",
   "repository": "https://github.com/Michael-Gibbons/OSB",
+  "type": "module",
   "scripts": {
     "shopify": "shopify",
     "build": "shopify app build",
-    "dev": "shopify app dev",
+    "dev": "concurrently --kill-others \"shopify app dev\" \"npm run log\" --raw",
+    "log": "node log.js",
     "info": "shopify app info",
     "generate": "shopify app generate",
     "deploy": "shopify app deploy"
@@ -17,7 +19,8 @@
     "@shopify/cli": "^3.0.0"
   },
   "devDependencies": {
-    "@michael.gibbons/doc-me": "^1.1.0"
+    "@michael.gibbons/doc-me": "^1.1.0",
+    "concurrently": "^7.6.0"
   },
   "doc": [
     {
