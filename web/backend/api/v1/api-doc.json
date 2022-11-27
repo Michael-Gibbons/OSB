@@ -1,0 +1,299 @@
+{
+  "openapi": "3.0.3",
+  "servers": [
+    {
+      "url": "/api/v1"
+    }
+  ],
+  "info": {
+    "title": "A getting started API.",
+    "version": "1.0.0"
+  },
+  "components": {
+    "schemas": {
+      "success": {
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/resource"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/resource"
+                }
+              }
+            ],
+            "uniqueItems": true
+          },
+          "links": {
+            "$ref": "#/components/schemas/pagination"
+          }
+        },
+        "additionalProperties": false
+      },
+      "failure": {
+        "type": "object",
+        "required": [
+          "errors"
+        ],
+        "properties": {
+          "errors": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/components/schemas/error"
+            },
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "error": {
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "title"
+        ],
+        "properties": {
+          "id": {
+            "description": "A unique identifier for this particular occurrence of the problem.",
+            "type": "string"
+          },
+          "status": {
+            "description": "The HTTP status code applicable to this problem, expressed as a string value.",
+            "type": "string"
+          },
+          "code": {
+            "description": "An application-specific error code, expressed as a string value.",
+            "type": "string"
+          },
+          "title": {
+            "description": "A short, human-readable summary of the problem. It **SHOULD NOT** change from occurrence to occurrence of the problem, except for purposes of localization.",
+            "type": "string"
+          },
+          "detail": {
+            "description": "A human-readable explanation specific to this occurrence of the problem.",
+            "type": "string"
+          },
+          "source": {
+            "type": "object",
+            "properties": {
+              "pointer": {
+                "description": "A JSON Pointer [RFC6901] to the associated entity in the request document [e.g. \"/data\" for a primary data object, or \"/data/attributes/title\" for a specific attribute].",
+                "type": "string"
+              },
+              "parameter": {
+                "description": "A string indicating which query parameter caused the error.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "resource": {
+        "description": "\"Resource objects\" appear in a JSON:API document to represent resources.",
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "attributes": {
+            "$ref": "#/components/schemas/attributes"
+          }
+        },
+        "additionalProperties": false
+      },
+      "attributes": {
+        "description": "Members of the attributes object (\"attributes\") represent information about the resource object in which it's defined.",
+        "type": "object",
+        "additionalProperties": true
+      },
+      "pagination": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/components/schemas/link"
+          },
+          "last": {
+            "$ref": "#/components/schemas/link"
+          },
+          "prev": {
+            "$ref": "#/components/schemas/link"
+          },
+          "next": {
+            "$ref": "#/components/schemas/link"
+          }
+        },
+        "additionalProperties": false
+      },
+      "link": {
+        "description": "A string containing the link's URL.",
+        "type": "string"
+      },
+      "World": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/resource"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "The name of this world.",
+                "type": "string"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/worlds": {
+      "parameters": [],
+      "get": {
+        "summary": "Returns worlds by name.",
+        "operationId": "getWorldByName",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of worlds that match the requested name.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/failure"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/failure"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/create": {
+      "parameters": [],
+      "get": {
+        "summary": "Creates Products",
+        "operationId": "createProducts",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Creates Products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/failure"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/failure"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/count": {
+      "parameters": [],
+      "get": {
+        "summary": "Returns a count of products.",
+        "operationId": "getProductCount",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A count of products.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/failure"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/failure"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-express-openapi-additional-middleware": [
+    null
+  ],
+  "x-express-openapi-validation-strict": true,
+  "x-express-openapi-disable-validation-middleware": true
+}
