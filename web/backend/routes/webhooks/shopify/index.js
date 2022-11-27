@@ -4,6 +4,7 @@ const router = express.Router()
 import { setupGDPRWebHooks } from "./gdpr.js";
 import { setupAppUninstalledWebhook } from "./app-uninstalled.js";
 import { setupOrderWebhooks } from './order.js';
+import { setupCustomerWebhooks } from './customer.js';
 
 import Shopify from '../../../helpers/shopify-context.js'
 
@@ -12,6 +13,7 @@ const PATH = '/api/webhooks/shopify'
 setupGDPRWebHooks(PATH)
 setupAppUninstalledWebhook(PATH)
 setupOrderWebhooks(PATH)
+setupCustomerWebhooks(PATH)
 
 // Do not call app.use(express.json()) before processing webhooks with
 // Shopify.Webhooks.Registry.process().
