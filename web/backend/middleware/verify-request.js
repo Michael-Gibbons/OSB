@@ -18,7 +18,18 @@ export default function verifyRequest(
   app
 ) {
   return async (req, res, next) => {
-    if(!app){
+    const session = await Shopify.Utils.loadCurrentSession(
+      req,
+      res
+    );
+
+    if(!res.locals.shopify){
+      res.locals.shopify = {}
+    }
+
+    res.locals.shopify.session = session
+
+    if(!session && !app){
       res.status(401).send({
         "errors": [
           {
@@ -33,21 +44,11 @@ export default function verifyRequest(
       return
     }
 
-    const session = await Shopify.Utils.loadCurrentSession(
-      req,
-      res
-    );
-
-    if(!res.locals.shopify){
-      res.locals.shopify = {}
-    }
-
-    res.locals.shopify.session = session
-
     let shop = Shopify.Utils.sanitizeShop(req.query.shop);
     if (session && shop && session.shop !== shop) {
       // The current request is for a different shop. Redirect gracefully.
-      return redirectToAuth(req, res, app);
+      return
+      (req, res, app);
     }
 
     if (session?.isActive()) {
