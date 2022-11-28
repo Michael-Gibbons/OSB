@@ -7,6 +7,7 @@ import withSession from '../../middleware/with-session.js'
 router.post("/log", express.json(), withSession, async (req, res) => {
   const { type, message, meta = {} } = req.body;
 
+  meta.requestId = req.id
   meta.shopifySession = res.locals.shopify.session;
 
   switch (type) {
