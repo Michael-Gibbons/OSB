@@ -16,6 +16,7 @@ import catchAllHandler from './middleware/catch-all-handler.js';
 
 import './redis/index.js'
 import logger from './services/logger/index.js';
+import httpLogger from './middleware/httpLogger.js';
 
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
 
@@ -26,6 +27,8 @@ export async function createServer() {
   const app = express();
 
   app.use(requestID())// Generates unique id for every request for logging and debugging purposes
+
+  app.use(httpLogger())// Logs all http requests sent to this server.
 
   // Makes Cookies accessible to the Shopify context, using the API_SECRET_KEY to sign the cookies
   app.use(cookieParser(Shopify.Context.API_SECRET_KEY));
