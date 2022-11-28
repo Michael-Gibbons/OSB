@@ -18,12 +18,10 @@ new Worker(NAME, async ( job ) => {
 
 queueEvents.on('progress', ({ jobId, data }) => {
   // jobId received a progress event
-  console.log(jobId, data)
 });
 
 queueEvents.on('completed', ({ jobId, returnvalue }) => {
   // Called every time a job is completed in any worker.
-  console.log(jobId, returnvalue)
 });
 
 queueEvents.on('failed', ({ jobId, failedReason }) => {
@@ -34,7 +32,6 @@ queueEvents.on('failed', ({ jobId, failedReason }) => {
 queueEvents.on('error', err => {
   // Job has failed with a *unknown* error, ie you don't know what's going on and the error is likely resolvable.
   // example: if(job.IDontExist), syntax error property IDontExist is undefined
-  console.error(err);
 });
 
 /* examples of adding jobs to queue
