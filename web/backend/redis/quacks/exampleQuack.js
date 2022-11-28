@@ -34,17 +34,6 @@ queueEvents.on('error', err => {
   // example: if(job.IDontExist), syntax error property IDontExist is undefined
 });
 
-/* examples of adding jobs to queue
-
-  await myQueue.add('name', { myData: 42 });
-  await queue.addBulk([
-    { name, data: { paint: 'car' } },
-    { name, data: { paint: 'house' } },
-    { name, data: { paint: 'boat' } },
-  ])
-
-*/
-
 export {
   exampleQueue // use this export to add jobs to the queue
 }
