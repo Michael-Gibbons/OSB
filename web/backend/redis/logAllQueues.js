@@ -22,13 +22,13 @@ export default function logAllQueues(){
       queueEvents.on('failed', ({ jobId, failedReason }) => {
         // Job has failed with a *known* error, ie you know what's going on and the error is unresolvable or out of your control.
         // example: if(!myCondition){ throw 'You're outta luck bud.' }
-        logger.error(`JOB FAILED: ${queueName}`, {name: queueName, jobId, failedReason})
+        logger.error(`JOB FAILED: ${queueName}`, {name: queueName, jobId, failedReason, stack: new Error().stack})
       });
 
       queueEvents.on('error', err => {
         // Job has failed with a *unknown* error, ie you don't know what's going on and the error is likely resolvable.
         // example: if(job.IDontExist), syntax error property IDontExist is undefined
-        logger.error(`JOB ERROR: ${queueName}`, {name: queueName, err})
+        logger.error(`JOB ERROR: ${queueName}`, {name: queueName, err, stack: new Error().stack})
       });
     }
   }

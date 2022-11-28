@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import express from "express";
+import requestID from 'express-request-id'
 import cookieParser from "cookie-parser";
 import Shopify from "./helpers/shopify-context.js";
 
@@ -23,6 +24,8 @@ import { BILLING_SETTINGS } from './BILLING_SETTINGS.js';
 // export for test use only
 export async function createServer() {
   const app = express();
+
+  app.use(requestID())// Generates unique id for every request for logging and debugging purposes
 
   // Makes Cookies accessible to the Shopify context, using the API_SECRET_KEY to sign the cookies
   app.use(cookieParser(Shopify.Context.API_SECRET_KEY));
