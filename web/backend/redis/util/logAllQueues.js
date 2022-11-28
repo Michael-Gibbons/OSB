@@ -14,13 +14,15 @@ export default function logAllQueues(){
 
         const job = await AllQueues[queue].getJob(jobId.toString())
         const jobName = job.name
+        const jobProgress = job.progress
         const data = {
           queueName,
           jobName,
           jobId,
+          jobProgress,
           ...job.data,
         }
-        
+
         logger.info(`JOB PROGESS: ${queueName}`, data)
       });
 
