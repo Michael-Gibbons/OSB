@@ -9,7 +9,6 @@ const options = {
   }
 }
 
-
 router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, options));
 
 export default router

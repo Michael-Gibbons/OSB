@@ -24,15 +24,6 @@ const createApiV1 = async (app) => {
     promiseMode: true,
   });
 
-  const registeredRoutes = []
-  app._router.stack.forEach(function (r) {
-    if (r.route && r.route.path) {
-      registeredRoutes.push(`${r.route.path} ${r.route.stack[0].method.toUpperCase()}`)
-    }
-  })
-
-  console.log(`Registered Routes:\n${registeredRoutes.join('\n')}`)
-
 }
 
 export default createApiV1

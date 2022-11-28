@@ -3,7 +3,6 @@ dotenv.config();
 
 import chalk from "chalk";
 import JSONChalkify from "json-chalkify";
-import fs from 'fs'
 
 import { createLogger, format, transports } from "winston";
 const { combine, timestamp, prettyPrint, colorize, printf, metadata } = format;

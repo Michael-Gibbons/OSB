@@ -1,5 +1,6 @@
 import Shopify from "../../../helpers/shopify-context.js";
 import productCreator from "../../../helpers/product-creator.js";
+import logger from "../../../services/logger/index.js";
 
 const getProductCount = async (req, res, next) => {
   const session = res.locals.shopify.session
@@ -21,7 +22,7 @@ const createProducts = async (req, res, next) => {
   try {
     await productCreator(session);
   } catch (e) {
-    console.log(`Failed to process products/create: ${e.message}`);
+    logger.error(`Failed to process products/create: ${e.message}`);
     status = 500;
     error = e.message;
   }

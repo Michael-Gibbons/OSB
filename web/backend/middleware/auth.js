@@ -3,6 +3,7 @@ import { gdprTopics } from "@shopify/shopify-api/dist/webhooks/registry.js";
 
 import ensureBilling from "../helpers/ensure-billing.js";
 import redirectToAuth from "../helpers/redirect-to-auth.js";
+import logger from "../services/logger/index.js";
 
 export default function applyAuthMiddleware(
   app,
@@ -25,13 +26,17 @@ export default function applyAuthMiddleware(
         accessToken: session.accessToken,
       });
 
-      let webhookLog = ''
+      const registeredWebhooks = []
       for (const registeredWebhook in Shopify.Webhooks.Registry.webhookRegistry) {
         if (Object.hasOwnProperty.call(Shopify.Webhooks.Registry.webhookRegistry, registeredWebhook)) {
-          webhookLog += `${registeredWebhook} \n`
+          registeredWebhooks.push(registeredWebhook)
         }
       }
-      console.log(`Registered Shopify Webhooks:\n${webhookLog}`)
+
+      logger.info('APP STARTUP - REGISTERED WEBHOOKS', {
+        shop: session.shop,
+        webhooks: registeredWebhooks
+      })
 
       Object.entries(responses).map(([topic, response]) => {
         // The response from registerAll will include errors for the GDPR topics.  These can be safely ignored.
@@ -39,15 +44,9 @@ export default function applyAuthMiddleware(
         // 'GDPR mandatory webhooks' section of 'App setup' in the Partners Dashboard.
         if (!response.success && !gdprTopics.includes(topic)) {
           if (response.result.errors) {
-            console.log(
-              `Failed to register ${topic} webhook: ${response.result.errors[0].message}`
-            );
+            logger.error('APP STARTUP - FAILED TO REGISTER WEBHOOK', {message: response.result.errors[0].message})
           } else {
-            console.log(
-              `Failed to register ${topic} webhook: ${
-                JSON.stringify(response.result.data, undefined, 2)
-              }`
-            );
+            logger.error(`APP STARTUP - FAILED TO REGISTER ${topic} WEBHOOK`, {data: JSON.stringify(response.result.data, undefined, 2)})
           }
         }
       });

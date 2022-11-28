@@ -21,6 +21,7 @@ import httpLogger from './middleware/httpLogger.js';
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
 
 import { BILLING_SETTINGS } from './BILLING_SETTINGS.js';
+import routeLogger from './helpers/routeLogger.js';
 
 // export for test use only
 export async function createServer() {
@@ -55,6 +56,8 @@ export async function createServer() {
 
   // Compresses and serves an optimized frontend bundle instead of the vite dev bundle if NODE_ENV is production
   applyProductionMiddleware(app)
+
+  routeLogger(app) // Logs all registered routes
 
   // Anything not handled by this point will be redirected to /api/auth for OAuth verification.
   // Or simply rejected with a error if not applicable

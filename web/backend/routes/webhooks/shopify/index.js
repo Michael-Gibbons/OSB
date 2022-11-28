@@ -7,6 +7,7 @@ import { setupOrderWebhooks } from './order.js';
 import { setupCustomerWebhooks } from './customer.js';
 
 import Shopify from '../../../helpers/shopify-context.js'
+import logger from '../../../services/logger/index.js';
 
 const PATH = '/api/webhooks/shopify'
 
@@ -24,9 +25,9 @@ setupCustomerWebhooks(PATH)
 router.post('/shopify', async (req, res) => {
   try {
     await Shopify.Webhooks.Registry.process(req, res);
-    console.log(`Webhook processed, returned status code 200`);
+    logger.info(`SHOPIFY WEBHOOK SUCCESSFULLY PROCESSED`, { requestId: req.id });
   } catch (e) {
-    console.log(`Failed to process webhook: ${e.message}`);
+    logger.info(`SHOPIFY WEBHOOK ERROR`, { requestId: req.id, message: e.message });
     if (!res.headersSent) {
       res.status(500).send(e.message);
     }
