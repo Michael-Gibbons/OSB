@@ -57,9 +57,9 @@ export async function createServer() {
   // Or simply rejected with a error if not applicable
   app.use("/*", catchAllHandler);
 
-  logger.warn('my super cool warning', {someError: 'hey this is some warning data', time: Date.now()})
-  logger.error('my super cool error', {someError: 'hey this is some error data', time: Date.now()})
-  logger.debug('my super cool debug', {someError: 'hey this is some debug data', time: Date.now()})
+  // logger.warn('my super cool warning', {someError: 'hey this is some warning data', time: Date.now()})
+  // logger.error('my super cool error', {someError: 'hey this is some error data', time: Date.now()})
+  // logger.debug('my super cool debug', {someError: 'hey this is some debug data', time: Date.now()})
 
   return { app };
 }
