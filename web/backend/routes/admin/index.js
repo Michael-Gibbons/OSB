@@ -8,12 +8,12 @@ import bullBoardRouter from './bull-board.js'
 import apiDocRouter from './api-docs.js'
 import basicAuth from 'express-basic-auth'
 
-router.use(basicAuth({
+const authMiddleware = basicAuth({
   users: { [process.env.ADMIN_USERNAME]: process.env.ADMIN_PASSWORD },
   challenge: true
-}))
+})
 
-router.use('/admin', bullBoardRouter)
-router.use('/admin', apiDocRouter)
+router.use('/admin', authMiddleware, bullBoardRouter)
+router.use('/admin', authMiddleware, apiDocRouter)
 
 export default router

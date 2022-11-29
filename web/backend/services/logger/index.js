@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import devLogger from "./devLogger.js";
-// import prodLogger from "./prodLogger.js";
+import prodLogger from "./prodLogger.js";
 
 const env = process.env.NODE_ENV;
 let logger = null;
@@ -11,8 +11,6 @@ let logger = null;
 // By default we want to fallback to the prod logger if no node_env is set
 // Better to have useless logs than logs we need but don't have
 
-
-
 // Making switch statement to leave door open to different env loggers
 
 switch (env) {
@@ -20,7 +18,7 @@ switch (env) {
     logger = devLogger;
     break;
   default:
-    // logger = prodLogger;
+    logger = prodLogger;
     break;
 }
 
