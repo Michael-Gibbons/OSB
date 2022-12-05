@@ -33,8 +33,11 @@ export default function Routes({ pages }) {
 function useRoutes(pages) {
   const routes = Object.keys(pages)
     .map((key) => {
+
+      const PAGES_PATH = "../../pages"
+
       let path = key
-        .replace("./pages", "")
+        .replace(PAGES_PATH, "")
         .replace(/\.(t|j)sx?$/, "")
         /**
          * Replace /index with /
