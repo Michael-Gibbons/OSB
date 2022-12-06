@@ -2,9 +2,12 @@ import AppErrorBoundary from './AppErrorBoundary';
 import { Frame } from '@shopify/polaris';
 import { OSBLogo } from '../../assets';
 import AppTopBar from './AppTopBar';
+import AppNavigation from './AppNavigation';
 import Routes from '../../Routes';
+import useToggle from '../../hooks/util/useToggle';
 
 export default function AppFrame() {
+  const [mobileNavigationActive, toggleMobileNavigationActive] = useToggle(false)
 
   // Any .tsx or .jsx files in /pages will become a route
   // See documentation for <Routes /> for more info
@@ -22,11 +25,10 @@ export default function AppFrame() {
     <AppErrorBoundary>
         <Frame
           logo={logo}
-          topBar={<AppTopBar/>}
-          // navigation={navigationMarkup}
-          // showMobileNavigation={mobileNavigationActive}
-          // onNavigationDismiss={toggleMobileNavigationActive}
-          // skipToContentTarget={skipToContentRef.current}
+          topBar={<AppTopBar toggleMobileNavigationActive={toggleMobileNavigationActive}/>}
+          navigation={<AppNavigation />}
+          showMobileNavigation={mobileNavigationActive}
+          onNavigationDismiss={toggleMobileNavigationActive}
         >
           {/* {contextualSaveBarMarkup}
           {loadingMarkup}

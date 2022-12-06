@@ -5,7 +5,7 @@ import AppSearchField from "./AppSearchField";
 import AppSearchResults from "./AppSearchResults";
 import AppSecondaryMenu from "./AppSecondaryMenu";
 
-export default function AppTopBar(){
+export default function AppTopBar({ toggleMobileNavigationActive }){
   const [searchValue, setSearchValue] = useState('');
   const [isSearchActive, setIsSearchActive] = useState(false);
 
@@ -17,7 +17,7 @@ export default function AppTopBar(){
       searchResultsVisible={isSearchActive}
       searchResults={<AppSearchResults searchValue={searchValue}/>}
       secondaryMenu={<AppSecondaryMenu/>}
-      // onNavigationToggle={handleNavigationToggle} //TODO: implement
+      onNavigationToggle={toggleMobileNavigationActive}
     />
   )
 }
