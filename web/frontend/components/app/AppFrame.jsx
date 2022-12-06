@@ -1,6 +1,6 @@
 import AppErrorBoundary from './AppErrorBoundary';
 import { Frame } from '@shopify/polaris';
-import { OSBLogo } from '../../assets';
+import { OSBLogo, OSBLogoDark } from '../../assets';
 import AppTopBar from './AppTopBar';
 import AppNavigation from './AppNavigation';
 import Routes from '../../Routes';
@@ -16,7 +16,7 @@ export default function AppFrame() {
   const logo = {
     width: 90,
     topBarSource: OSBLogo,
-    contextualSaveBarSource: OSBLogo,
+    contextualSaveBarSource: OSBLogoDark,
     url: '/',
     accessibilityLabel: 'OSB Logo',
   };
