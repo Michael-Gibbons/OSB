@@ -12,6 +12,9 @@ import { AppContext } from '../../contexts/AppContext';
 import useCreateToast from '../../hooks/app/util/useCreateToast';
 import AppToast from './AppToast';
 
+import useCreateModal from '../../hooks/app/util/useCreateModal';
+import AppModal from './AppModal';
+
 export default function AppFrame() {
   const [mobileNavigationActive, toggleMobileNavigationActive] = useToggle(false)
 
@@ -28,10 +31,15 @@ export default function AppFrame() {
   };
 
   const [toast, setToast] = useCreateToast()
+  const [modal, setModal, toggleModal] = useCreateModal()
 
   const contextValue = {
     toast: {
       setToast
+    },
+    modal: {
+      setModal,
+      toggleModal
     }
   }
 
@@ -48,8 +56,8 @@ export default function AppFrame() {
           {/* {contextualSaveBarMarkup}
           {loadingMarkup}
           {pageMarkup}
-          {toastMarkup}
-          {modalMarkup} */}
+           */}
+          <AppModal modal={modal}/>
           <AppToast toast={toast}/>
           <Routes pages={pages} />
         </Frame>
