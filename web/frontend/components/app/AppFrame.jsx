@@ -6,7 +6,6 @@ import AppNavigation from './AppNavigation';
 import Routes from '../../Routes';
 import useToggle from '../../hooks/util/useToggle';
 
-
 import { AppContext } from '../../contexts/AppContext';
 
 import useCreateToast from '../../hooks/app/util/useCreateToast';
@@ -20,6 +19,9 @@ import AppBanner from './AppBanner';
 
 import useCreateLoading from '../../hooks/app/util/useCreateLoading';
 import AppLoading from './AppLoading'
+
+import useCreateContextualSaveBar from '../../hooks/app/util/useCreateContextualSaveBar';
+import AppContextualSaveBar from './AppContextualSaveBar';
 
 export default function AppFrame() {
   const [mobileNavigationActive, toggleMobileNavigationActive] = useToggle(false)
@@ -40,6 +42,7 @@ export default function AppFrame() {
   const [modal, setModal, toggleModal] = useCreateModal()
   const [banner, setBanner, toggleBanner] = useCreateBanner()
   const [loading, setLoading] = useCreateLoading()
+  const [contextualSaveBar, setContextualSaveBar, setIsDirty] = useCreateContextualSaveBar()
 
   const contextValue = {
     toast: {
@@ -55,6 +58,10 @@ export default function AppFrame() {
     },
     loading: {
       setLoading
+    },
+    contextualSaveBar: {
+      setContextualSaveBar,
+      setIsDirty
     }
   }
 
@@ -68,8 +75,7 @@ export default function AppFrame() {
             showMobileNavigation={mobileNavigationActive}
             onNavigationDismiss={toggleMobileNavigationActive}
           >
-          {/* {contextualSaveBarMarkup}
-           */}
+            <AppContextualSaveBar contextualSaveBar={contextualSaveBar} />
             <AppLoading loading={loading} />
             <AppBanner banner={banner} />
             <AppModal modal={modal} />
