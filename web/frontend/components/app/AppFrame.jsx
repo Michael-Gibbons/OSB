@@ -15,6 +15,9 @@ import AppToast from './AppToast';
 import useCreateModal from '../../hooks/app/util/useCreateModal';
 import AppModal from './AppModal';
 
+import useCreateBanner from '../../hooks/app/util/useCreateBanner';
+import AppBanner from './AppBanner';
+
 export default function AppFrame() {
   const [mobileNavigationActive, toggleMobileNavigationActive] = useToggle(false)
 
@@ -32,6 +35,7 @@ export default function AppFrame() {
 
   const [toast, setToast] = useCreateToast()
   const [modal, setModal, toggleModal] = useCreateModal()
+  const [banner, setBanner, toggleBanner] = useCreateBanner()
 
   const contextValue = {
     toast: {
@@ -40,6 +44,10 @@ export default function AppFrame() {
     modal: {
       setModal,
       toggleModal
+    },
+    banner: {
+      setBanner,
+      toggleBanner
     }
   }
 
@@ -57,8 +65,9 @@ export default function AppFrame() {
           {loadingMarkup}
           {pageMarkup}
            */}
-          <AppModal modal={modal}/>
-          <AppToast toast={toast}/>
+          <AppBanner banner={banner} />
+          <AppModal modal={modal} />
+          <AppToast toast={toast} />
           <Routes pages={pages} />
         </Frame>
       </AppContext.Provider>
