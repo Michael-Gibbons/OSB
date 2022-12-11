@@ -2,7 +2,6 @@ import { Shopify } from "@shopify/shopify-api";
 import ensureBilling, {
   ShopifyBillingError,
 } from "../helpers/ensure-billing.js";
-import redirectToAuth from "../helpers/redirect-to-auth.js";
 
 import returnTopLevelRedirection from "../helpers/return-top-level-redirection.js";
 import { BILLING_SETTINGS } from "../BILLING_SETTINGS.js";
@@ -29,7 +28,10 @@ export default function verifyRequest(
 
     res.locals.shopify.session = session
 
-    if(!session && !app){
+
+    const referrer = req.get("Referrer")
+
+    if(!referrer && !session && !app){
       res.status(401).send({
         "errors": [
           {
