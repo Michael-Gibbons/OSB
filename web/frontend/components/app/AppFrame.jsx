@@ -6,6 +6,12 @@ import AppNavigation from './AppNavigation';
 import Routes from '../../Routes';
 import useToggle from '../../hooks/util/useToggle';
 
+
+import { AppContext } from '../../contexts/AppContext';
+
+import useCreateToast from '../../hooks/app/util/useCreateToast';
+import AppToast from './AppToast';
+
 export default function AppFrame() {
   const [mobileNavigationActive, toggleMobileNavigationActive] = useToggle(false)
 
@@ -21,22 +27,33 @@ export default function AppFrame() {
     accessibilityLabel: 'OSB Logo',
   };
 
+  const [toast, setToast] = useCreateToast()
+
+  const contextValue = {
+    toast: {
+      setToast
+    }
+  }
+
   return (
     <AppErrorBoundary>
+      <AppContext.Provider value={contextValue}>
         <Frame
-          logo={logo}
-          topBar={<AppTopBar toggleMobileNavigationActive={toggleMobileNavigationActive}/>}
-          navigation={<AppNavigation />}
-          showMobileNavigation={mobileNavigationActive}
-          onNavigationDismiss={toggleMobileNavigationActive}
-        >
+            logo={logo}
+            topBar={<AppTopBar toggleMobileNavigationActive={toggleMobileNavigationActive}/>}
+            navigation={<AppNavigation />}
+            showMobileNavigation={mobileNavigationActive}
+            onNavigationDismiss={toggleMobileNavigationActive}
+          >
           {/* {contextualSaveBarMarkup}
           {loadingMarkup}
           {pageMarkup}
           {toastMarkup}
           {modalMarkup} */}
+          <AppToast toast={toast}/>
           <Routes pages={pages} />
         </Frame>
+      </AppContext.Provider>
     </AppErrorBoundary>
   )
 }
