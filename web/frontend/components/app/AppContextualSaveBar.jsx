@@ -3,7 +3,7 @@ import { ContextualSaveBar } from '@shopify/polaris'
 export default function AppContextualSaveBar({ contextualSaveBar }){
   return contextualSaveBar.isDirty ? (
     <ContextualSaveBar
-      alignContentFlush={contextualSaveBar.alignContentFlush || true}
+      alignContentFlush={contextualSaveBar.alignContentFlush || false}
       message={contextualSaveBar.message || ''}
       saveAction={contextualSaveBar.saveAction || null}
       discardAction={contextualSaveBar.discardAction || null}
