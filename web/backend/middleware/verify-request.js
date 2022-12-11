@@ -48,7 +48,6 @@ export default function verifyRequest(
     if (session && shop && session.shop !== shop) {
       // The current request is for a different shop. Redirect gracefully.
       return
-      (req, res, app);
     }
 
     if (session?.isActive()) {
