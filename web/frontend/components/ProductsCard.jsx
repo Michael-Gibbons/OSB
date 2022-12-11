@@ -70,7 +70,7 @@ export function ProductsCard() {
             TOTAL PRODUCTS
             <DisplayText size="medium">
               <TextStyle variation="strong">
-                {isLoadingCount ? "-" : data.data.attributes.count}
+                {isLoadingCount ? "-" : data?.data?.attributes?.count}
               </TextStyle>
             </DisplayText>
           </Heading>
