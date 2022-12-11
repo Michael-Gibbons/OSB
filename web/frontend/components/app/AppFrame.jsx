@@ -8,6 +8,7 @@ import useToggle from '../../hooks/util/useToggle';
 
 import { AppContext } from '../../contexts/AppContext';
 
+// App Utilities
 import useCreateToast from '../../hooks/app/util/useCreateToast';
 import AppToast from './AppToast';
 
@@ -75,11 +76,14 @@ export default function AppFrame() {
             showMobileNavigation={mobileNavigationActive}
             onNavigationDismiss={toggleMobileNavigationActive}
           >
+            {/* App Utilities */}
             <AppContextualSaveBar contextualSaveBar={contextualSaveBar} />
             <AppLoading loading={loading} />
             <AppBanner banner={banner} />
             <AppModal modal={modal} />
             <AppToast toast={toast} />
+            {/* App Utilities */}
+            
             <Routes pages={pages} />
         </Frame>
       </AppContext.Provider>
