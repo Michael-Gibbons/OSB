@@ -3,7 +3,7 @@ import { Frame } from '@shopify/polaris';
 import { OSBLogo, OSBLogoDark } from '../../assets';
 import AppTopBar from './AppTopBar';
 import AppNavigation from './AppNavigation';
-import Routes from '../../Routes';
+import Routes from '../Routes';
 import useToggle from '../../hooks/util/useToggle';
 
 import { AppContext } from '../../contexts/AppContext';
@@ -29,7 +29,7 @@ export default function AppFrame() {
 
   // Any .tsx or .jsx files in /pages will become a route
   // See documentation for <Routes /> for more info
-  const pages = import.meta.globEager("../../pages/**/!(*.test.[jt]sx)*.([jt]sx)");
+  const pages = import.meta.globEager("../pages/**/!(*.test.[jt]sx)*.([jt]sx)");
 
   const logo = {
     width: 90,
@@ -83,7 +83,7 @@ export default function AppFrame() {
             <AppModal modal={modal} />
             <AppToast toast={toast} />
             {/* App Utilities */}
-            
+
             <Routes pages={pages} />
         </Frame>
       </AppContext.Provider>

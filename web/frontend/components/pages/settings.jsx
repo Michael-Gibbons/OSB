@@ -1,8 +1,8 @@
 import { Page, Layout } from "@shopify/polaris";
-import TextFieldSetting from "../components/settings/TextFieldSetting";
-import useSettings from "../hooks/app/useSettings";
-import useStateWithValidation from "../hooks/util/useStateWithValidation";
-import useCreateSettings from "../hooks/app/util/useCreateSettings";
+import TextFieldSetting from "../settings/TextFieldSetting";
+import useSettings from "../../hooks/app/useSettings";
+import useStateWithValidation from "../../hooks/util/useStateWithValidation";
+import useCreateSettings from "../../hooks/app/util/useCreateSettings";
 
 export default function SettingsPage(){
   const [ shopSettings ] = useSettings()
