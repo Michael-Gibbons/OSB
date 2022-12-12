@@ -4,6 +4,7 @@ import useSettings from "../../hooks/app/useSettings";
 import useStateWithValidation from "../../hooks/util/useStateWithValidation";
 import useCreateSettings from "../../hooks/app/util/useCreateSettings";
 import BooleanSetting from "../settings/BooleanSetting";
+import EnumSetting from "../settings/EnumSetting";
 import { useState } from "react";
 
 export default function SettingsPage(){
@@ -19,6 +20,8 @@ export default function SettingsPage(){
 
   const [email, setEmail, emailIsValid] = useStateWithValidation(validateEmail, shopSettings.email)
   const [coolBooleanSetting, setCoolBooleanSetting] = useState(shopSettings.coolBooleanSetting)
+  const [coolEnumSetting, setCoolEnumSetting] = useState(shopSettings.coolEnumSetting)
+  const [coolCustomSetting, setCoolCustomSetting] = useState(shopSettings.coolCustomSetting)
 
   const SETTINGS = [
     {
@@ -34,6 +37,13 @@ export default function SettingsPage(){
       setter: setCoolBooleanSetting,
       isValid: true,
       default: shopSettings.coolBooleanSetting
+    },
+    {
+      name: "coolEnumSetting",
+      value: coolEnumSetting,
+      setter: setCoolEnumSetting,
+      isValid: true,
+      default: shopSettings.coolEnumSetting
     }
   ]
 
@@ -58,6 +68,28 @@ export default function SettingsPage(){
           description="This is a short explaination of this rather super cool boolean setting."
           value={coolBooleanSetting}
           setValue={setCoolBooleanSetting}
+        />
+
+        <EnumSetting
+          title="Cool setting, but Enums this time"
+          description="This is a short explanation covering the different predefined options of this setting."
+          selectLabel="My Options"
+          options={[
+            {
+              label: "Option 1",
+              value: "1"
+            },
+            {
+              label: "Option 2",
+              value: "2"
+            },
+            {
+              label: "Option 3",
+              value: "3"
+            }
+          ]}
+          value={coolEnumSetting}
+          setValue={setCoolEnumSetting}
         />
       </Layout>
     </Page>
