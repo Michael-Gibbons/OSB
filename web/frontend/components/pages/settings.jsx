@@ -3,6 +3,8 @@ import TextFieldSetting from "../settings/TextFieldSetting";
 import useSettings from "../../hooks/app/useSettings";
 import useStateWithValidation from "../../hooks/util/useStateWithValidation";
 import useCreateSettings from "../../hooks/app/util/useCreateSettings";
+import BooleanSetting from "../settings/BooleanSetting";
+import { useState } from "react";
 
 export default function SettingsPage(){
   const [ shopSettings ] = useSettings()
@@ -16,6 +18,7 @@ export default function SettingsPage(){
   };
 
   const [email, setEmail, emailIsValid] = useStateWithValidation(validateEmail, shopSettings.email)
+  const [coolBooleanSetting, setCoolBooleanSetting] = useState(shopSettings.coolBooleanSetting)
 
   const SETTINGS = [
     {
@@ -24,6 +27,13 @@ export default function SettingsPage(){
       setter: setEmail,
       isValid: emailIsValid,
       default: shopSettings.email
+    },
+    {
+      name: "coolBooleanSetting",
+      value: coolBooleanSetting,
+      setter: setCoolBooleanSetting,
+      isValid: true,
+      default: shopSettings.coolBooleanSetting
     }
   ]
 
@@ -41,6 +51,13 @@ export default function SettingsPage(){
           value={email}
           setValue={setEmail}
           error={emailIsValid ? "": "Invalid Email"}
+        />
+
+        <BooleanSetting
+          title="Cool setting, Boolean Style"
+          description="This is a short explaination of this rather super cool boolean setting."
+          value={coolBooleanSetting}
+          setValue={setCoolBooleanSetting}
         />
       </Layout>
     </Page>
