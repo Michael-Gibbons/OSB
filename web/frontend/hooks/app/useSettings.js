@@ -3,7 +3,11 @@ export default function useSettings(){
   const TEMP_SETTINGS = {
     email: 'exampleEmail@gmail.com',
     coolBooleanSetting: false,
-    coolEnumSetting: "1"
+    coolEnumSetting: "1",
+    coolCustomSetting: {
+      field1: 'This is the value for field 1',
+      field2: 'This is the value for field 2'
+    }
   }
 
   const saveSettings = (newSettings) => {

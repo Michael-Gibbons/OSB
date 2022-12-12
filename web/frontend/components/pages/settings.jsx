@@ -6,6 +6,7 @@ import useCreateSettings from "../../hooks/app/util/useCreateSettings";
 import BooleanSetting from "../settings/BooleanSetting";
 import EnumSetting from "../settings/EnumSetting";
 import { useState } from "react";
+import CustomSetting from "../settings/CustomSetting";
 
 export default function SettingsPage(){
   const [ shopSettings ] = useSettings()
@@ -44,6 +45,13 @@ export default function SettingsPage(){
       setter: setCoolEnumSetting,
       isValid: true,
       default: shopSettings.coolEnumSetting
+    },
+    {
+      name: "coolCustomSetting",
+      value: coolCustomSetting,
+      setter: setCoolCustomSetting,
+      isValid: true,
+      default: shopSettings.coolCustomSetting
     }
   ]
 
@@ -55,7 +63,7 @@ export default function SettingsPage(){
     >
       <Layout>
         <TextFieldSetting
-          title="My Super Cool Setting"
+          title="Cool setting, Text field edition"
           description="This is a short explaination of this rather super cool setting."
           fieldLabel="Super Cool Setting"
           value={email}
@@ -90,6 +98,13 @@ export default function SettingsPage(){
           ]}
           value={coolEnumSetting}
           setValue={setCoolEnumSetting}
+        />
+
+        <CustomSetting
+          title="A Custom Setting? Wow!"
+          description="The world is your oyster. This is a custom setting for the business logic of your application which can be represented by any JSON-stringify-able object. Useful if you have a setting that can't be defined by a single primative value."
+          value={coolCustomSetting}
+          setValue={setCoolCustomSetting}
         />
       </Layout>
     </Page>
