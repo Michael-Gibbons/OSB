@@ -22,7 +22,7 @@ export default function AppErrorBoundary({ children }){
     <ErrorBoundary
       onError={(error, info) => handleError(error, info)}
       fallbackRender={({ error, resetErrorBoundary }) => {
-        return <AppError errorId={errorId} />;
+        return <AppError errorId={errorId} resetErrorBoundary={resetErrorBoundary} />;
       }}
     >
       { children }

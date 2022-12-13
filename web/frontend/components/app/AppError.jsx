@@ -6,13 +6,13 @@ import {
   Banner,
 } from "@shopify/polaris";
 
-export function AppError({ errorId }) {
+export function AppError({ errorId, resetErrorBoundary }) {
   return (
     <Page fullWidth>
       <Layout>
         <Layout.Section>
           <div style={{ maxWidth: "700px", margin: "0 auto" }}>
-            <Banner title="Oh no! Something went wrong" status="critical">
+            <Banner title="Oh no! Something went wrong" status="critical" action={{content: 'Try Again', onAction: resetErrorBoundary}}>
               <div
                 style={{
                   display: "flex",
