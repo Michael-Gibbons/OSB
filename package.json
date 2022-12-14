@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "shopify": "shopify",
-    "build": "env-cmd shopify app build",
+    "build": "shopify app build",
     "dev": "concurrently --kill-others \"shopify app dev\" \"npm run log\" --raw",
     "log": "node log.js",
     "info": "shopify app info",
@@ -17,8 +17,7 @@
   },
   "dependencies": {
     "@shopify/app": "^3.23.0",
-    "@shopify/cli": "^3.23.0",
-    "env-cmd": "^10.1.0"
+    "@shopify/cli": "^3.23.0"
   },
   "devDependencies": {
     "@michael.gibbons/doc-me": "^1.1.0",

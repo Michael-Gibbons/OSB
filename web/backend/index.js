@@ -2,7 +2,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-import { cleanEnv, str, host, port} from 'envalid'
+import { cleanEnv, str, host, port } from 'envalid'
 
 cleanEnv(process.env, {
   NODE_ENV:             str({ choices: ['development', 'test', 'production', 'staging']}),
