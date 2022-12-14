@@ -1,7 +1,9 @@
-const getSettings = (req, res, next) => {
+import prisma from "../../../prisma/index.js";
+
+const getSettings = async (req, res, next) => {
   const shop = res.locals.shopify.session.shop
-  // TODO retrieve from db
-  const TEMP_SETTINGS = {
+
+  const DEFAULT_SETTINGS = {
     email: 'exampleEmail@gmail.com',
     coolBooleanSetting: false,
     coolEnumSetting: "1",
@@ -11,26 +13,38 @@ const getSettings = (req, res, next) => {
     }
   }
 
+  const upsertSettings = await prisma.settings.upsert({
+    where: {
+      shop
+    },
+    update: {},
+    create: {
+      shop,
+      settings: DEFAULT_SETTINGS
+    },
+  })
+
   res.status(200).send({
-    data: [{ id: shop, type: "settings", attributes: TEMP_SETTINGS } ],
+    data: [{ id: shop, type: "settings", attributes: upsertSettings } ],
   });
 }
 
-const saveSettings = (req, res, next) => {
+const saveSettings = async (req, res, next) => {
+  const newSettings = req.body
   const shop = res.locals.shopify.session.shop
 
-  const TEMP_SETTINGS = {
-    email: 'example2Email@gmail.com',
-    coolBooleanSetting: false,
-    coolEnumSetting: "1",
-    coolCustomSetting: {
-      field1: 'This is the value for field 1',
-      field2: 'This is the value for field 2'
-    }
-  }
+  const upsertSettings = await prisma.settings.update({
+    where: {
+      shop
+    },
+    data: {
+      shop,
+      settings: newSettings
+    },
+  })
 
   res.status(200).send({
-    data: [{ id: shop, type: "settings", attributes: TEMP_SETTINGS } ],
+    data: [{ id: shop, type: "settings", attributes: upsertSettings } ],
   });
 }
 
