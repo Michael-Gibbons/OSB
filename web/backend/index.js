@@ -2,6 +2,21 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
+import { cleanEnv, str, host, port} from 'envalid'
+
+cleanEnv(process.env, {
+  NODE_ENV:             str({ choices: ['development', 'test', 'production', 'staging']}),
+  DATABASE_URL:         str(),
+  REDIS_HOST:           host({ default: '127.0.0.1' }),
+  REDIS_PORT:           port({ default: 6379 }),
+  REDIS_USER:           str({ default: '' }),
+  REDIS_PASSWORD:       str({ default: '' }),
+  LOG_LEVEL:            str({ choices: ['error', 'warn', 'info', 'debug', 'verbose', 'silly'] }),
+  ADMIN_USERNAME:       str({ default: 'admin' }),
+  ADMIN_PASSWORD:       str({ default: 'admin' }),
+  LOGTAIL_SOURCE_TOKEN: str()
+})
+
 import express from "express";
 import requestID from 'express-request-id'
 import cookieParser from "cookie-parser";
