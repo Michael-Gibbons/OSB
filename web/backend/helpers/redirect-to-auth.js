@@ -1,7 +1,7 @@
 import { Shopify } from "@shopify/shopify-api";
 import loadOfflineSession from "@shopify/shopify-api/dist/utils/load-offline-session.js";
 
-export default async function redirectToAuth(req, res, app) {
+export default async function redirectToAuth(req, res, app = {}) {
   if (!req.query.shop) {
     res.status(500);
     return res.send("No shop provided");

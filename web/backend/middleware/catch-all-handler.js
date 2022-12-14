@@ -21,7 +21,7 @@ export default async (req, res, next) => {
   const appInstalled = await AppInstallations.includes(shop);
 
   if (!appInstalled && !req.originalUrl.match(/^\/exitiframe/i)) {
-    return redirectToAuth(req, res, app);
+    return redirectToAuth(req, res);
   }
 
   if (Shopify.Context.IS_EMBEDDED_APP && req.query.embedded !== "1") {
