@@ -1,6 +1,10 @@
 import Shopify from '../../../helpers/shopify-context.js'
 import loadOfflineSession from "@shopify/shopify-api/dist/utils/load-offline-session.js";
 
+// !---!
+// IMPORTANT: Shopify does not guarantee webhooks!! Remember to add reconciliation jobs by querying the shopify api and verifying your database has the resources every ~24hrs
+// !---!
+
 const ACTIVE_WEBHOOKS = [
   // {
   //   topic: "ORDERS_CANCELLED",
