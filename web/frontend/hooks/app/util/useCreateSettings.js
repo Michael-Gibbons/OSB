@@ -3,9 +3,11 @@ import useContextualSaveBar from "../useContextualSaveBar"
 import useLoading from "../useLoading"
 import useSettings from "../useSettings"
 import useToast from "../useToast"
+import { useQueryClient } from "react-query"
 
 export default function useCreateSettings(settings, loading = true){
-  const [shopSettings, saveSettings] = useSettings()
+  const queryClient = useQueryClient()
+  const [shopSettings, saveSettings] = useSettings({}, {onSuccess: () => queryClient.invalidateQueries('settings')})
   const [setContextualSaveBar, setIsDirty] = useContextualSaveBar()
   const [setToast] = useToast()
   const [setLoading] = useLoading()
