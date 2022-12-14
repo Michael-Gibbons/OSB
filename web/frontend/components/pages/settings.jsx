@@ -7,9 +7,9 @@ import BooleanSetting from "../settings/BooleanSetting";
 import EnumSetting from "../settings/EnumSetting";
 import { useState } from "react";
 import CustomSetting from "../settings/CustomSetting";
+import AppPageLoading from "../app/AppPageLoading";
 
 export default function SettingsPage(){
-  const [ shopSettings ] = useSettings()
 
   const validateEmail = (email) => {
     return String(email)
@@ -19,10 +19,21 @@ export default function SettingsPage(){
       )?.length >= 1;
   };
 
-  const [email, setEmail, emailIsValid] = useStateWithValidation(validateEmail, shopSettings.email)
-  const [coolBooleanSetting, setCoolBooleanSetting] = useState(shopSettings.coolBooleanSetting)
-  const [coolEnumSetting, setCoolEnumSetting] = useState(shopSettings.coolEnumSetting)
-  const [coolCustomSetting, setCoolCustomSetting] = useState(shopSettings.coolCustomSetting)
+  const [pageLoading, setPageLoading] = useState(true)
+  const [email, setEmail, emailIsValid] = useStateWithValidation(validateEmail, '')
+  const [coolBooleanSetting, setCoolBooleanSetting] = useState(false)
+  const [coolEnumSetting, setCoolEnumSetting] = useState('')
+  const [coolCustomSetting, setCoolCustomSetting] = useState({ field1: '', field2: '' })
+
+  const [ shopSettings ] = useSettings({
+    onSuccess: (data) => {
+      setEmail(data.email)
+      setCoolBooleanSetting(data.coolBooleanSetting)
+      setCoolEnumSetting(data.coolEnumSetting)
+      setCoolCustomSetting(data.coolCustomSetting)
+      setPageLoading(false)
+    }
+  })
 
   const SETTINGS = [
     {
@@ -30,32 +41,34 @@ export default function SettingsPage(){
       value: email,
       setter: setEmail,
       isValid: emailIsValid,
-      default: shopSettings.email
+      default: shopSettings?.email
     },
     {
       name: "coolBooleanSetting",
       value: coolBooleanSetting,
       setter: setCoolBooleanSetting,
       isValid: true,
-      default: shopSettings.coolBooleanSetting
+      default: shopSettings?.coolBooleanSetting
     },
     {
       name: "coolEnumSetting",
       value: coolEnumSetting,
       setter: setCoolEnumSetting,
       isValid: true,
-      default: shopSettings.coolEnumSetting
+      default: shopSettings?.coolEnumSetting
     },
     {
       name: "coolCustomSetting",
       value: coolCustomSetting,
       setter: setCoolCustomSetting,
       isValid: true,
-      default: shopSettings.coolCustomSetting
+      default: shopSettings?.coolCustomSetting
     }
   ]
 
-  useCreateSettings(SETTINGS)
+  useCreateSettings(SETTINGS, pageLoading)
+
+  if(pageLoading){return <AppPageLoading/>}
 
   return (
     <Page

@@ -1,18 +1,13 @@
-export default function useSettings(){
-  // TODO: implement get settings and save settings
-  const TEMP_SETTINGS = {
-    email: 'exampleEmail@gmail.com',
-    coolBooleanSetting: false,
-    coolEnumSetting: "1",
-    coolCustomSetting: {
-      field1: 'This is the value for field 1',
-      field2: 'This is the value for field 2'
-    }
-  }
+import useAppMutation from "../react-query/util/useAppMutation"
+import useAppQuery from "../react-query/util/useAppQuery"
+import { useServerClient } from "../util/useServerClient"
 
-  const saveSettings = (newSettings) => {
-    console.log('save new settings', newSettings)
-  }
+export default function useSettings(reactQueryOptions = {}, reactQueryMutationOptions){
+  const serverClient = useServerClient()
 
-  return [TEMP_SETTINGS, saveSettings]
+  const { data: settings } = useAppQuery('settings', () => serverClient.get('/settings').then(res => res.data.data[0].attributes), reactQueryOptions)
+
+  const { mutate: saveSettings } = useAppMutation((data) => serverClient.post('/settings', data).then(res => res.data.data[0].attributes), reactQueryMutationOptions)
+
+  return [settings, saveSettings]
 }

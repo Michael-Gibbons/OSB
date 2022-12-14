@@ -1,12 +1,14 @@
 import { useEffect } from "react"
 import useContextualSaveBar from "../useContextualSaveBar"
+import useLoading from "../useLoading"
 import useSettings from "../useSettings"
 import useToast from "../useToast"
 
-export default function useCreateSettings(settings){
+export default function useCreateSettings(settings, loading = true){
   const [shopSettings, saveSettings] = useSettings()
   const [setContextualSaveBar, setIsDirty] = useContextualSaveBar()
   const [setToast] = useToast()
+  const [setLoading] = useLoading()
 
   const validateNewSettings = () => {
     const isValid = settings.every(setting => setting.isValid)
@@ -37,7 +39,7 @@ export default function useCreateSettings(settings){
   }
 
   const handleDependencyChange = (isDirty) => {
-    if(isDirty){
+    if(isDirty && !loading){
       setContextualSaveBar({
         isDirty: true,
         saveAction: {
@@ -60,4 +62,8 @@ export default function useCreateSettings(settings){
     const isDirty = !settings.every(setting => JSON.stringify(setting.value) === JSON.stringify(setting.default))
     handleDependencyChange(isDirty)
   }, settings.map(setting => setting.value))
+
+  useEffect(() => {
+    setLoading(loading)
+  },[loading])
 }

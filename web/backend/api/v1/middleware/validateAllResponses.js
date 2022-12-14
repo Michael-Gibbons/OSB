@@ -1,4 +1,8 @@
 function validateAllResponses(req, res, next) {
+  if(!req.apiDoc){
+    throw `No API doc defined for route ${req.baseUrl}. Please verify you have created the api doc in the route file located in the /paths directory.\nSee https://github.com/kogosoftwarellc/open-api/tree/master/packages/express-openapi for more information.`
+  }
+
   const strictValidation = req.apiDoc['x-express-openapi-validation-strict']
     ? true
     : false;
