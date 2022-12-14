@@ -1,7 +1,7 @@
 {
   "name": "my-node-app",
   "version": "1.0.0",
-  "main": "web/index.js",
+  "main": "web/backend/index.js",
   "license": "UNLICENSED",
   "repository": "https://github.com/Michael-Gibbons/OSB",
   "type": "module",
