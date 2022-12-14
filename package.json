@@ -7,16 +7,18 @@
   "type": "module",
   "scripts": {
     "shopify": "shopify",
-    "build": "shopify app build",
+    "build": "env-cmd shopify app build",
     "dev": "concurrently --kill-others \"shopify app dev\" \"npm run log\" --raw",
     "log": "node log.js",
     "info": "shopify app info",
     "generate": "shopify app generate",
-    "deploy": "shopify app deploy"
+    "deploy": "shopify app deploy",
+    "start": "npm run build && node web/backend/index.js"
   },
   "dependencies": {
     "@shopify/app": "^3.23.0",
-    "@shopify/cli": "^3.23.0"
+    "@shopify/cli": "^3.23.0",
+    "env-cmd": "^10.1.0"
   },
   "devDependencies": {
     "@michael.gibbons/doc-me": "^1.1.0",
