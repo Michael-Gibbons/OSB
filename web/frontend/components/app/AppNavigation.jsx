@@ -1,8 +1,11 @@
 import { Navigation } from '@shopify/polaris';
 import {
   HomeMajor,
-  OrdersMajor,
   SettingsMajor,
+  HintMajor,
+  ListMajor,
+  CircleDisabledMajor,
+  StarFilledMinor
 } from '@shopify/polaris-icons';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
@@ -21,25 +24,40 @@ export default function AppNavigation(){
             label: "Dashboard",
             url: "/",
             icon: HomeMajor,
+          }
+        ]
+      },
+      {
+        title: "Development",
+        routes: [
+          {
+            label: "Cheat Sheet",
+            url: '/cheat-sheet',
+            icon: HintMajor
           },
           {
-            label: "About",
-            url: "/about",
-            icon: OrdersMajor,
+            label: "Resource List Example",
+            url: '/resource-list-example',
+            icon: ListMajor
+          },
+          {
+            label: "Disabled Nav Item",
+            url: "/disabled-nav-item", // Will return 404, this is just an example, add jsx file located at /pages/disabled-nav-item.jsx to actually render a template
+            icon: CircleDisabledMajor,
             disabled: true,
           },
           {
-            label: "Resources",
-            url: "/resources",
-            icon: OrdersMajor,
+            label: "Nested Nav Items",
+            url: "/nested",
+            icon: StarFilledMinor,
             subNavigationItems: [
               {
-                label: "Collections",
-                url: "/resources/collections",
+                label: "Child Nav Item 1",
+                url: "/nested/myResource1", // Will return 404, this is just an example, add jsx file located at /pages/nested/myResource1.jsx to actually render a template
               },
               {
-                label: "Inventory",
-                url: "/resources/inventory",
+                label: "Child Nav Item 2",
+                url: "/nested/myResource2", // Will return 404, this is just an example, add jsx file located at /pages/nested/myResource1.jsx to actually render a template
               },
             ],
           }
