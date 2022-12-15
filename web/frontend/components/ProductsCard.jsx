@@ -7,8 +7,7 @@ import {
   TextStyle,
 } from "@shopify/polaris";
 
-import { useAppQuery, useLoading, useServerClient, useToast } from "../hooks/index";
-import { useEffect } from "react";
+import { useAppQuery, useExtractDataFromAppQuery, useLoading, useServerClient, useToast } from "../hooks/index";
 import { useQueryClient } from "react-query";
 
 export function ProductsCard() {
@@ -29,45 +28,32 @@ export function ProductsCard() {
   })
 
   const {
-    isSuccess: createProductsIsSuccess,
     refetch: createProducts,
   } = useAppQuery('PRODUCTS_CREATE  ', () => serverClient.get('/products/create'), {
     onSuccess: () => {
       setLoading(false)
       setIsLoading(false)
       queryClient.invalidateQueries('PRODUCTS_COUNT')
+      setToast({ content: "5 products created!" });
+    },
+    onError: () => {
+      setLoading(false)
+      setIsLoading(false);
+      setToast({
+        content: "There was an error creating products",
+        error: true
+      })
     },
     enabled: false
   })
 
-  const [productData, setProductData] = useState({})
-
-  useEffect(() => {
-    if(productCountData?.data?.data?.attributes){
-      setProductData(productCountData.data.data.attributes)
-    }
-  }, [productCountData])
+  const [productData] = useExtractDataFromAppQuery(productCountData)
 
   const handlePopulate = async () => {
     setLoading(true)
     setIsLoading(true);
     createProducts()
   };
-
-  useEffect(() => {
-    if (createProductsIsSuccess) {
-      setToast({ active: true, content: "5 products created!" });
-    } else {
-      setToast({
-        active: true,
-        content: "There was an error creating products",
-        error: true
-      })
-    }
-
-    setLoading(false)
-    setIsLoading(false);
-  }, [createProductsIsSuccess])
 
   return (
     <>
