@@ -1,10 +1,10 @@
 import { useEffect, useMemo } from "react";
 import { useQuery } from "react-query";
-import useLoading from "../../app/useLoading";
-import useToast from "../../app/useToast";
-import { useLogger } from "../../util/useLogger";
+import { useLoading } from "../../index";
+import { useToast } from "../../index";
+import { useLogger } from "../../index";
 
-export default function useAppQuery(queryKey, queryFn, queryOptions = {}){
+export function useAppQuery(queryKey, queryFn, queryOptions = {}) {
   const [setLoading] = useLoading()
   const [setToast] = useToast()
   const logger = useLogger()
@@ -13,27 +13,27 @@ export default function useAppQuery(queryKey, queryFn, queryOptions = {}){
     return async () => await queryFn()
   }, [queryKey, JSON.stringify(queryFn)]);
 
-  const { isLoading, isError, isSuccess, isIdle, data, error, isFetching } = useQuery(queryKey, fetch, {...queryOptions, refetchOnWindowFocus: false})
+  const { isLoading, isError, isSuccess, isIdle, data, error, isFetching, refetch } = useQuery(queryKey, fetch, { ...queryOptions, refetchOnWindowFocus: false })
 
   useEffect(() => {
-    if(isSuccess){
+    if (isSuccess) {
       setLoading(false)
     }
   }, [isSuccess])
 
   useEffect(() => {
-    if(isLoading){
+    if (isLoading) {
       setLoading(true)
     }
-  },[isLoading])
+  }, [isLoading])
 
   useEffect(() => {
-    if(isError){
+    if (isError) {
       setLoading(false)
-      setToast({active: true, content: "Server error", error: true})
+      setToast({ active: true, content: "Server error", error: true })
       logger.error("Frontend: Failed Query", error)
     }
-  },[isError])
+  }, [isError])
 
-  return { isLoading, isError, isSuccess, isIdle, data, error, isFetching }
+  return { isLoading, isError, isSuccess, isIdle, data, error, isFetching, refetch }
 }

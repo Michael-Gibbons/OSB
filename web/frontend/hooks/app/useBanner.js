@@ -1,7 +1,7 @@
-import { AppContext } from "../../contexts/AppContext";
+import AppContext from "../../contexts/AppContext";
 import { useContext } from "react";
 
-export default function useBanner(){
+export function useBanner(){
   const { banner } = useContext(AppContext)
   const { setBanner, toggleBanner } = banner
 

@@ -1,11 +1,11 @@
 import { useEffect } from "react"
-import useContextualSaveBar from "../useContextualSaveBar"
-import useLoading from "../useLoading"
-import useSettings from "../useSettings"
-import useToast from "../useToast"
+import {useContextualSaveBar} from "../../index"
+import {useLoading} from "../../index"
+import {useSettings} from "../../index"
+import {useToast} from "../../index"
 import { useQueryClient } from "react-query"
 
-export default function useCreateSettings(settings, loading = true){
+export function useCreateSettings(settings, loading = true){
   const queryClient = useQueryClient()
   const [shopSettings, saveSettings] = useSettings({}, {onSuccess: () => queryClient.invalidateQueries('settings')})
   const [setContextualSaveBar, setIsDirty] = useContextualSaveBar()

@@ -11,8 +11,8 @@ import {
   TextStyle,
 } from '@shopify/polaris';
 import { useEffect } from 'react';
-import {useState, useCallback} from 'react';
-import useBanner from '../../hooks/app/useBanner';
+import { useState, useCallback } from 'react';
+import { useBanner } from '../../hooks/index';
 
 export default function ResourceListExample() {
   const [selectedItems, setSelectedItems] = useState([]);
@@ -28,7 +28,7 @@ export default function ResourceListExample() {
     })
 
     return () => setBanner({ active: false }) // Turn banner off when unmounting component
-  },[])
+  }, [])
 
   const handleTaggedWithChange = useCallback(
     (value) => setTaggedWith(value),
@@ -108,12 +108,12 @@ export default function ResourceListExample() {
 
   const appliedFilters = !isEmpty(taggedWith)
     ? [
-        {
-          key: 'taggedWith3',
-          label: disambiguateLabel('taggedWith3', taggedWith),
-          onRemove: handleTaggedWithRemove,
-        },
-      ]
+      {
+        key: 'taggedWith3',
+        label: disambiguateLabel('taggedWith3', taggedWith),
+        onRemove: handleTaggedWithRemove,
+      },
+    ]
     : [];
 
   const filterControl = (
@@ -125,7 +125,7 @@ export default function ResourceListExample() {
       onQueryClear={handleQueryValueRemove}
       onClearAll={handleClearAll}
     >
-      <div style={{paddingLeft: '8px'}}>
+      <div style={{ paddingLeft: '8px' }}>
         <Button onClick={() => console.log('New filter saved')}>Save</Button>
       </div>
     </Filters>
@@ -135,37 +135,37 @@ export default function ResourceListExample() {
     <Page>
       <Layout>
         <Layout.Section>
-        <Card>
-          <ResourceList
-            resourceName={resourceName}
-            items={items}
-            renderItem={renderItem}
-            selectedItems={selectedItems}
-            onSelectionChange={setSelectedItems}
-            promotedBulkActions={promotedBulkActions}
-            bulkActions={bulkActions}
-            sortValue={sortValue}
-            sortOptions={[
-              {label: 'Newest update', value: 'DATE_MODIFIED_DESC'},
-              {label: 'Oldest update', value: 'DATE_MODIFIED_ASC'},
-            ]}
-            onSortChange={(selected) => {
-              setSortValue(selected);
-              console.log(`Sort option changed to ${selected}.`);
-            }}
-            filterControl={filterControl}
-          />
-        </Card>
+          <Card>
+            <ResourceList
+              resourceName={resourceName}
+              items={items}
+              renderItem={renderItem}
+              selectedItems={selectedItems}
+              onSelectionChange={setSelectedItems}
+              promotedBulkActions={promotedBulkActions}
+              bulkActions={bulkActions}
+              sortValue={sortValue}
+              sortOptions={[
+                { label: 'Newest update', value: 'DATE_MODIFIED_DESC' },
+                { label: 'Oldest update', value: 'DATE_MODIFIED_ASC' },
+              ]}
+              onSortChange={(selected) => {
+                setSortValue(selected);
+                console.log(`Sort option changed to ${selected}.`);
+              }}
+              filterControl={filterControl}
+            />
+          </Card>
         </Layout.Section>
       </Layout>
     </Page>
   );
 
   function renderItem(item) {
-    const {id, url, name, location, latestOrderUrl} = item;
+    const { id, url, name, location, latestOrderUrl } = item;
     const media = <Avatar customer size="medium" name={name} />;
     const shortcutActions = latestOrderUrl
-      ? [{content: 'View latest order', url: latestOrderUrl}]
+      ? [{ content: 'View latest order', url: latestOrderUrl }]
       : null;
     return (
       <ResourceItem

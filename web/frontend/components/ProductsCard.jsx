@@ -6,52 +6,71 @@ import {
   DisplayText,
   TextStyle,
 } from "@shopify/polaris";
-import { Toast } from "@shopify/app-bridge-react";
-import { useAppQuery, useAuthenticatedFetch } from "../hooks";
+
+import { useAppQuery, useLoading, useServerClient, useToast } from "../hooks/index";
+import { useEffect } from "react";
+import { useQueryClient } from "react-query";
 
 export function ProductsCard() {
-  const emptyToastProps = { content: null };
   const [isLoading, setIsLoading] = useState(true);
-  const [toastProps, setToastProps] = useState(emptyToastProps);
-  const fetch = useAuthenticatedFetch();
+  const [setLoading] = useLoading()
+  const [setToast] = useToast();
+  const serverClient = useServerClient()
+  const queryClient = useQueryClient()
 
   const {
-    data,
-    refetch: refetchProductCount,
+    data: productCountData,
     isLoading: isLoadingCount,
-    isRefetching: isRefetchingCount,
-  } = useAppQuery({
-    url: "/api/v1/products/count",
-    reactQueryOptions: {
-      onSuccess: () => {
-        setIsLoading(false);
-      },
+  } = useAppQuery('PRODUCTS_COUNT', () => serverClient.get('/products/count'), {
+    onSuccess: () => {
+      setLoading(false)
+      setIsLoading(false);
     },
-  });
+  })
 
-  const toastMarkup = toastProps.content && !isRefetchingCount && (
-    <Toast {...toastProps} onDismiss={() => setToastProps(emptyToastProps)} />
-  );
+  const {
+    isSuccess: createProductsIsSuccess,
+    refetch: createProducts,
+  } = useAppQuery('PRODUCTS_CREATE  ', () => serverClient.get('/products/create'), {
+    onSuccess: () => {
+      setLoading(false)
+      setIsLoading(false)
+      queryClient.invalidateQueries('PRODUCTS_COUNT')
+    },
+    enabled: false
+  })
+
+  const [productData, setProductData] = useState({})
+
+  useEffect(() => {
+    if(productCountData?.data?.data?.attributes){
+      setProductData(productCountData.data.data.attributes)
+    }
+  }, [productCountData])
 
   const handlePopulate = async () => {
+    setLoading(true)
     setIsLoading(true);
-    const response = await fetch("/api/v1/products/create");
-
-    if (response.ok) {
-      await refetchProductCount();
-      setToastProps({ content: "5 products created!" });
-    } else {
-      setIsLoading(false);
-      setToastProps({
-        content: "There was an error creating products",
-        error: true,
-      });
-    }
+    createProducts()
   };
+
+  useEffect(() => {
+    if (createProductsIsSuccess) {
+      setToast({ active: true, content: "5 products created!" });
+    } else {
+      setToast({
+        active: true,
+        content: "There was an error creating products",
+        error: true
+      })
+    }
+
+    setLoading(false)
+    setIsLoading(false);
+  }, [createProductsIsSuccess])
 
   return (
     <>
-      {toastMarkup}
       <Card
         title="Product Counter"
         sectioned
@@ -70,7 +89,7 @@ export function ProductsCard() {
             TOTAL PRODUCTS
             <DisplayText size="medium">
               <TextStyle variation="strong">
-                {isLoadingCount ? "-" : data?.data?.attributes?.count}
+                {isLoadingCount ? "-" : productData.count}
               </TextStyle>
             </DisplayText>
           </Heading>

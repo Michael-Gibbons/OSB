@@ -1,7 +1,7 @@
-import { AppContext } from "../../contexts/AppContext";
+import AppContext from "../../contexts/AppContext";
 import { useContext } from "react";
 
-export default function useLoading(){
+export function useLoading(){
   const { loading } = useContext(AppContext)
   const { setLoading } = loading
 

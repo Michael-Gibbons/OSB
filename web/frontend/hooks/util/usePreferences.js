@@ -1,6 +1,6 @@
-import useLocalStorage from "./useLocalStorage";
+import {useLocalStorage} from "./index";
 
-export default function usePreferences(){
+export function usePreferences(){
   const [storedPreferences, setStoredPreferences] = useLocalStorage('OSB_APP_PREFERENCES', {})
 
   const get = (key, initialValue = undefined) => {

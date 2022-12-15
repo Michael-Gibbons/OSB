@@ -8,8 +8,7 @@ import {
   StarFilledMinor
 } from '@shopify/polaris-icons';
 import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function AppNavigation(){
   const location = useLocation()

@@ -1,7 +1,7 @@
 // This logger is designed for use on the front facing part of the application
 // When it's methods are called it makes a post request to the /log endpoint and sends the information to the server
 
-import { useServerClient } from "./useServerClient"
+import {useServerClient} from "./index"
 
 export function useLogger(){
   const serverClient = useServerClient({baseURL: '/api'})

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 
-export default function useDebugInformation(componentName, props) {
+export function useDebugInformation(componentName, props) {
   const changedProps = useRef({})
   const previousProps = useRef(props)
   const lastRenderTimestamp = useRef(Date.now())

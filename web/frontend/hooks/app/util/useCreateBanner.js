@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import useToggle from "../../util/useToggle";
+import { useToggle } from "../../index";
 
-export default function useCreateBanner(){
+export function useCreateBanner(){
   const [active, toggleActive] = useToggle(false)
 
   const DEFAULT_BANNER = {

@@ -1,4 +1,4 @@
-import useToggle from "../../hooks/util/useToggle";
+import { useToggle } from "../../hooks/index";
 import { Toast } from "@shopify/polaris";
 import { useEffect } from "react";
 
@@ -6,7 +6,7 @@ export default function AppToast({ toast }) {
   const [active, toggleActive] = useToggle(false);
 
   useEffect(() => {
-    if(toast && toast.content){
+    if (toast && toast.content) {
       toggleActive(true)
     }
   }, [toast])
@@ -15,7 +15,7 @@ export default function AppToast({ toast }) {
     <Toast
       content={toast.content.toString()}
       error={toast.error || false}
-      duraction={ toast.duration || 4000 }
+      duraction={toast.duration || 4000}
       onDismiss={toggleActive}
       action={toast.action || null}
     />

@@ -1,7 +1,7 @@
-import { AppContext } from "../../contexts/AppContext";
+import AppContext from "../../contexts/AppContext";
 import { useContext } from "react";
 
-export default function useToast(){
+export function useToast(){
   const { toast } = useContext(AppContext)
   const { setToast } = toast
 

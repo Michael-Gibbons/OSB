@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 
-export default function useCreateContextualSaveBar(){
+export function useCreateContextualSaveBar(){
   const [isDirty, setIsDirty] = useState(false)
 
   const DEFAULT_CONTEXTUAL_SAVEBAR = {

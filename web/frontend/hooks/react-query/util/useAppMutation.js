@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useMutation } from "react-query";
-import useLoading from "../../app/useLoading";
-import useToast from "../../app/useToast";
-import { useLogger } from "../../util/useLogger";
+import { useLoading } from "../../index";
+import {useToast} from "../../index";
+import {useLogger} from "../../index";
 
-export default function useAppMutation(mutateFn, reactQueryMutationOptions){
+export function useAppMutation(mutateFn, reactQueryMutationOptions){
   const { isIdle, isLoading, isError, isSuccess, error, data, mutate } = useMutation(mutateFn, reactQueryMutationOptions)
 
   const [setLoading] = useLoading()

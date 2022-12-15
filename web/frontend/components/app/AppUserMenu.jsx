@@ -1,12 +1,12 @@
 import { TopBar } from "@shopify/polaris";
-import useToggle from "../../hooks/util/useToggle";
+import { useToggle } from "../../hooks/index";
 
-export default function AppUserMenu(){
+export default function AppUserMenu() {
   const [userMenuActive, toggleUserMenuActive] = useToggle(false);
 
   const userMenuActions = [
     {
-      items: [{content: 'Community forums'}],
+      items: [{ content: 'Community forums' }],
     },
   ];
 

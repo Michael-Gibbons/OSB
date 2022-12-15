@@ -1,7 +1,7 @@
-import { AppContext } from "../../contexts/AppContext";
+import AppContext from "../../contexts/AppContext";
 import { useContext } from "react";
 
-export default function useContextualSaveBar(){
+export function useContextualSaveBar(){
   const { contextualSaveBar } = useContext(AppContext)
   const { setContextualSaveBar, setIsDirty } = contextualSaveBar
 

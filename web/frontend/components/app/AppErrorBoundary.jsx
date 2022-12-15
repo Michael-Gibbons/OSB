@@ -1,8 +1,8 @@
 import { useState, useCallback } from 'react';
 import { v4 as uuidv4 } from "uuid";
 import { ErrorBoundary } from "react-error-boundary";
-import { AppError } from './AppError.jsx';
-import { useLogger } from '../../hooks/util/useLogger.js';
+import AppError  from './AppError.jsx';
+import { useLogger } from '../../hooks/index';
 
 export default function AppErrorBoundary({ children }){
   const [errorId, setErrorId] = useState("")

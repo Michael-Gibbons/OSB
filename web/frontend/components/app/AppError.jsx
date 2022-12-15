@@ -6,7 +6,7 @@ import {
   Banner,
 } from "@shopify/polaris";
 
-export function AppError({ errorId, resetErrorBoundary }) {
+export default function AppError({ errorId, resetErrorBoundary }) {
   return (
     <Page fullWidth>
       <Layout>

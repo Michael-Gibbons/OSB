@@ -1,15 +1,13 @@
 import { Page, Layout } from "@shopify/polaris";
 import TextFieldSetting from "../settings/TextFieldSetting";
-import useSettings from "../../hooks/app/useSettings";
-import useStateWithValidation from "../../hooks/util/useStateWithValidation";
-import useCreateSettings from "../../hooks/app/util/useCreateSettings";
+import { useSettings, useStateWithValidation, useCreateSettings } from "../../hooks/index";
 import BooleanSetting from "../settings/BooleanSetting";
 import EnumSetting from "../settings/EnumSetting";
 import { useState } from "react";
 import CustomSetting from "../settings/CustomSetting";
 import AppPageLoading from "../app/AppPageLoading";
 
-export default function SettingsPage(){
+export default function SettingsPage() {
 
   const validateEmail = (email) => {
     return String(email)
@@ -25,7 +23,7 @@ export default function SettingsPage(){
   const [coolEnumSetting, setCoolEnumSetting] = useState('')
   const [coolCustomSetting, setCoolCustomSetting] = useState({ field1: '', field2: '' })
 
-  const [ shopSettings ] = useSettings({
+  const [shopSettings] = useSettings({
     onSuccess: (data) => {
       setEmail(data.email)
       setCoolBooleanSetting(data.coolBooleanSetting)
@@ -68,7 +66,7 @@ export default function SettingsPage(){
 
   useCreateSettings(SETTINGS, pageLoading)
 
-  if(pageLoading){return <AppPageLoading/>}
+  if (pageLoading) { return <AppPageLoading /> }
 
   return (
     <Page
@@ -81,7 +79,7 @@ export default function SettingsPage(){
           fieldLabel="Super Cool Setting"
           value={email}
           setValue={setEmail}
-          error={emailIsValid ? "": "Invalid Email"}
+          error={emailIsValid ? "" : "Invalid Email"}
         />
 
         <BooleanSetting

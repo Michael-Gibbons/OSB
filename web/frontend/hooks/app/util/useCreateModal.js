@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import useToggle from "../../util/useToggle";
+import { useToggle } from "../../index";
 
-export default function useCreateModal(){
+export function useCreateModal(){
   const [open, toggleOpen] = useToggle(false)
 
   const DEFAULT_MODAL = {

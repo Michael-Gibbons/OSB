@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function useCreateToast(){
+export function useCreateToast(){
   const [toastData, setToastData] = useState({content: ''})
 
   const setToast = (data) => {

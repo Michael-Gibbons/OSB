@@ -1,5 +1,5 @@
 import { TopBar } from "@shopify/polaris";
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 
 export default function AppSearchField({ searchValue, setSearchValue, setIsSearchActive }){
   const handleSearchChange = useCallback((value) => {

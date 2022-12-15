@@ -1,8 +1,8 @@
 import { TopBar, Icon } from "@shopify/polaris";
 import { QuestionMarkMajor } from '@shopify/polaris-icons';
-import useToggle from "../../hooks/util/useToggle";
+import { useToggle } from "../../hooks/index";
 
-export default function AppSecondaryMenu(){
+export default function AppSecondaryMenu() {
   const [isSecondaryMenuOpen, toggleIsSecondaryMenuOpen] = useToggle(false)
 
   return (
@@ -17,7 +17,7 @@ export default function AppSecondaryMenu(){
       onClose={toggleIsSecondaryMenuOpen}
       actions={[
         {
-          items: [{content: 'Community forums'}],
+          items: [{ content: 'Community forums' }],
         },
       ]}
     />
