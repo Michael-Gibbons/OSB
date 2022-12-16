@@ -6,3 +6,4 @@ CREATE TABLE "Settings" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Settings_shop_key" ON "Settings"("shop");
+
