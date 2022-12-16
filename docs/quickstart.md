@@ -41,7 +41,7 @@ To create a new shopify app using this template, simply run the command:
 npm init @shopify/app@latest -- --template=https://github.com/Michael-Gibbons/OSB
 ```
 
-Then run the following command to install all required dependencies.
+Then run the following command to install all required dependencies and register the app with shopify.
 
 ```
 npm run dev

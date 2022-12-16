@@ -75,7 +75,7 @@ export default function SettingsPage() {
       <Layout>
         <TextFieldSetting
           title="Cool setting, Text field edition"
-          description="This is a short explaination of this rather super cool setting."
+          description="This is a short explanation of this rather super cool setting."
           fieldLabel="Super Cool Setting"
           value={email}
           setValue={setEmail}
@@ -84,7 +84,7 @@ export default function SettingsPage() {
 
         <BooleanSetting
           title="Cool setting, Boolean Style"
-          description="This is a short explaination of this rather super cool boolean setting."
+          description="This is a short explanation of this rather super cool boolean setting."
           value={coolBooleanSetting}
           setValue={setCoolBooleanSetting}
         />

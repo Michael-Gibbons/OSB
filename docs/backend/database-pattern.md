@@ -7,7 +7,7 @@ Out of the box this template only comes with a `settings` database table which a
 The only other customization I have made to the prisma instance is to add logs to all queries. Because of this, when using prisma, you must import it from `/backend/web/prisma/index.js` for use throughout your application.
 
 !> INCORRECT:
-```
+```js
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()

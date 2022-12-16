@@ -16,13 +16,10 @@
   - [Helpful Middleware](./backend/middleware.md)
 
 - Frontend
-
-  - [App Level Components]()
-  - [App Level Hooks]()
-  - [Query Hooks]()
-  - [Utility Hooks]()
-  - [Cheat Sheet]()
-  - [Pages]()
-  - [Shop Settings]()
-  - [User Preferences]()
-  - [Logging]()
+  - [Cheat Sheet](./frontend/cheat-sheet.md)
+  - [App Level Components](./frontend/app-level-components.md)
+  - [App Level Hooks](./frontend/app-level-hooks.md)
+  - [Query Hooks](./frontend/query-hooks.md)
+  - [Utility Hooks](./frontend/utility-hooks.md)
+  - [Pages](./frontend/pages.md)
+  - [Shop Settings](./frontend/shop-settings.md)
