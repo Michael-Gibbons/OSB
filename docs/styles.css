@@ -1,0 +1,35 @@
+.app-name::after{
+  content: '\A An Opinionated Shopify App Boiler';
+  font-size: 14px;
+  white-space: pre; /* or pre-wrap */
+}
+
+.markdown-section p {
+  margin: 2em 0;
+  /* max-width: 900px; */
+  max-width: 80ch;
+  padding-left: 10px;
+}
+
+.markdown-section h1 {
+  border-bottom: 2px solid;
+  padding-bottom: 10px;
+}
+
+.markdown-section h1:not(:first-of-type){
+  padding-top:60px;
+}
+
+.markdown-section h2 span {
+  border-left: 4px solid var(--accent);
+  padding-left: 10px;
+}
+
+article.markdown-section{
+  max-width: 900px;
+  margin: 0 100px auto;
+}
+
+.markdown-section table {
+  margin: 40px 0;
+}
