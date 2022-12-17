@@ -1,6 +1,6 @@
 # Demo
 
-## [Check Out The Docs!](#)
+## [Check Out The Docs!](http://michaelgibbons.info/OSB/#/)
 
 ##  A full featured, production ready Shopify application with all the development utilities you could want!
 
