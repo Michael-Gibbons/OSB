@@ -30,6 +30,23 @@ article.markdown-section{
   margin: 0 100px auto;
 }
 
+@media only screen and (max-width: 775px) {
+  article.markdown-section{
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  #docsify-darklight-theme{
+    left: 85%;
+    top: 41px;
+  }
+
+  .sidebar-toggle{
+    bottom: unset;
+    padding: 20px 30px 20px 20px;
+  }
+}
+
 .markdown-section table {
   margin: 40px 0;
 }
