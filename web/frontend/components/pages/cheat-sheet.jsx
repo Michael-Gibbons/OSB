@@ -40,7 +40,7 @@ export default function CheatSheet(){
       titleMetadata={
         <div style={{marginLeft: '20px', marginTop:'3px'}}>
           Not finding what you're looking for? {' '}
-          <Link url="http://michaelgibbons.info/OSB/#/">
+          <Link url="https://michaelgibbons.info/OSB/#/">
             Check the docs!
           </Link>
         </div>
@@ -193,7 +193,7 @@ export default function CheatSheet(){
         </Layout.AnnotatedSection>
         <FooterHelp>
           Not finding what you're looking for? {' '}
-          <Link url="http://michaelgibbons.info/OSB/#/">
+          <Link url="https://michaelgibbons.info/OSB/#/">
             Check the docs!
           </Link>
         </FooterHelp>
