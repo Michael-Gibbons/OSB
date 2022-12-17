@@ -4,4 +4,4 @@ I don't expect you to remember all this, I created it and I don't remember it al
 
 The cheat sheet contains all the usage examples shown in the following documentation, please reference it and copy/paste as needed.
 
-TODO: ADD IMAGE OF CHEAT SHEET HERE
+![demo-7](../assets/demo-7.png)

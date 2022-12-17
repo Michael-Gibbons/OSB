@@ -29,7 +29,7 @@ export function ProductsCard() {
 
   const {
     refetch: createProducts,
-  } = useAppQuery('PRODUCTS_CREATE  ', () => serverClient.get('/products/create'), {
+  } = useAppQuery('PRODUCTS_CREATE', () => serverClient.get('/products/create'), {
     onSuccess: () => {
       setLoading(false)
       setIsLoading(false)

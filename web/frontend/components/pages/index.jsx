@@ -12,15 +12,11 @@ import {
 import { trophyImage } from "../../assets";
 
 import { ProductsCard } from "../ProductsCard.jsx";
-import Test from '../test.jsx'
 
 export default function HomePage() {
   return (
     <Page narrowWidth>
       <Layout>
-        <Layout.Section>
-          <Test></Test>
-        </Layout.Section>
         <Layout.Section>
           <Card sectioned>
             <Stack
