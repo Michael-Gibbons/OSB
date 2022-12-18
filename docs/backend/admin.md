@@ -20,7 +20,7 @@ Going to `/api/admin/api-docs` will hit the `/api/api-docs` endpoint created by 
 
 The UI is created by [swagger-ui-express](https://www.npmjs.com/package/swagger-ui-express)
 
-![demo-4](./assets/swagger-ui.png)
+![demo-4](../assets/swagger-ui.png)
 
 ## Bullboard
 
@@ -28,5 +28,5 @@ As covered in the redis section, going to `/api/admin/queues` will give you a UI
 
 The UI is created by [bull-board](https://github.com/felixmosh/bull-board)
 
-![demo-4](./assets/bullboard.png)
+![demo-4](../assets/bullboard.png)
 
