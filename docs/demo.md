@@ -18,6 +18,14 @@
 
 ?> Integrated React-query dev tools!
 
+![demo-4](./assets/swagger-ui.png)
+
+?> Automatic API documentation generation!
+
+![demo-4](./assets/bullboard.png)
+
+?> Redis job visualizer with bullboard!
+
 ![demo-5](./assets/demo-5.png)
 
 ?> Comprehensive client and server side logging for development AND production?! I may faint.

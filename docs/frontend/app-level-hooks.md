@@ -125,7 +125,7 @@ const yourHandlerFunction = () => {
 
 This hook requires a little explanation. It uses react-query to query the `/api/v1/settings` endpoint and returns 2 functions, 1 that contains the settings data, and 1 that provides a setter function which mutates the data.
 
-The hooks that comprise this hook are `useAppQuery` and `useAppMutation` which are further discussed in the "Query Hooks" section.
+The hooks that comprise this hook are `useAppQuery` and `useAppMutation` which are further discussed in the [Query Hooks](./frontend/query-hooks.md) section. section.
 
 It accepts two optional parameters, the react-query options for the query used to retrieve the data and the react-query options for the mutation used to modify the data.
 

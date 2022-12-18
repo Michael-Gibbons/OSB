@@ -20,9 +20,13 @@ Going to `/api/admin/api-docs` will hit the `/api/api-docs` endpoint created by 
 
 The UI is created by [swagger-ui-express](https://www.npmjs.com/package/swagger-ui-express)
 
+![demo-4](./assets/swagger-ui.png)
+
 ## Bullboard
 
 As covered in the redis section, going to `/api/admin/queues` will give you a UI to visualize your current queues and their recent jobs, as well as errors they may have thrown if those jobs failed. This is useful for when jobs aren't behaving the way you expect them to, you will be able to see exactly which job failed and the data that made it fail.
 
 The UI is created by [bull-board](https://github.com/felixmosh/bull-board)
+
+![demo-4](./assets/bullboard.png)
 
