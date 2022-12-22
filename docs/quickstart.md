@@ -45,6 +45,8 @@ This will use the Shopify cli to create an app under a name you will give it, al
 
 - `cd` into the named folder you just created.
 
+- `cd` into `web/backend`
+
 - Create a `.env` file in `web/backend`.
 
 - Copy the contents of `web/backend/.env.example` into `.env`
@@ -56,6 +58,8 @@ This will use the Shopify cli to create an app under a name you will give it, al
 ```
 npx prisma migrate dev --name init
 ```
+
+`cd back into the root project directory`
 
 Verify you have your local redis server running.
 
