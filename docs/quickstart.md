@@ -59,7 +59,7 @@ This will use the Shopify cli to create an app under a name you will give it, al
 npx prisma migrate dev --name init
 ```
 
-`cd back into the root project directory`
+`cd` back into the root project directory
 
 Verify you have your local redis server running.
 
