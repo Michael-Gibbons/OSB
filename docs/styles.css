@@ -51,9 +51,7 @@ article.markdown-section{
   margin: 40px 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  .markdown-section td,
-  .markdown-section th {
-    border-color: #23659b;
-  }
+.markdown-section td,
+.markdown-section th {
+  border-color: var(--tableBorderColor);
 }
