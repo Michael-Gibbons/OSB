@@ -32,7 +32,7 @@ If the `NODE_ENV` environment variable is not set to `development`, the logs wil
 
 Why even log things anyway? What's the point?
 
-Sometimes, most of the time, (every time), you will not have access to all the information you need to debug an issue. By logging every step in a process, you are able to see exactly when and where an error happened, and what data caused it to error. Which is infinitely more useful that interpreting the error message and praying your fix worked.
+Sometimes, most of the time, (every time), you will not have access to all the information you need to debug an issue. By logging every step in a process, you are able to see exactly when and where an error happened, and what data caused it to error. Which is infinitely more useful than interpreting the error message and praying your fix worked.
 
 ### HTTP Request Logging
 
