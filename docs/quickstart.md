@@ -93,6 +93,12 @@ To get a list of all documentation used in this project. Selecting one will open
 
 These urls are defined in the root `package.json` file, feel free to add your own as your project grows.
 
+```
+git branch --merged | grep -v \* | xargs git branch -D
+```
+
+To delete all local branches that have been merged already.
+
 # Donate
 
 Everything I make under my name will be free, always.
