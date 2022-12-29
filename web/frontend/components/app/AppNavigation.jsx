@@ -14,6 +14,45 @@ export default function AppNavigation(){
   const location = useLocation()
   const [navigationSections, setNavigationSections] = useState([])
 
+  const isDev = import.meta.env.DEV
+
+  const DEV_SECTION = { // This will not show in prod
+    title: "Development",
+    routes: [
+      {
+        label: "Cheat Sheet",
+        url: '/cheat-sheet',
+        icon: HintMajor
+      },
+      {
+        label: "Resource List Example",
+        url: '/resource-list-example',
+        icon: ListMajor
+      },
+      {
+        label: "Disabled Nav Item",
+        url: "/disabled-nav-item", // Will return 404, this is just an example, add jsx file located at /pages/disabled-nav-item.jsx to actually render a template
+        icon: CircleDisabledMajor,
+        disabled: true,
+      },
+      {
+        label: "Nested Nav Items",
+        url: "/nested",
+        icon: StarFilledMinor,
+        subNavigationItems: [
+          {
+            label: "Child Nav Item 1",
+            url: "/nested/myResource1", // Will return 404, this is just an example, add jsx file located at /pages/nested/myResource1.jsx to actually render a template
+          },
+          {
+            label: "Child Nav Item 2",
+            url: "/nested/myResource2", // Will return 404, this is just an example, add jsx file located at /pages/nested/myResource1.jsx to actually render a template
+          },
+        ],
+      }
+    ]
+  }
+
   const NAVIGATION = {
     sections: [
       {
@@ -23,42 +62,6 @@ export default function AppNavigation(){
             label: "Dashboard",
             url: "/",
             icon: HomeMajor,
-          }
-        ]
-      },
-      {
-        title: "Development",
-        routes: [
-          {
-            label: "Cheat Sheet",
-            url: '/cheat-sheet',
-            icon: HintMajor
-          },
-          {
-            label: "Resource List Example",
-            url: '/resource-list-example',
-            icon: ListMajor
-          },
-          {
-            label: "Disabled Nav Item",
-            url: "/disabled-nav-item", // Will return 404, this is just an example, add jsx file located at /pages/disabled-nav-item.jsx to actually render a template
-            icon: CircleDisabledMajor,
-            disabled: true,
-          },
-          {
-            label: "Nested Nav Items",
-            url: "/nested",
-            icon: StarFilledMinor,
-            subNavigationItems: [
-              {
-                label: "Child Nav Item 1",
-                url: "/nested/myResource1", // Will return 404, this is just an example, add jsx file located at /pages/nested/myResource1.jsx to actually render a template
-              },
-              {
-                label: "Child Nav Item 2",
-                url: "/nested/myResource2", // Will return 404, this is just an example, add jsx file located at /pages/nested/myResource1.jsx to actually render a template
-              },
-            ],
           }
         ]
       },
@@ -73,6 +76,10 @@ export default function AppNavigation(){
         ]
       }
     ]
+  }
+
+  if(isDev){
+    NAVIGATION.sections.push(DEV_SECTION)
   }
 
   const isSelected = (destination) => {

@@ -17,9 +17,11 @@ export function QueryProvider({ children }) {
     mutationCache: new MutationCache(),
   });
 
+  const isDev = import.meta.env.DEV
+
   return (
   <QueryClientProvider client={client}>
     {children}
-    <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+    {isDev ? <ReactQueryDevtools initialIsOpen={false} position="bottom-right" /> : null}
   </QueryClientProvider>);
 }
