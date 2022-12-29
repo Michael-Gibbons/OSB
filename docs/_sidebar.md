@@ -1,6 +1,8 @@
 - Getting started
   - [Demo](demo.md)
   - [Quick start](quickstart.md)
+  - [Helpful Commands!](helpful-commands.md)
+  - [Donate](donate.md)
 
 - Project Structure
   - [Introduction](introduction.md)

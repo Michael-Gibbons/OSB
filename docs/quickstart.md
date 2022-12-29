@@ -113,33 +113,3 @@ npm run dev
 ```
 
 The shopify cli should then prompt you for some setup then you should be good to go!
-
-# Helpful Commands!
-
-This template uses a lot of 3rd party open source packages to handle different aspects of the application. You will likely need to reference a lot of different documentation during the development process.
-
-Because of this I made this simple package, [doc-me](https://www.npmjs.com/package/@michael.gibbons/doc-me). In the root of your application run:
-
-```
-npx doc
-```
-
-To get a list of all documentation used in this project. Selecting one will open the documentation in a new tab using your default browser.
-
-![doc-me example](./assets/doc-me.png)
-
-These urls are defined in the root `package.json` file, feel free to add your own as your project grows.
-
-```
-git branch --merged | grep -v \* | xargs git branch -D
-```
-
-To delete all local branches that have been merged already.
-
-# Donate
-
-Everything I make under my name will be free, always.
-
-But if you want to buy me a coffee I'm not going to refuse.
-
-[Buy me a Coffee](https://www.buymeacoffee.com/michaelgibbons1) :heart:
