@@ -5,6 +5,7 @@
 - Project Structure
   - [Introduction](introduction.md)
   - [Development Flow](development-flow.md)
+  - [Contribution](contribution.md)
 
 - Backend
   - [Environment Variables](./backend/env.md)
