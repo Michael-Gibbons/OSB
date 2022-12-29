@@ -32,8 +32,11 @@ The setup is straight forward on most operating systems but can be a little tric
 
 This template uses [logtail](https://betterstack.com/logtail) to handle production logging. Most applications should fall under the free tier. Once the app goes to production you will likely want a longer retention storage time for your logs, which is not free, but Logtail's prices are very reasonable.
 
+?> The logtail source token is optional during development, but if the NODE_ENV is set to `production` an error will be thrown if you do not have it.
 
 # Installation
+
+## From Scratch
 
 To create a new shopify app using this template, in your projects folder (no need to create a new directory, it is done for you), run the command:
 
@@ -59,7 +62,7 @@ This will use the Shopify cli to create an app under a name you will give it, al
 npx prisma migrate dev --name init
 ```
 
-`cd` back into the root project directory
+`cd ../..`
 
 Verify you have your local redis server running.
 
@@ -76,6 +79,40 @@ Once you fix any errors relating to the environment variables, go to the Shopify
 An OAuth menu should appear, accept, wait for the app to load, and viola!
 
 When you're ready commit and push your repository and build the app of your dreams!
+
+## From an existing app
+
+Perhaps the app you are working on is already created and has a repo and you just need to get up and running to add a feature. To do so, clone the existing repository:
+
+```
+git clone https://github.com/path/to/your/app/repo.git
+```
+
+```
+npm install
+```
+
+- `cd` into `web/backend`
+
+- Create a `.env` file in `web/backend`.
+
+- Copy the contents of `web/backend/.env.example` into `.env`
+
+- Input the correct value for `DATABASE_URL`
+
+- Run the following to initialize the database.
+
+```
+npx prisma migrate dev --name init
+```
+
+- `cd ../..`
+
+```
+npm run dev
+```
+
+The shopify cli should then prompt you for some setup then you should be good to go!
 
 # Helpful Commands!
 

@@ -1,9 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import devLogger from "./devLogger.js";
-import prodLogger from "./prodLogger.js";
-
 const env = process.env.NODE_ENV;
 let logger = null;
 
@@ -15,10 +12,12 @@ let logger = null;
 
 switch (env) {
   case "development":
-    logger = devLogger;
+    const devLoggerModule = await import("./devLogger.js");// This dynamic import makes it so you don't require a logtail source token until you deploy to production
+    logger = devLoggerModule.default
     break;
   default:
-    logger = prodLogger;
+    const prodLoggerModule = await import("./prodLogger.js")
+    logger = prodLoggerModule.default;
     break;
 }
 
