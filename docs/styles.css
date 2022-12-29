@@ -50,3 +50,8 @@ article.markdown-section{
 .markdown-section table {
   margin: 40px 0;
 }
+
+.markdown-section td,
+.markdown-section th {
+  border-color: var(--tableBorderColor);
+}
