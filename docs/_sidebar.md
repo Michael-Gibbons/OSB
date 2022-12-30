@@ -1,13 +1,15 @@
 - Getting started
-  - [Demo](demo.md)
-  - [Quick start](quickstart.md)
-  - [Helpful Commands!](helpful-commands.md)
-  - [Donate](donate.md)
+  - [Demo](./getting-started/demo.md)
+  - [Required Resources](./getting-started/required-resources.md)
+  - [Installation](./getting-started/installation.md)
+  - [Helpful Commands!](./getting-started/helpful-commands.md)
+  - [Donate](./getting-started/donate.md)
 
 - Project Structure
-  - [Introduction](introduction.md)
-  - [Development Flow](development-flow.md)
-  - [Contribution](contribution.md)
+  - [Introduction](./project-structure/introduction.md)
+  - [Development Flow](./project-structure/development-flow.md)
+  - [Updating OSB](./project-structure/updating-osb.md)
+  - [Contribution](./project-structure/contribution.md)
 
 - Backend
   - [Environment Variables](./backend/env.md)

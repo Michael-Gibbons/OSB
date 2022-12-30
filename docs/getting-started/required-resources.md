@@ -1,4 +1,4 @@
-# Introduction and Motivation
+# Required Resources
 
 ?> This is a Shopify App Boilerplate aimed at Intermediate to Advanced developers, if you are a beginner you will likely find this template too complex. However if you have the hutzpah to learn the concepts behind this template, you will advance much quicker than I did.
 
@@ -9,8 +9,6 @@ Luckily I am just a guy, so I have no such obligations.
 This template has everything one could need for a production ready application. Also since it is a template and not a package, **You own all the code**. There are no hidden resources, if you don't like how something works, by all means change it!
 
 If there is an unforeseen bug in the template, you don't have to wait on me to fix it, since you have all the source code necessary to fix it yourself in a pinch. (Please do create a bug report though!)
-
-# Required Resources
 
 ## Postgres
 
@@ -33,83 +31,3 @@ The setup is straight forward on most operating systems but can be a little tric
 This template uses [logtail](https://betterstack.com/logtail) to handle production logging. Most applications should fall under the free tier. Once the app goes to production you will likely want a longer retention storage time for your logs, which is not free, but Logtail's prices are very reasonable.
 
 ?> The logtail source token is optional during development, but if the NODE_ENV is set to `production` an error will be thrown if you do not have it.
-
-# Installation
-
-## From Scratch
-
-To create a new shopify app using this template, in your projects folder (no need to create a new directory, it is done for you), run the command:
-
-```
-npm init @shopify/app@latest -- --template=https://github.com/Michael-Gibbons/OSB
-```
-
-This will use the Shopify cli to create an app under a name you will give it, along with a new git repository.
-
-- `cd` into the named folder you just created.
-
-- `cd` into `web/backend`
-
-- Create a `.env` file in `web/backend`.
-
-- Copy the contents of `web/backend/.env.example` into `.env`
-
-- Input the correct value for `DATABASE_URL`
-
-- Run the following to initialize the database.
-
-```
-npx prisma migrate dev --name init
-```
-
-`cd ../..`
-
-Verify you have your local redis server running.
-
-Then run the following command to install all required dependencies and register the app with shopify.
-
-```
-npm run dev
-```
-
-The shopify cli may ask you to authenticate and it will install some packages, typical setup stuff. If any of your environment variables are incorrect an error will be thrown when running the `dev` script, using the [envalid](https://www.npmjs.com/package/envalid) package. Very handy.
-
-Once you fix any errors relating to the environment variables, go to the Shopify Partners admin, click on the app you just created and install it on a test store.
-
-An OAuth menu should appear, accept, wait for the app to load, and viola!
-
-When you're ready commit and push your repository and build the app of your dreams!
-
-## From an existing app
-
-Perhaps the app you are working on is already created and has a repo and you just need to get up and running to add a feature. To do so, clone the existing repository:
-
-```
-git clone https://github.com/path/to/your/app/repo.git
-```
-
-```
-npm install
-```
-
-- `cd` into `web/backend`
-
-- Create a `.env` file in `web/backend`.
-
-- Copy the contents of `web/backend/.env.example` into `.env`
-
-- Input the correct value for `DATABASE_URL`
-
-- Run the following to initialize the database.
-
-```
-npx prisma migrate dev --name init
-```
-
-- `cd ../..`
-
-```
-npm run dev
-```
-
-The shopify cli should then prompt you for some setup then you should be good to go!
