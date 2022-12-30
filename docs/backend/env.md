@@ -4,7 +4,7 @@ This package uses the very popular [dotenv](https://www.npmjs.com/package/dotenv
 
 The following is a list of environment variables used in the backend portion of this template and why they are used.
 
-Copy it from the `.env.example` file located at `/web/backend/.env.example` to the directory `/web/backend/.env`
+If you ran the `osb-init` command, this `.env` file will be created for you in `/web/backend`
 
 | Variable      | Default | Purpose |
 | ----------- | ----------- | |
