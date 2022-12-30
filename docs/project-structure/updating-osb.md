@@ -12,6 +12,7 @@ git remote add OSB https://github.com/Michael-Gibbons/OSB.git
 
 ```
 git fetch
+git remote update
 ```
 
 ```
