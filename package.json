@@ -13,11 +13,13 @@
     "info": "shopify app info",
     "generate": "shopify app generate",
     "deploy": "shopify app deploy",
-    "start": "npm run build && node web/backend/index.js"
+    "start": "npm run build && node web/backend/index.js",
+    "osb-init": "node osb-init.js"
   },
   "dependencies": {
     "@shopify/app": "^3.23.0",
-    "@shopify/cli": "^3.23.0"
+    "@shopify/cli": "^3.23.0",
+    "inquirer": "^9.1.4"
   },
   "devDependencies": {
     "@michael.gibbons/doc-me": "^1.1.0",
