@@ -58,13 +58,8 @@ const envInit = () => {
   })
 }
 
-const runDev = () => {
-  
-}
-
 const init = () => {
   envInit()
-  runDev()
 }
 
 init()
