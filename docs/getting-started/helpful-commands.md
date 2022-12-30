@@ -12,7 +12,7 @@ npx doc
 
 To get a list of all documentation used in this project. Selecting one will open the documentation in a new tab using your default browser.
 
-![doc-me example](./assets/doc-me.png)
+![doc-me example](../assets/doc-me.png)
 
 These urls are defined in the root `package.json` file, feel free to add your own as your project grows.
 
