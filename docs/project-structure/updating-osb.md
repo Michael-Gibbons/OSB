@@ -27,4 +27,4 @@ Here you should either receive a successful merge or merge conflicts.
 
 If the merge is successful, test it, commit it, submit a PR for main, merge at your discretion.
 
-If the merge is unsuccessful, some changes you did related to the business logic if your application was incompatible with my changes. Fix the conflicts in a way that does not break your application, good luck!
+If the merge is unsuccessful, some changes you did related to the business logic of your application was incompatible with my changes. Fix the conflicts in a way that does not break your application, good luck!
