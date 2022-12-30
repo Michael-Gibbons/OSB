@@ -14,4 +14,4 @@ To locally change the docs simply install the docsify-cli and in the project dir
 docsify serve docs
 ```
 
-You can now view a local copy of the documentation for your viewing pleasure, feel free to submit a PR for anything you feel I failed to cover.
+A local copy of the documentation will be served for your viewing pleasure, feel free to submit a PR for anything you feel I failed to cover.
