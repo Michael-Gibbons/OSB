@@ -10,7 +10,7 @@ To create a new shopify app using this template, in your projects folder (no nee
 npm init @shopify/app@latest -- --template=https://github.com/Michael-Gibbons/OSB
 ```
 
-This command will download the template.
+This command will download the template and prompt you for the name of your app. Once it's done, `cd` into the new directory.
 
 ---
 
