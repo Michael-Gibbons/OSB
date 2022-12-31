@@ -29,3 +29,8 @@
   - [Utility Hooks](./frontend/utility-hooks.md)
   - [Pages](./frontend/pages.md)
   - [Shop Settings](./frontend/shop-settings.md)
+
+- Extending your application
+  - [Theme App Extensions](./extending-your-application/theme-app-extensions.md)
+  - [App Extensions](./extending-your-application/app-extensions.md)
+  - [App Proxies](./extending-your-application/app-proxies.md)
