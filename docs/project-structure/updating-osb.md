@@ -19,7 +19,7 @@ git switch -c update-OSB
 ```
 
 ```
-git merge --allow-unrelated-histories OSB/main
+git merge --allow-unrelated-histories --squash OSB/main
 ```
 
 Here you should either receive a successful merge or merge conflicts.
