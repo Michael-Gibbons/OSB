@@ -31,6 +31,7 @@
   - [Shop Settings](./frontend/shop-settings.md)
 
 - Extending your application
+  - [Addons](./extending-your-application/addons.md)
   - [Theme App Extensions](./extending-your-application/theme-app-extensions.md)
   - [App Extensions](./extending-your-application/app-extensions.md)
   - [App Proxies](./extending-your-application/app-proxies.md)
