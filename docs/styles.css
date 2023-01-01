@@ -55,3 +55,16 @@ article.markdown-section{
 .markdown-section th {
   border-color: var(--tableBorderColor);
 }
+
+@media only screen and (min-width: 1500px) {
+  .markdown-section, aside{
+    margin-left:200px
+  }
+  article.markdown-section{
+    max-width: 900px;
+    margin: 0 300px auto;
+  }
+  body.close .sidebar {
+    transform: translateX(-500px);
+  }
+}
