@@ -15,7 +15,7 @@ This command will download the template and prompt you for the name of your app.
 ---
 
 ```
-npm run osb-init
+npm run osb init
 ```
 
 This command will prompt you for your Postgres local database and schema names, create an env file in `/web/backend`, and initialize the database.
@@ -50,7 +50,7 @@ npm install
 ```
 
 ```
-npm run osb-init
+npm run osb init
 ```
 
 ```

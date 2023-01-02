@@ -8,17 +8,17 @@
   "scripts": {
     "shopify": "shopify",
     "build": "shopify app build",
-    "dev": "concurrently --kill-others \"shopify app dev\" \"npm run log\" --raw",
-    "log": "node log.js",
+    "dev": "concurrently --kill-others \"shopify app dev\" \"npm run osb log\" --raw",
     "info": "shopify app info",
     "generate": "shopify app generate",
     "deploy": "shopify app deploy",
     "start": "npm run build && node web/backend/index.js",
-    "osb-init": "node osb-init.js"
+    "osb": "node ./cli/index.js"
   },
   "dependencies": {
     "@shopify/app": "^3.23.0",
     "@shopify/cli": "^3.23.0",
+    "commander": "^9.4.1",
     "inquirer": "^9.1.4"
   },
   "devDependencies": {

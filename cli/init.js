@@ -1,3 +1,6 @@
+import { Command } from 'commander';
+const program = new Command();
+
 import { exec } from 'child_process';
 import fs from 'fs'
 import inquirer from 'inquirer';
@@ -37,7 +40,6 @@ const envInit = () => {
 
   if (fs.existsSync(TARGET_ENV_PATH)) {
     throw new Error(".env file already exists, I won't overwrite your existing env. You're welcome")
-    return
   }
 
   inquirer
@@ -62,7 +64,12 @@ const init = () => {
   envInit()
 }
 
-init()
+const initCommand =
 
+program.command('init')
+  .description('Initializes OSB application by creating backend env file and initializing database.')
+  .action(() => {
+    init()
+  })
 
-
+export default initCommand

@@ -8,6 +8,7 @@
 - Project Structure
   - [Introduction](./project-structure/introduction.md)
   - [Development Flow](./project-structure/development-flow.md)
+  - [CLI](./project-structure/cli.md)
   - [Updating OSB](./project-structure/updating-osb.md)
   - [Contribution](./project-structure/contribution.md)
 
