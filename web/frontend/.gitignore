@@ -15,4 +15,4 @@ dist/
 # We ignore lock files so they don't get a package manager mis-match
 # Without this, they may get a warning if using a different package manager to us
 yarn.lock
-package-lock.json
+# OSB uses npm not yarn, so we're hiding yarn.lock
