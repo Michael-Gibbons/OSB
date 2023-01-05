@@ -71,6 +71,7 @@ export async function createServer() {
   await createApiV1(app)
 
   // Serves frontend from /frontend in dev, or /dist in production
+  app.use(serveStatic(STATIC_PATH, { index: false }));
   app.use(serveFrontend)
 
   routeLogger(app) // Logs all registered routes
