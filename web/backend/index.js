@@ -26,7 +26,7 @@ import applyAuthMiddleware from "./middleware/auth.js";
 import setSecurityPolicy from './middleware/set-security-policy.js';
 import rootRouter from './routes/index.js'
 import createApiV1 from "./api/v1/config/createApiV1.js";
-import applyProductionMiddleware from './middleware/applyProductionMiddleware.js';
+import serveFrontend from './middleware/serveFrontend.js';
 import catchAllHandler from './middleware/catch-all-handler.js';
 
 import './redis/index.js'
@@ -69,8 +69,8 @@ export async function createServer() {
   // If a route is meant to be accessed from the shopify admin app interface, use the verifyRequest middleware on the route in question.
   await createApiV1(app)
 
-  // Compresses and serves an optimized frontend bundle instead of the vite dev bundle if NODE_ENV is production
-  applyProductionMiddleware(app)
+  // Serves frontend from /frontend in dev, or /dist in production
+  app.use(serveFrontend)
 
   routeLogger(app) // Logs all registered routes
 
