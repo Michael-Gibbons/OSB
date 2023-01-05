@@ -11,6 +11,7 @@
   - [CLI](./project-structure/cli.md)
   - [Updating OSB](./project-structure/updating-osb.md)
   - [Contribution](./project-structure/contribution.md)
+  - [Getting Ready for production!](./project-structure/getting-ready-for-production.md)
 
 - Backend
   - [Environment Variables](./backend/env.md)
