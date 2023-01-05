@@ -10,7 +10,7 @@ const TARGET_ENV_PATH = './web/backend/.env'
 
 const createBackendEnv = async (answers) => {
 
-  const {name, schema} = answers
+  const { name } = answers
 
   console.log("Creating your env in /web/backend")
   await fs.readFile(ENV_EXAMPLE_PATH, 'utf8', function (err,data) {
@@ -18,7 +18,7 @@ const createBackendEnv = async (answers) => {
       return console.log(err);
     }
 
-    const result = data.replace(/DATABASE_NAME/g, name).replace(/DATABASE_SCHEMA/g, schema);
+    const result = data.replace(/DATABASE_NAME/g, name)
 
     fs.writeFile(TARGET_ENV_PATH, result, 'utf8', function (err) {
        if (err) return console.log(err);
@@ -48,12 +48,7 @@ const envInit = () => {
       type: "input",
       message: "What is your Postgres Database Name? (Note: NOT the schema)",
       name: "name"
-    },
-    {
-      type: "input",
-      message: "What is your Postgres Database Schema?",
-      name: "schema"
-    },
+    }
   ])
   .then((answers) => {
     createBackendEnv(answers)

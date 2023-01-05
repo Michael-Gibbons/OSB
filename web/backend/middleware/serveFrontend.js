@@ -19,5 +19,6 @@ export default async function serveFrontend(req, res, next){
 
   return res
     .status(200)
+    .set("Content-Type", "text/html")
     .send(readFileSync(htmlFile));
 }
