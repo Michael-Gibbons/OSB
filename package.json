@@ -12,7 +12,7 @@
     "info": "shopify app info",
     "generate": "shopify app generate",
     "deploy": "shopify app deploy",
-    "start": "node web/backend/index.js",
+    "start": "npm run migrate && node web/backend/index.js",
     "osb": "node ./cli/index.js",
     "migrate": "cd web/backend && npx prisma migrate deploy"
   },
