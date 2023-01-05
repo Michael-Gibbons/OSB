@@ -14,7 +14,8 @@ cleanEnv(process.env, {
   LOG_LEVEL:            str({ choices: ['error', 'warn', 'info', 'debug', 'verbose', 'silly'] }),
   ADMIN_USERNAME:       str({ default: 'admin' }),
   ADMIN_PASSWORD:       str({ default: 'admin' }),
-  LOGTAIL_SOURCE_TOKEN: str({ devDefault: '' })
+  LOGTAIL_SOURCE_TOKEN: str({ devDefault: '' }),
+  HOST:                 str()
 })
 
 import express from "express";
