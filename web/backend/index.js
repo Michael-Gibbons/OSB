@@ -27,7 +27,6 @@ import applyAuthMiddleware from "./middleware/auth.js";
 import setSecurityPolicy from './middleware/set-security-policy.js';
 import rootRouter from './routes/index.js'
 import createApiV1 from "./api/v1/config/createApiV1.js";
-import serveFrontend from './middleware/serveFrontend.js';
 import catchAllHandler from './middleware/catch-all-handler.js';
 
 import './redis/index.js'
@@ -38,6 +37,19 @@ const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
 
 import { BILLING_SETTINGS } from './BILLING_SETTINGS.js';
 import routeLogger from './helpers/routeLogger.js';
+
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { readFileSync } from "fs";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const isProd = process.env.NODE_ENV === "production"
+const DEV_INDEX_PATH = path.join(__dirname, '..', 'frontend')
+const PROD_INDEX_PATH = path.join(__dirname, '..', 'frontend', 'dist')
+
+const STATIC_PATH = isProd ? PROD_INDEX_PATH : DEV_INDEX_PATH
+const STATIC_INDEX_FILE = path.join(STATIC_PATH, 'index.html')
 
 // export for test use only
 export async function createServer() {
@@ -70,15 +82,20 @@ export async function createServer() {
   // If a route is meant to be accessed from the shopify admin app interface, use the verifyRequest middleware on the route in question.
   await createApiV1(app)
 
-  // Serves frontend from /frontend in dev, or /dist in production
-  app.use(serveStatic(STATIC_PATH, { index: false }));
-  app.use(serveFrontend)
-
   routeLogger(app) // Logs all registered routes
 
+  // Serves frontend from /frontend in dev, or /dist in production
   // Anything not handled by this point will be redirected to /api/auth for OAuth verification.
   // Or simply rejected with a error if not applicable
-  app.use("/*", catchAllHandler);
+
+  app.use(express.static(STATIC_PATH))
+
+  app.use("/*", catchAllHandler, (req, res, next) => {
+    return res
+    .status(200)
+    .set("Content-Type", "text/html")
+    .send(readFileSync(STATIC_INDEX_FILE));
+  });
 
   // logger.warn('my super cool warning', {someError: 'hey this is some warning data', time: Date.now()})
   // logger.error('my super cool error', {someError: 'hey this is some error data', time: Date.now()})
