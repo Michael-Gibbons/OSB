@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
+import cron from 'node-cron'
 import logger from '../logger/index.js';
 
 import { exampleWebhookClient } from './webhookClients/index.js';
@@ -142,3 +143,8 @@ const webhookManager = {
 }
 
 webhookManager.sync()
+
+cron.schedule('0 0 * * *', () => {
+  webhookManager.sync()
+  logger.info("APP CRON: PERFORMING WEBHOOK HEALTH CHECK")
+});
