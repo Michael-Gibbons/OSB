@@ -145,6 +145,6 @@ const webhookManager = {
 webhookManager.sync()
 
 cron.schedule('0 0 * * *', () => {
-  webhookManager.sync()
   logger.info("APP CRON: PERFORMING WEBHOOK HEALTH CHECK")
+  webhookManager.sync()
 });

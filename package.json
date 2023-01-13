@@ -20,8 +20,7 @@
     "@shopify/app": "^3.23.0",
     "@shopify/cli": "^3.23.0",
     "commander": "^9.4.1",
-    "inquirer": "^9.1.4",
-    "node-cron": "^3.0.2"
+    "inquirer": "^9.1.4"
   },
   "devDependencies": {
     "@michael.gibbons/doc-me": "^1.1.0",
