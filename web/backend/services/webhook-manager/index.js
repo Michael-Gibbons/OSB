@@ -3,7 +3,7 @@ dotenv.config()
 
 import logger from '../logger/index.js';
 
-import { exampleWebhookClient, rechargeWebhookClient } from './webhookClients/index.js';
+import { exampleWebhookClient } from './webhookClients/index.js';
 
 // serviceTitle: string, title of service for logging purposes
 // subscriptions: { topic, target_url}
@@ -15,7 +15,7 @@ import { exampleWebhookClient, rechargeWebhookClient } from './webhookClients/in
 // registerWebhook: function, accepts topic, registers webhook for that topic
 
 const WEBHOOK_CLIENTS = [
-  rechargeWebhookClient
+  exampleWebhookClient
 ]
 
 const webhookManager = {
@@ -41,7 +41,7 @@ const webhookManager = {
       const ID_KEY = webhookClient.idKey || 'id'
       const TARGET_URL_KEY = webhookClient.targetUrlKey || 'address'
 
-      const currentWebhooks = await webhookClient.getWebhooks()
+      const currentWebhooks = await webhookClient.getWebhooks() || []
 
       const webhooksToDelete = []
       const webhooksToRegister = []
