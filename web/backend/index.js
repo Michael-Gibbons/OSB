@@ -30,6 +30,7 @@ import createApiV1 from "./api/v1/config/createApiV1.js";
 import catchAllHandler from './middleware/catch-all-handler.js';
 
 import './redis/index.js'
+import './services/webhook-manager/index.js'
 import logger from './services/logger/index.js';
 import httpLogger from './middleware/httpLogger.js';
 

@@ -18,6 +18,7 @@
     "@logtail/winston": "^0.1.14",
     "@prisma/client": "^4.6.1",
     "@shopify/shopify-api": "^5.0.0",
+    "axios": "^1.2.2",
     "bullmq": "^3.2.2",
     "chalk": "^5.1.2",
     "cookie-parser": "^1.4.6",
