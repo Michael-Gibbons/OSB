@@ -58,8 +58,6 @@ export async function createServer() {
 
   app.use(requestID())// Generates unique id for every request for logging and debugging purposes
 
-  app.use(httpLogger())// Logs all http requests sent to this server.
-
   // Makes Cookies accessible to the Shopify context, using the API_SECRET_KEY to sign the cookies
   app.use(cookieParser(Shopify.Context.API_SECRET_KEY));
 
@@ -78,6 +76,8 @@ export async function createServer() {
   // All endpoints after this point will have access to a request.body
   // attribute, as a result of the express.json() middleware
   app.use(express.json());
+
+  app.use(httpLogger())// Logs all http requests sent to this server.
 
   // Defines all routes created in /api. All Routes here will have access to req.body
   // If a route is meant to be accessed from the shopify admin app interface, use the verifyRequest middleware on the route in question.
