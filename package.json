@@ -14,7 +14,9 @@
     "deploy": "shopify app deploy",
     "start": "npm run migrate && node web/backend/index.js",
     "osb": "node ./cli/index.js",
-    "migrate": "cd web/backend && npx prisma migrate deploy"
+    "migrate": "cd web/backend && npx prisma migrate deploy",
+    "update-package-lock": "npm i --package-lock-only && cd web/frontend && npm i --package-lock-only && cd ../.. && cd web/backend && npm i --package-lock-only",
+    "prune-branches": "git branch --merged | grep -v \\* | xargs git branch -D"
   },
   "dependencies": {
     "@shopify/app": "^3.23.0",
