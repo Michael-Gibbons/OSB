@@ -21,7 +21,15 @@ These urls are defined in the root `package.json` file, feel free to add your ow
 If you're working on a lot of features and you are (correctly) making branches for every feature, once they are merged you will rack up a lot of stale branches. Use the following command to delete all local merged branches.
 
 ```
-git branch --merged | grep -v \* | xargs git branch -D
+npm run prune-branches
 ```
 
 To delete all local branches that have been merged already.
+
+## Update npm lock files
+
+Sometimes when updating OSB by merging the most recent version of OSB into your project, lock files can become de-synced. Run this command to regenerate them before committing.
+
+```
+npm run update-package-lock
+```
