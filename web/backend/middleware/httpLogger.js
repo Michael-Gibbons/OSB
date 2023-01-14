@@ -1,7 +1,11 @@
 import morgan from 'morgan'
 import logger from '../services/logger/index.js'
 import devnull from 'dev-null'
+
 morgan.token('request-id', function (req, res) { return req.id })
+morgan.token('body', req => {
+  return JSON.stringify(req.body)
+})
 
 function jsonFormat(tokens, req, res) {
   return logger.info("HTTP REQUEST", {
@@ -15,7 +19,8 @@ function jsonFormat(tokens, req, res) {
     'content-length': tokens['res'](req, res, 'content-length'),
     'referrer': tokens['referrer'](req, res),
     'user-agent': tokens['user-agent'](req, res),
-    'response-time': tokens['response-time'](req, res) + 'ms'
+    'response-time': tokens['response-time'](req, res) + 'ms',
+    'body': tokens['body'](req, res)
   });
 }
 export default () => {
