@@ -26,3 +26,9 @@ Have the queue, worker, events, and event handlers all in the same file. Please 
 
 
 ?> Speaking of redux, where is it? It was intentionally left out of this boiler as it does not have much use in the context of shopify apps which rely heavily on server side state and interactions with various APIs. Feel free to add it in yourself, I did in v1 of OSB, and I regretted it. You have been warned.
+
+## Logging
+
+bullmq uses the `add` and `addBulk` functions to add jobs to queues. In addition, I have added the helper methods `addWithMeta` and `addBulkWithMeta` which simply modifies the input object to include diagnostic data like request id, and request locals (like the shopify session), and then passes that modified input to the `add` and `addBulk` methods.
+
+In my opinion the `addWithMeta` functions should be used as a direct replacement, but it's a free country and I am just text on a screen I can't stop you.
