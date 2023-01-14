@@ -26,5 +26,6 @@ If you ran the `osb init` command, this `.env` file will be created for you in `
 | `SHOPIFY_API_KEY` | none | Shopify Authentication |
 | `SHOPIFY_API_SECRET` | none | Shopify Authentication |
 | `SCOPES` | `write_products, write_orders, write_customers` | Access scopes for your application, see [Shopify's access scopes](https://shopify.dev/api/usage/access-scopes)
+| `HOST` | none | The url of your application, provided by shopify during dev using ngrok, provided by your hosting solution in production.
 
 !> Edit your application's scopes in the `shopify.app.toml` file
