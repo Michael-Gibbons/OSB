@@ -1,4 +1,4 @@
-import { exampleQueue } from "./quacks/exampleQuack.js";
+export * from "./quacks/index.js";
 
 import attachMetaFunctions from "./util/attachMetaFunctions.js";
 attachMetaFunctions()
@@ -12,7 +12,3 @@ logAllQueues()
 //   { name: 'name2', data: { paint: 'house' } },
 //   { name: 'name3', data: { paint: 'boat' } },
 // ]);
-
-export {
-  exampleQueue
-}

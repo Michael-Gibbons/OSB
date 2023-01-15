@@ -1,4 +1,4 @@
-import * as AllQueues from '../index.js'
+import * as AllQueues from '../quacks/index.js'
 
 const extractMeta = (req, res) => {
   // Add your things you'd like to monitor through logs here

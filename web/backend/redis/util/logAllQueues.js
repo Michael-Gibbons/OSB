@@ -1,4 +1,4 @@
-import * as AllQueues from '../index.js'
+import * as AllQueues from '../quacks/index.js'
 import { QueueEvents } from 'bullmq';
 import REDIS_CONFIG from '../config.js';
 import logger from '../../services/logger/index.js'

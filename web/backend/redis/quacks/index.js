@@ -1,0 +1,1 @@
+export { exampleQueue } from './exampleQuack.js'
