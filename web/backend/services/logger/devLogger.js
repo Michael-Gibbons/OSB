@@ -13,7 +13,7 @@ const myFormat = printf(({ level, message, timestamp, metadata }) => {
   let chalkify = new JSONChalkify().chalkify
 
   if(level.includes('error')){
-    chalkify = new JSONChalkify({propertyColor: chalk.red}).chalkify
+    chalkify = new JSONChalkify({propertyColor: chalk.red, maxLengthBeforeTruncate: Infinity}).chalkify
   }
 
   if(level.includes('warn')){
@@ -21,7 +21,7 @@ const myFormat = printf(({ level, message, timestamp, metadata }) => {
   }
 
   if(level.includes('info')){
-    chalkify = new JSONChalkify({propertyColor: chalk.green}).chalkify;
+    chalkify = new JSONChalkify({propertyColor: chalk.green, maxLengthBeforeTruncate: Infinity}).chalkify;
   }
 
   const hasMetaData = Object.keys(metadata).length !== 0;

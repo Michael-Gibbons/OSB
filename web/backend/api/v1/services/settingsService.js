@@ -3,29 +3,14 @@ import prisma from "../../../prisma/index.js";
 const getSettings = async (req, res, next) => {
   const shop = res.locals.shopify.session.shop
 
-  const DEFAULT_SETTINGS = {
-    email: 'exampleEmail@gmail.com',
-    coolBooleanSetting: false,
-    coolEnumSetting: "1",
-    coolCustomSetting: {
-      field1: 'This is the value for field 1',
-      field2: 'This is the value for field 2'
-    }
-  }
-
-  const upsertSettings = await prisma.settings.upsert({
+  const shopSettings = await prisma.settings.findUnique({
     where: {
-      shop
-    },
-    update: {},
-    create: {
-      shop,
-      settings: DEFAULT_SETTINGS
-    },
+      shopId: shop
+    }
   })
 
   res.status(200).send({
-    data: [{ id: shop, type: "settings", attributes: upsertSettings } ],
+    data: [{ id: shop, type: "settings", attributes: shopSettings } ],
   });
 }
 
@@ -33,18 +18,17 @@ const saveSettings = async (req, res, next) => {
   const newSettings = req.body
   const shop = res.locals.shopify.session.shop
 
-  const upsertSettings = await prisma.settings.update({
+  const updatedSettings = await prisma.settings.update({
     where: {
-      shop
+      shopId: shop
     },
     data: {
-      shop,
       settings: newSettings
     },
   })
 
   res.status(200).send({
-    data: [{ id: shop, type: "settings", attributes: upsertSettings } ],
+    data: [{ id: shop, type: "settings", attributes: updatedSettings } ],
   });
 }
 
