@@ -10,7 +10,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Shop {
+  id String @id // This is the shopify domain, ie your-shop.myshopify.com
+  settings Settings?
+}
+
 model Settings {
-  shop String @unique
+  id String @id @default(uuid())
   settings Json
+  shop   Shop @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  shopId String  @unique
 }

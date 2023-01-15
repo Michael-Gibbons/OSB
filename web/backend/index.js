@@ -88,8 +88,9 @@ export async function createServer() {
   // Serves frontend from /frontend in dev, or /dist in production
   // Anything not handled by this point will be redirected to /api/auth for OAuth verification.
   // Or simply rejected with a error if not applicable
+  // { index: false } is required so we don't try to serve index.html before the app is installed
 
-  app.use(express.static(STATIC_PATH))
+  app.use(express.static(STATIC_PATH, { index: false })) // If you don't have index: false here, you won't be able to install the app
 
   app.use("/*", catchAllHandler, (req, res, next) => {
     return res
