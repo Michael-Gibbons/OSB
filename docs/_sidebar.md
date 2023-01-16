@@ -22,6 +22,7 @@
   - [Admin Routes](./backend/admin.md)
   - [Logging](./backend/logging.md)
   - [Helpful Middleware](./backend/middleware.md)
+  - [Lifecycle Hooks](./backend/lifecycle-hooks.md)
 
 - Frontend
   - [Cheat Sheet](./frontend/cheat-sheet.md)
