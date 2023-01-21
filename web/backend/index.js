@@ -28,6 +28,7 @@ import setSecurityPolicy from './middleware/set-security-policy.js';
 import rootRouter from './routes/index.js'
 import createApiV1 from "./api/v1/config/createApiV1.js";
 import catchAllHandler from './middleware/catch-all-handler.js';
+import errorHandler from './middleware/error-handler.js';
 
 import './redis/index.js'
 import './services/webhook-manager/index.js'
@@ -103,6 +104,9 @@ export async function createServer() {
   // logger.error('my super cool error', {someError: 'hey this is some error data', time: Date.now()})
   // logger.debug('my super cool debug', {someError: 'hey this is some debug data', time: Date.now()})
   // logger.info('my super cool info', {someError: 'hey this is some info data', time: Date.now()})
+
+  // Handles all server side errors, make sure that this is the last middleware.
+  app.use(errorHandler)
 
   return { app };
 }
