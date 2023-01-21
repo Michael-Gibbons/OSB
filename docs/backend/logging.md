@@ -50,6 +50,10 @@ Every single database action prisma performs will be logged as long as you are u
 
 Every single redis job event `progress`, `completed`, `failed`, `error` will be logged. Along with their corresponding shopify session and request id.
 
+### Error logging
+
+`error-handler.js` handles all errors uncaught by anything else in your application. The request id, error, and important request/response data are included for diagnostic purposes.
+
 ### App Startup Logging
 
 Certain actions performed on app startup are logged. When you go through auth, the registered webhooks will be logged. Also all registered routes on your express app will be logged
