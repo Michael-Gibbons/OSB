@@ -33,3 +33,6 @@ web/database.sqlite
 
 # OSB uses npm not yarn, so we're hiding yarn.lock
 yarn.lock
+
+# Temporary files used by the osb cli
+tmp/

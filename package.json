@@ -22,7 +22,9 @@
     "@shopify/app": "^3.23.0",
     "@shopify/cli": "^3.23.0",
     "commander": "^9.4.1",
-    "inquirer": "^9.1.4"
+    "fs-extra": "^11.1.0",
+    "inquirer": "^9.1.4",
+    "shelljs": "^0.8.5"
   },
   "devDependencies": {
     "@michael.gibbons/doc-me": "^1.1.0",
