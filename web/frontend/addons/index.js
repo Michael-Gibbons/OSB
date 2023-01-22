@@ -1,9 +1,9 @@
 const registerFunctions = import.meta.glob('./*/register.js')
 
-const registerFrontendAddons = async () => {
+const registerFrontendAddons = async ({ host }) => {
   for (const registerFunction in registerFunctions) {
     const { register } = await registerFunctions[registerFunction]()
-    await register()
+    await register({ host })
   }
 }
 
