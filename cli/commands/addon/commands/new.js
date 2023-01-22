@@ -61,18 +61,21 @@ program.command('new')
   });
 
 
+const copyDir = (src, dest) => {
+  try {
+    fse.copySync(src, dest, { overwrite: false })
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 const createCliAddonFragment = (name) => {
   const NEW_ADDON_CLI_DIR = path.resolve(CLI_ADDONS_PATH, `./${name}`)
 
   fs.mkdirSync(NEW_ADDON_CLI_DIR);
 
   const CLI_TEMPLATES = path.resolve(TEMPLATES_PATH, './cli');
-
-  try {
-    fse.copySync(CLI_TEMPLATES, NEW_ADDON_CLI_DIR, { overwrite: false })
-  } catch (err) {
-    console.error(err)
-  }
+  copyDir(CLI_TEMPLATES, NEW_ADDON_CLI_DIR)
 }
 
 const createFrontendAddonFragment = (name) => {
@@ -81,12 +84,7 @@ const createFrontendAddonFragment = (name) => {
   fs.mkdirSync(NEW_ADDON_FRONTEND_DIR);
 
   const FRONTEND_TEMPLATES = path.resolve(TEMPLATES_PATH, './frontend');
-
-  try {
-    fse.copySync(FRONTEND_TEMPLATES, NEW_ADDON_FRONTEND_DIR, { overwrite: false })
-  } catch (err) {
-    console.error(err)
-  }
+  copyDir(FRONTEND_TEMPLATES, NEW_ADDON_FRONTEND_DIR)
 }
 
 const createBackendAddonFragment = (name) => {
@@ -95,12 +93,7 @@ const createBackendAddonFragment = (name) => {
   fs.mkdirSync(NEW_ADDON_BACKEND_DIR);
 
   const BACKEND_TEMPLATES = path.resolve(TEMPLATES_PATH, './backend');
-
-  try {
-    fse.copySync(BACKEND_TEMPLATES, NEW_ADDON_BACKEND_DIR, { overwrite: false })
-  } catch (err) {
-    console.error(err)
-  }
+  copyDir(BACKEND_TEMPLATES, NEW_ADDON_BACKEND_DIR)
 }
 
 const createNewAddon = (name) => {

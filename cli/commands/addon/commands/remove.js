@@ -1,8 +1,6 @@
 import { Command } from 'commander';
 const program = new Command();
 
-import inquirer from 'inquirer';
-
 import fs from 'fs'
 import fse from 'fs-extra'
 import path from 'path'
@@ -18,18 +16,9 @@ const newCommand =
 
 program.command('remove')
   .description('Deletes an addon by name')
-  .action(() => {
-    inquirer
-    .prompt([
-      {
-        type: "input",
-        message: "What is the name of the addon to remove?",
-        name: "name"
-      }
-    ])
-    .then(({name}) => {
-      removeAddon(name)
-    })
+  .argument('addon', 'addon name')
+  .action((data) => {
+    removeAddon(data)
   });
 
 const removeDir = (dir) => {
