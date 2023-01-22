@@ -50,9 +50,25 @@ For example:
 ```
 
 ```js
+  // depending on the context the method is for, path/to/addons may be:
+  // /web/frontend/addons/ADDON_NAME
+  // /web/backend/addons/ADDON_NAME
+  // or `/cli/addons/ADDON_NAME`
+
   import { mySuperCoolAddonMethod } from 'path/to/addons/your-addon/index.js'
 ```
 
+
+## Installing an addon
+To install an addon run the following command, replacing REPO_URL with your addon repository. This should be in the addon's readme file as well.
+
+```
+npm run osb addon add REPO_URL
+```
+
+This command will clone the addon repository, get the addon name from the root package.json file, extract the `frontend`, `backend`, and `cli` portions, install their dependencies,and copy them to `/web/frontend/addons/ADDON_NAME`, `/web/backend/addons/ADDON_NAME`, and `/cli/addons/ADDON_NAME` respectively.
+
+These changes should be committed to version control as you may need to edit the logic of the addon depending on your app's functionality.
 
 ## Creating a new addon
 
