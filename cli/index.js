@@ -16,6 +16,9 @@ import stringManipulationCommand from './commands/example/string-manipulation.js
 
 import logCommand from './log.js';
 import initCommand from './init.js';
+import addonCommand from './commands/addon/addon.js';
+
+import { registerCliAddons } from './addons/index.js';
 
 program
   .name('osb')
@@ -25,8 +28,12 @@ program
 
 program.addCommand(logCommand)
 program.addCommand(initCommand)
+program.addCommand(addonCommand)
 
 program.addCommand(stringManipulationCommand) // This is a command with subcommands ie `npm run osb myCommand mySubCommand`
+
+await registerCliAddons()
+
 program.configureHelp()
 
 program.parse()

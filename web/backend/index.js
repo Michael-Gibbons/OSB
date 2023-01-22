@@ -86,6 +86,7 @@ export async function createServer() {
   // If a route is meant to be accessed from the shopify admin app interface, use the verifyRequest middleware on the route in question.
   await createApiV1(app)
 
+  // Register all backend portions of addons
   registerBackendAddons()
 
   routeLogger(app) // Logs all registered routes
