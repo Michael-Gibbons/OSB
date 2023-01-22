@@ -1,5 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 import AppFrame from "./components/app/AppFrame";
+import { registerFrontendAddons } from "./addons";
 
 import {
   AppBridgeProvider,
@@ -8,6 +9,9 @@ import {
 } from "./components";
 
 export default function App() {
+  
+  registerFrontendAddons()
+
   return (
     <PolarisProvider>
       <BrowserRouter>

@@ -53,6 +53,8 @@ const PROD_INDEX_PATH = path.join(__dirname, '..', 'frontend', 'dist')
 const STATIC_PATH = isProd ? PROD_INDEX_PATH : DEV_INDEX_PATH
 const STATIC_INDEX_FILE = path.join(STATIC_PATH, 'index.html')
 
+import { registerBackendAddons } from './addons/index.js';
+
 // export for test use only
 export async function createServer() {
   const app = express();
@@ -83,6 +85,8 @@ export async function createServer() {
   // Defines all routes created in /api. All Routes here will have access to req.body
   // If a route is meant to be accessed from the shopify admin app interface, use the verifyRequest middleware on the route in question.
   await createApiV1(app)
+
+  registerBackendAddons()
 
   routeLogger(app) // Logs all registered routes
 
