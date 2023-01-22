@@ -9,8 +9,10 @@ import {
 } from "./components";
 
 export default function App() {
-  
-  registerFrontendAddons()
+
+  registerFrontendAddons({
+    host: process.env.HOST
+  })
 
   return (
     <PolarisProvider>

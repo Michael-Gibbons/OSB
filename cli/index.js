@@ -32,7 +32,7 @@ program.addCommand(addonCommand)
 
 program.addCommand(stringManipulationCommand) // This is a command with subcommands ie `npm run osb myCommand mySubCommand`
 
-await registerCliAddons()
+await registerCliAddons({ program })
 
 program.configureHelp()
 

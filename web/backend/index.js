@@ -87,7 +87,7 @@ export async function createServer() {
   await createApiV1(app)
 
   // Register all backend portions of addons
-  registerBackendAddons()
+  registerBackendAddons({ app })
 
   routeLogger(app) // Logs all registered routes
 
