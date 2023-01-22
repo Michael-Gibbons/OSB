@@ -32,20 +32,22 @@ program.command('new')
             return 'Name cannot be empty'
           }
 
-          const NEW_ADDON_CLI_DIR = path.resolve(CLI_ADDONS_PATH, `./${name}`)
+          const sluggedName = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, '').replace(/^-/, '')
+
+          const NEW_ADDON_CLI_DIR = path.resolve(CLI_ADDONS_PATH, `./${sluggedName}`)
 
           if(fs.existsSync(NEW_ADDON_CLI_DIR)){
-            throw new Error("An addon with this name already exists in the cli directory.")
+            throw new Error(`An addon with the name: ${sluggedName} already exists in the cli directory.`)
           }
 
-          const NEW_ADDON_FRONTEND_DIR = path.resolve(FRONTEND_ADDONS_PATH, `./${name}`)
+          const NEW_ADDON_FRONTEND_DIR = path.resolve(FRONTEND_ADDONS_PATH, `./${sluggedName}`)
           if(fs.existsSync(NEW_ADDON_FRONTEND_DIR)){
-            throw new Error("An addon with this name already exists in the frontend directory.")
+            throw new Error(`An addon with the name: ${sluggedName} already exists in the frontend directory.`)
           }
 
-          const NEW_ADDON_BACKEND_DIR = path.resolve(BACKEND_ADDONS_PATH, `./${name}`)
+          const NEW_ADDON_BACKEND_DIR = path.resolve(BACKEND_ADDONS_PATH, `./${sluggedName}`)
           if(fs.existsSync(NEW_ADDON_BACKEND_DIR)){
-            throw new Error("An addon with this name already exists in the backend directory.")
+            throw new Error(`An addon with the name: ${sluggedName} already exists in the backend directory.`)
           }
 
           return true
@@ -102,9 +104,10 @@ const createBackendAddonFragment = (name) => {
 }
 
 const createNewAddon = (name) => {
-  createCliAddonFragment(name)
-  createFrontendAddonFragment(name)
-  createBackendAddonFragment(name)
+  const sluggedName = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, '').replace(/^-/, '')
+  createCliAddonFragment(sluggedName)
+  createFrontendAddonFragment(sluggedName)
+  createBackendAddonFragment(sluggedName)
 }
 
 export default newCommand
