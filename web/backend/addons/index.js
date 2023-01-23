@@ -1,10 +1,11 @@
 import fs from 'fs'
 import path from 'path'
+import { fileURLToPath } from 'url';
 
-const FOLDER_PATH = './addons'
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const results = fs.readdirSync(FOLDER_PATH)
-const folders = results.filter(res => fs.lstatSync(path.resolve(FOLDER_PATH, res)).isDirectory())
+const results = fs.readdirSync(__dirname)
+const folders = results.filter(res => fs.lstatSync(path.resolve(__dirname, res)).isDirectory())
 
 const registerBackendAddons = async ({ app }) => {
   for (const folder of folders) {

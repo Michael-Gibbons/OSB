@@ -1,10 +1,12 @@
 import fs from 'fs'
 import path from 'path'
 
-const FOLDER_PATH = './cli/addons'
+import { fileURLToPath } from 'url';
 
-const results = fs.readdirSync(FOLDER_PATH)
-const folders = results.filter(res => fs.lstatSync(path.resolve(FOLDER_PATH, res)).isDirectory())
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const results = fs.readdirSync(__dirname)
+const folders = results.filter(res => fs.lstatSync(path.resolve(__dirname, res)).isDirectory())
 
 const registerCliAddons = async ({ program }) => {
   for (const folder of folders) {
