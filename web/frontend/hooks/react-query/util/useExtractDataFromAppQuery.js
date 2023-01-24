@@ -9,5 +9,5 @@ export function useExtractDataFromAppQuery(data){
     }
   }, [data])
 
-  return [extractedData]
+  return extractedData
 }
