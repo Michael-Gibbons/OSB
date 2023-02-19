@@ -77,3 +77,6 @@ This template uses [react-error-boundary](https://www.npmjs.com/package/react-er
 ### Request Failure Errors
 
 This template has the useful hooks `useAppQuery` and `useAppMutation` which are wrappers around [react-query's](https://react-query-v3.tanstack.com/guides/queries) hooks which toggle the application loading state, ensure authentication, and (you guessed it) log an error object when a query or mutation fail.
+
+### Outgoing http requests
+This template logs all outgoing requests using axios interceptors. See the [API Clients](/backend/api-clients) section to learn more.

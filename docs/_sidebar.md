@@ -20,6 +20,7 @@
   - [Database Pattern](./backend/database-pattern.md)
   - [Redis Pattern](./backend/redis.md)
   - [Webhooks](./backend/webhooks.md)
+  - [API Clients](./backend/api-clients.md)
   - [Admin Routes](./backend/admin.md)
   - [Logging](./backend/logging.md)
   - [Helpful Middleware](./backend/middleware.md)
