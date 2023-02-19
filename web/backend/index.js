@@ -55,11 +55,6 @@ const STATIC_INDEX_FILE = path.join(STATIC_PATH, 'index.html')
 
 import { registerBackendAddons } from './addons/index.js';
 
-import { exampleClient } from './services/clients/exampleClient.js';
-
-const res = await exampleClient.get('/get')
-// console.log(res)
-
 // export for test use only
 export async function createServer() {
   const app = express();
