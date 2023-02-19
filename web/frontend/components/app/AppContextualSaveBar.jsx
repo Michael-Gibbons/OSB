@@ -4,7 +4,7 @@ export default function AppContextualSaveBar({ contextualSaveBar }){
   return contextualSaveBar.isDirty ? (
     <ContextualSaveBar
       alignContentFlush={contextualSaveBar.alignContentFlush || false}
-      message={contextualSaveBar.message || ''}
+      message={contextualSaveBar.message || ' '}
       saveAction={contextualSaveBar.saveAction || null}
       discardAction={contextualSaveBar.discardAction || null}
       fullwidth={contextualSaveBar.fullwidth || false}
