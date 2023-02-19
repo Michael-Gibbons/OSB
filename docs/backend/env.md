@@ -8,6 +8,7 @@ If you ran the `osb init` command, this `.env` file will be created for you in `
 
 | Variable      | Default | Purpose |
 | ----------- | ----------- | |
+| `PORT` | none | The port for main communication in the app, usually injected by your hosting provider, not created or needed in development. |
 | `DATABASE_URL` | none   | Connection string for your postgres database. See the [postgres documentation](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING) to see examples |
 | `NODE_ENV`   | `development` | Node env for the application. Allowed values `development`, `staging`, `production`, `test` |
 | `REDIS_HOST` | `127.0.0.1` | Host url for your redis instance |
@@ -27,5 +28,7 @@ If you ran the `osb init` command, this `.env` file will be created for you in `
 | `SHOPIFY_API_SECRET` | none | Shopify Authentication |
 | `SCOPES` | `write_products, write_orders, write_customers` | Access scopes for your application, see [Shopify's access scopes](https://shopify.dev/api/usage/access-scopes)
 | `HOST` | none | The url of your application, provided by shopify during dev using ngrok, provided by your hosting solution in production.
+| `BACKEND_PORT` | random | Shopify will choose a random available port to communicate with the app's backend |
+| `FRONTEND_PORT` | random | Shopify will choose a random available port between to communicate with the app's frontend |
 
 !> Edit your application's scopes in the `shopify.app.toml` file
