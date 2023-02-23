@@ -7,8 +7,8 @@
   "type": "module",
   "scripts": {
     "shopify": "shopify",
-    "build": "shopify app build",
-    "dev": "concurrently --kill-others \"shopify app dev\" \"npm run osb log\" --raw",
+    "build": "node ./scripts/build.js && shopify app build",
+    "dev": "concurrently --kill-others \"shopify app dev\" \"node ./scripts/dev.js\" --raw",
     "info": "shopify app info",
     "generate": "shopify app generate",
     "deploy": "shopify app deploy",

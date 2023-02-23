@@ -23,9 +23,9 @@ program.command('remove')
 
 const removeDir = (dir) => {
   try {
-    fs.rmdirSync(dir, { recursive: true })
+    fs.rmSync(dir, { recursive: true })
   } catch (err) {
-    console.error(`Error while deleting ${dir}.`)
+    // Intentionally no log here, if the directory doesn't exist that is fine
   }
 }
 

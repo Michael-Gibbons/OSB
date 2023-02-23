@@ -31,6 +31,11 @@ program.command('add')
 
 
 const installDependencies = async (destinationPath, packageJson) => {
+
+  if(!packageJson){
+    return
+  }
+
   const dependencies = packageJson.dependencies
   const packagesToInstall = []
 
@@ -65,6 +70,11 @@ const installFrontendDependencies = async (temporaryAddonPath) => {
 
 const copyBackendAddonFragment = (temporaryAddonPath, name) => {
   const TEMP_BACKEND_PATH = `${temporaryAddonPath}/backend`
+
+  if(!fs.existsSync(TEMP_BACKEND_PATH)){
+    return
+  }
+
   const NEW_ADDON_BACKEND_DIR = path.resolve(BACKEND_ADDONS_PATH, `./${name}`)
   fs.mkdirSync(NEW_ADDON_BACKEND_DIR);
   copyDir(TEMP_BACKEND_PATH, NEW_ADDON_BACKEND_DIR)
@@ -72,6 +82,11 @@ const copyBackendAddonFragment = (temporaryAddonPath, name) => {
 
 const copyFrontendAddonFragment = (temporaryAddonPath, name) => {
   const TEMP_FRONTEND_PATH = `${temporaryAddonPath}/frontend`
+
+  if(!fs.existsSync(TEMP_FRONTEND_PATH)){
+    return
+  }
+
   const NEW_ADDON_FRONTEND_DIR = path.resolve(FRONTEND_ADDONS_PATH, `./${name}`)
   fs.mkdirSync(NEW_ADDON_FRONTEND_DIR);
   copyDir(TEMP_FRONTEND_PATH, NEW_ADDON_FRONTEND_DIR)
@@ -79,6 +94,11 @@ const copyFrontendAddonFragment = (temporaryAddonPath, name) => {
 
 const copyCliAddonFragment = (temporaryAddonPath, name) => {
   const TEMP_CLI_PATH = `${temporaryAddonPath}/cli`
+
+  if(!fs.existsSync(TEMP_CLI_PATH)){
+    return
+  }
+
   const NEW_ADDON_CLI_DIR = path.resolve(CLI_ADDONS_PATH, `./${name}`)
   fs.mkdirSync(NEW_ADDON_CLI_DIR);
   copyDir(TEMP_CLI_PATH, NEW_ADDON_CLI_DIR)
@@ -93,12 +113,33 @@ const copyDir = (src, dest) => {
 }
 
 const deletePackageJsons = (name) => {
-  fs.unlinkSync(`${CLI_ADDONS_PATH}/${name}/package.json`)
-  fs.unlinkSync(`${FRONTEND_ADDONS_PATH}/${name}/package.json`)
-  fs.unlinkSync(`${BACKEND_ADDONS_PATH}/${name}/package.json`)
-  fs.unlinkSync(`${CLI_ADDONS_PATH}/${name}/package-lock.json`)
-  fs.unlinkSync(`${FRONTEND_ADDONS_PATH}/${name}/package-lock.json`)
-  fs.unlinkSync(`${BACKEND_ADDONS_PATH}/${name}/package-lock.json`)
+  const CLI_ADDON_PATH = `${CLI_ADDONS_PATH}/${name}`
+  const BACKEND_ADDON_PATH = `${BACKEND_ADDONS_PATH}/${name}`
+  const FRONTEND_ADDON_PATH = `${FRONTEND_ADDONS_PATH}/${name}`
+
+  if(fs.existsSync(`${CLI_ADDON_PATH}/package.json`)){
+    fs.unlinkSync(`${CLI_ADDON_PATH}/package.json`)
+  }
+
+  if(fs.existsSync(`${CLI_ADDON_PATH}/package-lock.json`)){
+    fs.unlinkSync(`${CLI_ADDON_PATH}/package-lock.json`)
+  }
+
+  if(fs.existsSync(`${BACKEND_ADDON_PATH}/package.json`)){
+    fs.unlinkSync(`${BACKEND_ADDON_PATH}/package.json`)
+  }
+
+  if(fs.existsSync(`${BACKEND_ADDON_PATH}/package-lock.json`)){
+    fs.unlinkSync(`${BACKEND_ADDON_PATH}/package-lock.json`)
+  }
+
+  if(fs.existsSync(`${FRONTEND_ADDON_PATH}/package.json`)){
+    fs.unlinkSync(`${FRONTEND_ADDON_PATH}/package.json`)
+  }
+
+  if(fs.existsSync(`${FRONTEND_ADDON_PATH}/package-lock.json`)){
+    fs.unlinkSync(`${FRONTEND_ADDON_PATH}/package-lock.json`)
+  }
 }
 
 const getAddonName = async (temporaryAddonPath) => {
@@ -114,6 +155,12 @@ const getAddonName = async (temporaryAddonPath) => {
 
 const getPackageJson = async (temporaryAddonPath, resource) => {
   const tmpRepoPath = `../../../../${temporaryAddonPath}/${resource}/package.json`
+
+  if (!fs.existsSync(tmpRepoPath)) {
+    console.log(`No package.json found for ${resource}, skipping`)
+    return
+  }
+
   const { default: packageJson } = await import(tmpRepoPath, {
     assert: {
       type: "json",
@@ -128,7 +175,7 @@ const addAddon = async (data) => {
 
   shell.exec(`git clone --depth 1 ${data} ${temporaryAddonPath}`)
 
-  const name = await getAddonName(temporaryAddonPath)
+  const name = await getAddonName(temporaryAddonPath) // OR passed in name
 
   await installCliDependencies(temporaryAddonPath)
   await installBackendDependencies(temporaryAddonPath)
@@ -137,6 +184,8 @@ const addAddon = async (data) => {
   copyCliAddonFragment(temporaryAddonPath, name)
   copyBackendAddonFragment(temporaryAddonPath, name)
   copyFrontendAddonFragment(temporaryAddonPath, name)
+  // copy scripts addon fragment
+  // copy extensions addon fragment
 
   deletePackageJsons(name)
 }
