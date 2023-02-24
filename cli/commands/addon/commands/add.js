@@ -181,6 +181,21 @@ const copyExtensionsSrcAddonFragment = (temporaryAddonPath, name) => {
     });
 
   }
+
+  const themeAppExtensionAppBlockEntryPoint = path.join(NEW_ADDON_EXTENSIONS_SRC_DIR, 'src', 'blocks','app-block.liquid')
+
+  if(fs.existsSync(themeAppExtensionAppBlockEntryPoint)){
+    fs.readFile(themeAppExtensionAppBlockEntryPoint, 'utf-8', function(err, data){
+      if (err) throw err;
+
+      const newValue = data.replace('OSB_EXTENSION_NAME', name);
+
+      fs.writeFile(themeAppExtensionAppBlockEntryPoint, newValue, 'utf-8', function (err) {
+        if (err) throw err;
+      });
+    });
+
+  }
   // TODO, create clauses in here to handle UI and function toml files
 }
 
