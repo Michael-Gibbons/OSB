@@ -19,6 +19,9 @@ const FRONTEND_ADDONS_PATH = path.resolve(FRONTEND_PATH, './addons')
 const BACKEND_PATH = path.resolve(__dirname, '..', '..', '..', '..','./web/backend')
 const BACKEND_ADDONS_PATH = path.resolve(BACKEND_PATH, './addons')
 
+const SCRIPTS_PATH = path.resolve(__dirname, '..', '..', '..', '..')
+const SCRIPTS_ADDONS_PATH = path.resolve(SCRIPTS_PATH, 'scripts', 'addons')
+
 const addCommand =
 
 program.command('add')
@@ -121,6 +124,18 @@ const copyCliAddonFragment = (temporaryAddonPath, name) => {
   copyDir(TEMP_CLI_PATH, NEW_ADDON_CLI_DIR)
 }
 
+const copyScriptsAddonFragment = (temporaryAddonPath, name) => {
+  const TEMP_SCRIPTS_PATH = `${temporaryAddonPath}/scripts`
+
+  if(!fs.existsSync(TEMP_SCRIPTS_PATH)){
+    return
+  }
+
+  const NEW_ADDON_SCRIPTS_DIR = path.resolve(SCRIPTS_ADDONS_PATH, `./${name}`)
+  fs.mkdirSync(NEW_ADDON_SCRIPTS_DIR);
+  copyDir(TEMP_SCRIPTS_PATH, NEW_ADDON_SCRIPTS_DIR)
+}
+
 const copyDir = (src, dest) => {
   try {
     fse.copySync(src, dest, { overwrite: false })
@@ -188,7 +203,7 @@ const addAddon = async (url, name) => {
   copyCliAddonFragment(temporaryAddonPath, name)
   copyBackendAddonFragment(temporaryAddonPath, name)
   copyFrontendAddonFragment(temporaryAddonPath, name)
-  // copy scripts addon fragment
+  copyScriptsAddonFragment(temporaryAddonPath, name)
   // copy extensions addon fragment
 
   deletePackageJsons(name)

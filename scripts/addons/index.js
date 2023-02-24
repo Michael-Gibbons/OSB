@@ -10,12 +10,12 @@ const ADDONS_PATH = path.dirname(fileURLToPath(import.meta.url));
 const results = fs.readdirSync(ADDONS_PATH)
 const folders = results.filter(res => fs.lstatSync(path.resolve(ADDONS_PATH, res)).isDirectory())
 
-const addonLifecycleHookCommands = []
+const addonLifecycleCommands = []
 for (const folder of folders) {
-  const { LIFECYCLE_HOOKS } = await import(`./${folder}/lifecycle-commands.js`)
-  addonLifecycleHookCommands.push(LIFECYCLE_HOOKS)
+  const { LIFECYCLE_COMMANDS } = await import(`./${folder}/lifecycle-commands.js`)
+  addonLifecycleCommands.push(LIFECYCLE_COMMANDS)
 }
 
 export {
-  addonLifecycleHookCommands
+  addonLifecycleCommands
 }
