@@ -166,6 +166,22 @@ const copyExtensionsSrcAddonFragment = (temporaryAddonPath, name) => {
   const NEW_ADDON_EXTENSIONS_SRC_DIR = path.resolve(EXTENSIONS_SRC_ADDONS_PATH, name)
   fs.mkdirSync(NEW_ADDON_EXTENSIONS_SRC_DIR);
   copyDir(TEMP_EXTENSIONS_PATH, NEW_ADDON_EXTENSIONS_SRC_DIR)
+
+  const themeAppExtensionTomlFile = path.join(NEW_ADDON_EXTENSIONS_SRC_DIR, 'src', 'shopify.theme.extension.toml')
+
+  if(fs.existsSync(themeAppExtensionTomlFile)){
+    fs.readFile(themeAppExtensionTomlFile, 'utf-8', function(err, data){
+      if (err) throw err;
+
+      const newValue = data.replace('OSB_EXTENSION_NAME', name);
+
+      fs.writeFile(themeAppExtensionTomlFile, newValue, 'utf-8', function (err) {
+        if (err) throw err;
+      });
+    });
+
+  }
+  // TODO, create clauses in here to handle UI and function toml files
 }
 
 const copyDir = (src, dest) => {
