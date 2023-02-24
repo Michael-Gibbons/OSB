@@ -24,8 +24,25 @@ const addCommand =
 program.command('add')
   .argument('<url>', 'addon repository url')
   .description('Adds an addon from a repository url.')
-  .action( async (data) => {
-    await addAddon(data)
+  .option('--name <name>', 'Custom name for the addon, required to install multiple versions of the same addon')
+  .action( async (url, options) => {
+    const urlSplit = url.split('/')
+    let addonName = (urlSplit[urlSplit.length - 1]).split('.')[0]
+
+    if(options.name){
+      addonName = options.name
+    }
+
+    const CLI_ADDON_PATH = path.resolve(CLI_ADDONS_PATH, addonName)
+    const FRONTEND_ADDON_PATH = path.resolve(FRONTEND_ADDONS_PATH, addonName)
+    const BACKEND_ADDON_PATH = path.resolve(BACKEND_ADDONS_PATH, addonName)
+
+    const addonIsInstalled = fs.existsSync(CLI_ADDON_PATH) || fs.existsSync(BACKEND_ADDON_PATH) || fs.existsSync(FRONTEND_ADDON_PATH)
+    if(addonIsInstalled){
+      throw `ERROR: Addon with the name "${addonName}" is already installed`
+    }
+
+    await addAddon(url, addonName)
     fs.rmSync('./tmp', { recursive: true })
   })
 
@@ -142,17 +159,6 @@ const deletePackageJsons = (name) => {
   }
 }
 
-const getAddonName = async (temporaryAddonPath) => {
-  const tmpRepoPath = `../../../../${temporaryAddonPath}/package.json`
-  const { default: { name } } = await import(tmpRepoPath, {
-    assert: {
-      type: "json",
-    },
-  });
-
-  return name
-}
-
 const getPackageJson = async (temporaryAddonPath, resource) => {
   const tmpRepoPath = `../../../../${temporaryAddonPath}/${resource}/package.json`
 
@@ -170,12 +176,10 @@ const getPackageJson = async (temporaryAddonPath, resource) => {
   return packageJson
 }
 
-const addAddon = async (data) => {
+const addAddon = async (url, name) => {
   const temporaryAddonPath = `./tmp/${crypto.randomUUID()}`
 
-  shell.exec(`git clone --depth 1 ${data} ${temporaryAddonPath}`)
-
-  const name = await getAddonName(temporaryAddonPath) // OR passed in name
+  shell.exec(`git clone --depth 1 ${url} ${temporaryAddonPath}`)
 
   await installCliDependencies(temporaryAddonPath)
   await installBackendDependencies(temporaryAddonPath)
