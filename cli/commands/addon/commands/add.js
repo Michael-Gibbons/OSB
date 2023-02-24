@@ -36,7 +36,8 @@ program.command('add')
     let addonName = (urlSplit[urlSplit.length - 1]).split('.')[0]
 
     if(options.name){
-      addonName = options.name
+      const sluggedName = options.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, '').replace(/^-/, '')
+      addonName = sluggedName
     }
 
     const CLI_ADDON_PATH = path.resolve(CLI_ADDONS_PATH, addonName)
