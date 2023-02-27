@@ -8,9 +8,11 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const CLI_ADDONS_PATH = path.resolve(__dirname, '..', '..', '..', './addons')
-const FRONTEND_ADDONS_PATH = path.resolve(__dirname, '..', '..', '..', '..','./web/frontend', './addons')
-const BACKEND_ADDONS_PATH = path.resolve(__dirname, '..', '..', '..', '..','./web/backend', './addons')
+const CLI_ADDONS_PATH = path.resolve(__dirname, '../../..', 'addons')
+const FRONTEND_ADDONS_PATH = path.resolve(__dirname, '../../../..', 'web', 'frontend', 'addons')
+const BACKEND_ADDONS_PATH = path.resolve(__dirname, '../../../..', 'web', 'backend', 'addons')
+const SCRIPTS_ADDONS_PATH = path.resolve(__dirname, '../../../..', 'scripts', 'addons')
+const EXTENSIONS_ADDONS_PATH = path.resolve(__dirname, '../../../..', 'web', 'extensions', 'addons')
 
 const newCommand =
 
@@ -23,25 +25,35 @@ program.command('remove')
 
 const removeDir = (dir) => {
   try {
-    fs.rmdirSync(dir, { recursive: true })
+    fs.rmSync(dir, { recursive: true })
   } catch (err) {
-    console.error(`Error while deleting ${dir}.`)
+    // Intentionally no log here, if the directory doesn't exist that is fine
   }
 }
 
 const removeCliAddonFragment = (name) => {
-  const ADDON_CLI_DIR = path.resolve(CLI_ADDONS_PATH, `./${name}`)
+  const ADDON_CLI_DIR = path.resolve(CLI_ADDONS_PATH, name)
   removeDir(ADDON_CLI_DIR)
 }
 
 const removeFrontendAddonFragment = (name) => {
-  const ADDON_FRONTEND_DIR = path.resolve(FRONTEND_ADDONS_PATH, `./${name}`)
+  const ADDON_FRONTEND_DIR = path.resolve(FRONTEND_ADDONS_PATH, name)
   removeDir(ADDON_FRONTEND_DIR)
 }
 
 const removeBackendAddonFragment = (name) => {
-  const ADDON_BACKEND_DIR = path.resolve(BACKEND_ADDONS_PATH, `./${name}`)
+  const ADDON_BACKEND_DIR = path.resolve(BACKEND_ADDONS_PATH, name)
   removeDir(ADDON_BACKEND_DIR)
+}
+
+const removeScriptsAddonFragment = (name) => {
+  const ADDON_SCRIPTS_DIR = path.resolve(SCRIPTS_ADDONS_PATH, name)
+  removeDir(ADDON_SCRIPTS_DIR)
+}
+
+const removeExtensionsAddonFragment = (name) => {
+  const ADDON_EXTENSION_DIR = path.resolve(EXTENSIONS_ADDONS_PATH, name)
+  removeDir(ADDON_EXTENSION_DIR)
 }
 
 const removeAddon = (name) => {
@@ -49,6 +61,8 @@ const removeAddon = (name) => {
   removeCliAddonFragment(sluggedName)
   removeFrontendAddonFragment(sluggedName)
   removeBackendAddonFragment(sluggedName)
+  removeScriptsAddonFragment(sluggedName)
+  removeExtensionsAddonFragment(sluggedName)
 }
 
 export default newCommand

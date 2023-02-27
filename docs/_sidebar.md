@@ -35,8 +35,12 @@
   - [Pages](./frontend/pages.md)
   - [Shop Settings](./frontend/shop-settings.md)
 
+- Addons
+  - [Overview](./addons/overview.md)
+  - [Cli Commands](./addons/cli-commands.md)
+  - [Structure](./addons/structure.md)
+  - [Useful Addons](./addons/useful-addons.md)
 - Extending your application
-  - [Addons](./extending-your-application/addons.md)
   - [Theme App Extensions](./extending-your-application/theme-app-extensions.md)
   - [App Extensions](./extending-your-application/app-extensions.md)
   - [App Proxies](./extending-your-application/app-proxies.md)
