@@ -4,14 +4,6 @@ This template uses the very popular [commander](https://www.npmjs.com/package/co
 
 Out of the box, the OSB cli has these commands.
 
-## init
-
-This command is typically only invoked once at the beginning of one's local development. It will prompt you for your Postgres database and schema names, create a .env, and perform the initial prisma migration for you.
-
-```
-npm run osb init
-```
-
 ## log
 
 This command is typically only invoked concurrently with `npm run dev`. It creates 2 new files, `log.log` and `log-old.log`. The logger service uses these files to log out colorized data from your shopify application.

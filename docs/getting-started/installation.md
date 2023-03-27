@@ -15,18 +15,12 @@ This command will download the template and prompt you for the name of your app.
 ---
 
 ```
-npm run osb init
+npm run dev
 ```
 
 This command will prompt you for your Postgres local database and schema names, create an env file in `/web/backend`, and initialize the database.
 
----
-
-```
-npm run dev
-```
-
-This final command installs your app. The shopify cli may ask you to authenticate and it will install some packages, typical setup stuff. If any of your environment variables are incorrect an error will be thrown when running the `dev` script, using the [envalid](https://www.npmjs.com/package/envalid) package. Very handy.
+Once the database is set up, the shopify dev command is run which installs your app. The shopify cli may ask you to authenticate and it will install some packages, typical setup stuff. If any of your environment variables are incorrect an error will be thrown when running the `dev` script, using the [envalid](https://www.npmjs.com/package/envalid) package. Very handy.
 
 Once you fix any errors relating to the environment variables, go to the Shopify Partners admin, click on the app you just created and install it on a test store.
 
@@ -47,10 +41,6 @@ git clone https://github.com/path/to/your/app/repo.git
 
 ```
 npm install
-```
-
-```
-npm run osb init
 ```
 
 ```
