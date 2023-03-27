@@ -20,8 +20,8 @@
     "prune-branches": "git checkout main && git pull && git branch --merged | grep -v \\* | xargs git branch -D && git fetch --prune"
   },
   "dependencies": {
-    "@shopify/app": "^3.23.0",
-    "@shopify/cli": "^3.23.0",
+    "@shopify/app": "^3.44.1",
+    "@shopify/cli": "^3.44.1",
     "commander": "^10.0.0",
     "fs-extra": "^11.1.0",
     "inquirer": "^9.1.4",
