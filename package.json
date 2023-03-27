@@ -8,6 +8,7 @@
   "scripts": {
     "shopify": "shopify",
     "build": "node ./scripts/build.js && shopify app build",
+    "push-extensions": "node ./scripts/build.js && npm run deploy",
     "dev": "node ./scripts/build.js && npm run osb init && concurrently --kill-others --raw \"node ./scripts/dev.js\" \"shopify app dev\"",
     "info": "shopify app info",
     "generate": "shopify app generate",
@@ -19,8 +20,8 @@
     "prune-branches": "git checkout main && git pull && git branch --merged | grep -v \\* | xargs git branch -D && git fetch --prune"
   },
   "dependencies": {
-    "@shopify/app": "^3.23.0",
-    "@shopify/cli": "^3.23.0",
+    "@shopify/app": "^3.44.1",
+    "@shopify/cli": "^3.44.1",
     "commander": "^10.0.0",
     "fs-extra": "^11.1.0",
     "inquirer": "^9.1.4",

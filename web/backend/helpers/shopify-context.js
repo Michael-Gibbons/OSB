@@ -3,6 +3,9 @@ dotenv.config()
 
 import { Shopify, LATEST_API_VERSION } from "@shopify/shopify-api";
 
+import { resolve } from 'path'
+import fs from 'fs'
+
 Shopify.Context.initialize({
   API_KEY: process.env.SHOPIFY_API_KEY,
   API_SECRET_KEY: process.env.SHOPIFY_API_SECRET,
@@ -23,5 +26,13 @@ Shopify.Context.initialize({
 // required for the app_installations.js component in this template to
 // work properly.
 
+// Writes host to file on dev so addons can have access to the dynamic ngrok url at all stages in build
+if(process.env.NODE_ENV === 'development'){
+  const HOST_TEXT_FILE_PATH = resolve('../../HOST.txt')
 
+  fs.writeFile(HOST_TEXT_FILE_PATH, process.env.HOST, function (err) {
+    if (err) throw err;
+  });
+
+}
 export default Shopify
