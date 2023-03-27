@@ -42,8 +42,10 @@ const createBackendEnv = async (answers) => {
 const envInit = () => {
 
   if (fs.existsSync(TARGET_ENV_PATH)) {
-    throw new Error(".env file already exists, I won't overwrite your existing env. You're welcome")
+    return
   }
+
+  console.log("No backend env file detected initiating first time setup")
 
   inquirer
   .prompt([
