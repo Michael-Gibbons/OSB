@@ -10,7 +10,7 @@ const TARGET_ENV_PATH = './web/backend/.env'
 
 const createBackendEnv = async (answers) => {
 
-  const { name } = answers
+  const { name, userName, userPass, userPort } = answers
 
   console.log("Creating your env in /web/backend")
   await fs.readFile(ENV_EXAMPLE_PATH, 'utf8', function (err,data) {
@@ -18,7 +18,10 @@ const createBackendEnv = async (answers) => {
       return console.log(err);
     }
 
-    const result = data.replace(/DATABASE_NAME/g, name)
+    let result = data.replace(/DATABASE_NAME/g, name)
+    result = result.replace(/DB_USER_NAME/g, userName)
+    result = result.replace(/DB_USER_PASSWORD/g, userPass)
+    result = result.replace(/DB_PORT/g, userPort)
 
     fs.writeFile(TARGET_ENV_PATH, result, 'utf8', function (err) {
        if (err) return console.log(err);
@@ -47,8 +50,26 @@ const envInit = () => {
     {
       type: "input",
       message: "What is your Postgres Database Name? (Note: NOT the schema)",
-      name: "name"
-    }
+      name: "name",
+    },
+    {
+      type: "input",
+      message: "What is your Postgres User Name?",
+      name: "userName",
+      default: 'postgres'
+    },
+    {
+      type: "input",
+      message: "What is your Postgres Database Password?",
+      name: "userPass",
+      default: 'admin',
+    },
+    {
+      type: "input",
+      message: "What is your Postgres Database Port?",
+      name: "userPort",
+      default: '5432',
+    },
   ])
   .then((answers) => {
     createBackendEnv(answers)
