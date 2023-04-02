@@ -82,12 +82,12 @@ export async function createServer() {
 
   app.use(httpLogger())// Logs all http requests sent to this server.
 
+  // Register all backend portions of addons
+  await registerBackendAddons({ app })
+
   // Defines all routes created in /api. All Routes here will have access to req.body
   // If a route is meant to be accessed from the shopify admin app interface, use the verifyRequest middleware on the route in question.
   await createApiV1(app)
-
-  // Register all backend portions of addons
-  registerBackendAddons({ app })
 
   routeLogger(app) // Logs all registered routes
 

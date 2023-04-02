@@ -39,3 +39,5 @@ tmp/
 
 # Host txt file used to pass dynamic ngrok url to addons
 HOST.txt
+
+*.jsonl
