@@ -1,6 +1,6 @@
 # Demo
 
-## [Check Out The Docs!](https://michaelgibbons.info/OSB/#/) (down currently due to domain error, will fix asap)
+## [Check Out The Docs!](https://michael-gibbons.com/OSB/#/)
 
 ##  A full featured, production ready Shopify application with all the development utilities you could want!
 
