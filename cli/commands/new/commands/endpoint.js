@@ -24,12 +24,12 @@ program.command('endpoint')
     .prompt([
       {
         type: "input",
-        message: "Please enter the pluralized name for your resource. (bundles, orders, customers, etc)",
+        message: "Please enter the pluralized name for your resource. (bundles, orders, etc)",
         name: "name",
       },
       {
-        type: "checkbox",
-        message: "Is this an external API endpoint meant to be accessed outside the shopify admin?",
+        type: "confirm",
+        message: "Is this an external API endpoint to be accessed outside the shopify admin?",
         name: "isExternalEndpoint",
         default: false
       }
