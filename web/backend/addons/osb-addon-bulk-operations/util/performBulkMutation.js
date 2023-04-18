@@ -1,0 +1,7 @@
+const performBulkMutation = () => {
+
+}
+
+export {
+  performBulkMutation
+}
