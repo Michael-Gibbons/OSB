@@ -6,7 +6,7 @@ import { pathToFileURL } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const RESOURCE_SCHEMAS_LOCATION = '../schemas/resources/'
+const RESOURCE_SCHEMAS_LOCATION = '../schemas/inputs/'
 const dirPath = path.resolve(__dirname, RESOURCE_SCHEMAS_LOCATION);
 
 const buildSchemaDependencies = async () => {
