@@ -1,6 +1,9 @@
 import OpenAPIRequestValidator from 'openapi-request-validator';
 const OpenAPIRequestValidatorConstructor = OpenAPIRequestValidator.default
 
+import buildAllSchemas from '../util/buildAllSchemas.js';
+const schemas = buildAllSchemas()
+
 function validateAllRequests(req, res, next){
   const parameters = req.operationDoc.parameters
 
@@ -8,7 +11,9 @@ function validateAllRequests(req, res, next){
     next()
   }
 
-  const requestValidator = new OpenAPIRequestValidatorConstructor({ parameters });
+  const requestBody = req.operationDoc.requestBody
+
+  const requestValidator = new OpenAPIRequestValidatorConstructor({ parameters, requestBody, schemas });
 
   const errors = requestValidator.validateRequest(req)
   if (errors) {
