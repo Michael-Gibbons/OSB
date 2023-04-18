@@ -101,7 +101,7 @@ export default function (__LOWERCASE_PLURALIZED_NAME__Service) {
   const commonMiddleware = []
 
   const isExternalEndpoint = __IS_EXTERNAL_ENDPOINT__ // set by cli command
-  if(isExternalEndpoint){
+  if(!isExternalEndpoint){
     // this middleware verifies that the request came from the shopify admin
     // if you are making an api endpoint meant to be accessed outside of shopify you should not apply this middleware
     commonMiddleware.push(verifyRequest())
