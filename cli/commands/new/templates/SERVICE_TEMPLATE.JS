@@ -23,7 +23,7 @@ const delete__UPPERCASE_SINGULAR_NAME__ = (req, res) => {// Used in singleton DE
   const { id } = req.params.id
 }
 
-export {
+export default {
   get__UPPERCASE_PLURALIZED_NAME__,
   post__UPPERCASE_PLURALIZED_NAME__,
   get__UPPERCASE_SINGULAR_NAME__,
