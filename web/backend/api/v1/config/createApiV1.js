@@ -5,10 +5,17 @@ import validateAllResponses from '../middleware/validateAllResponses.js'
 
 import buildServiceDependencies from '../util/buildServiceDependencies.js';
 
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 // Takes all files in '/api/v1/services/' and adds them to the api
 const serviceDependencies = await buildServiceDependencies()
 
 const createApiV1 = async (app) => {
+
+  const PATHS_PATH = path.resolve(__dirname, '../paths')
 
   const apiLimiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
@@ -28,7 +35,7 @@ const createApiV1 = async (app) => {
     dependencies: {
       ...serviceDependencies
     },
-    paths: './api/v1/paths',
+    paths: PATHS_PATH,
     promiseMode: true,
   });
 
