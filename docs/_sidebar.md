@@ -8,7 +8,6 @@
 - Project Structure
   - [Introduction](./project-structure/introduction.md)
   - [Development Flow](./project-structure/development-flow.md)
-  - [CLI](./project-structure/cli.md)
   - [Updating OSB](./project-structure/updating-osb.md)
   - [Contribution](./project-structure/contribution.md)
   - [Getting Ready for production!](./project-structure/getting-ready-for-production.md)
@@ -35,12 +34,21 @@
   - [Pages](./frontend/pages.md)
   - [Shop Settings](./frontend/shop-settings.md)
 
+- CLI
+  - [Overview](./cli/overview.md)
+  - [Addons](./cli/addons-cli-commands.md)
+  - [API Endpoint](./cli/endpoint.md)
+
 - Addons
   - [Overview](./addons/overview.md)
   - [Cli Commands](./addons/cli-commands.md)
   - [Structure](./addons/structure.md)
   - [Useful Addons](./addons/useful-addons.md)
+
 - Extending your application
   - [Theme App Extensions](./extending-your-application/theme-app-extensions.md)
   - [App Extensions](./extending-your-application/app-extensions.md)
   - [App Proxies](./extending-your-application/app-proxies.md)
+
+- Other
+  - [FAQ](./other/FAQ.md)
