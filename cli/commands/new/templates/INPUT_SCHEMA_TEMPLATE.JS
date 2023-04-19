@@ -6,3 +6,5 @@ const __UPPERCASE_PLURALIZED_NAME__Input = {
 
   }
 }
+
+export default __UPPERCASE_PLURALIZED_NAME__Input
