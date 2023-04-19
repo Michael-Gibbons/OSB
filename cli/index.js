@@ -9,6 +9,7 @@ const program = new Command();
 import logCommand from './log.js';
 import initCommand from './init.js';
 import addonCommand from './commands/addon/addon.js';
+import newCommand from './commands/new/new.js';
 
 import { registerCliAddons } from './addons/index.js';
 
@@ -21,6 +22,7 @@ program
 program.addCommand(logCommand)
 program.addCommand(initCommand)
 program.addCommand(addonCommand)
+program.addCommand(newCommand)
 
 await registerCliAddons({ program })
 

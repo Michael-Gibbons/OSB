@@ -1,1 +1,0 @@
-// This is where all your business-logic-specific resource schemas will go
