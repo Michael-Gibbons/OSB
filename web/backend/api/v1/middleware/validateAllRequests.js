@@ -18,7 +18,15 @@ function validateAllRequests(req, res, next){
   const errors = requestValidator.validateRequest(req)
   if (errors) {
     res.status(errors.status).send({ errors: errors.errors.map((error, index) => {
-      return { id: (index + 1).toString(), status: errors.status.toString(), title: error.errorCode, detail: error.message }
+      return {
+        id: (index + 1).toString(),
+        status: errors.status.toString(),
+        title: error.errorCode,
+        detail: error.message,
+        source: {
+          parameter: error.path
+        }
+      }
     })})
 
     return
