@@ -5,17 +5,17 @@ import loadOfflineSession from "@shopify/shopify-api/dist/utils/load-offline-ses
 import Shopify from "../../helpers/shopify-context.js";
 
 const CREATE_PRODUCTS_MUTATION = `
-mutation productCreate($input: ProductInput!) {
-  productCreate(input: $input) {
-    product {
-      id
-    }
-    userErrors {
-      field
-      message
+  mutation productCreate($input: ProductInput!) {
+    productCreate(input: $input) {
+      product {
+        id
+      }
+      userErrors {
+        field
+        message
+      }
     }
   }
-}
 `
 
 const createProductsInput = [
