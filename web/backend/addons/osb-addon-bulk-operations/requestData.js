@@ -4,37 +4,32 @@ import prisma from "../../prisma/index.js";
 import loadOfflineSession from "@shopify/shopify-api/dist/utils/load-offline-session.js";
 import Shopify from "../../helpers/shopify-context.js";
 
-const PRODUCTS_QUERY = `
-{
-  products {
-    edges {
-      node {
-        id
-        createdAt
-        updatedAt
-        title
-        handle
-        descriptionHtml
-        productType
-        options {
-          name
-          position
-          values
-        }
-        priceRange {
-          minVariantPrice {
-            amount
-            currencyCode
-          }
-          maxVariantPrice {
-            amount
-            currencyCode
-          }
-        }
-      }
+const CREATE_PRODUCTS_MUTATION = `
+mutation productCreate($input: ProductInput!) {
+  productCreate(input: $input) {
+    product {
+      id
+    }
+    userErrors {
+      field
+      message
     }
   }
-}`
+}
+`
+
+const createProductsInput = [
+  { "input": { "title": "Sweet new snowboard 1", "productType": "Snowboard", "vendor": "JadedPixel" } },
+  { "input": { "title": "Sweet new snowboard 2", "productType": "Snowboard", "vendor": "JadedPixel" } },
+  { "input": { "title": "Sweet new snowboard 3", "productType": "Snowboard", "vendor": "JadedPixel" } },
+  { "input": { "title": "Sweet new snowboard 4", "productType": "Snowboard", "vendor": "JadedPixel" } },
+  { "input": { "title": "Sweet new snowboard 5", "productType": "Snowboard", "vendor": "JadedPixel" } },
+  { "input": { "title": "Sweet new snowboard 6", "productType": "Snowboard", "vendor": "JadedPixel" } },
+  { "input": { "title": "Sweet new snowboard 7", "productType": "Snowboard", "vendor": "JadedPixel" } },
+  { "input": { "title": "Sweet new snowboard 8", "productType": "Snowboard", "vendor": "JadedPixel" } },
+  { "input": { "title": "Sweet new snowboard 9", "productType": "Snowboard", "vendor": "JadedPixel" } },
+  { "input": { "title": "Sweet new snowboard 10", "productType": "Snowboard", "vendor": "JadedPixel" } },
+]
 
 const requestData = () => {
   // Handle bulk data requests here by using the performBulkQuery and performBulkMutation functions
@@ -45,11 +40,17 @@ const requestData = () => {
     for (const shop of shops) {
       const offlineSession = await loadOfflineSession.default(shop.id)
       const gqlClient = new Shopify.Clients.Graphql(shop.id, offlineSession.accessToken)
-      performBulkQuery({
+      // performBulkQuery({
+      //   gqlClient,
+      //   query: PRODUCTS_QUERY,
+      //   key: 'products'
+      // })// query key 'products' used in register.js
+      performBulkMutation({
         gqlClient,
-        query: PRODUCTS_QUERY,
-        key: 'products'
-      })// query key 'products' used in register.js
+        mutation: CREATE_PRODUCTS_MUTATION,
+        variables: createProductsInput,
+        key: 'products',
+      })
     }
   });
 

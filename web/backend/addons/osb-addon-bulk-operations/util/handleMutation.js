@@ -1,7 +1,0 @@
-const handleMutation = () => {
-
-}
-
-export {
-  handleMutation
-}

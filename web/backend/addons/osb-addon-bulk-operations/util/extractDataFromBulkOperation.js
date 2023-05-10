@@ -1,13 +1,9 @@
 import fs from 'fs'
 import { downloadFile } from './downloadFile.js'
 import readline from 'readline'
+const OUTPUT_FILE = './bulkOperationOutput.jsonl'
 
-import loadOfflineSession from "@shopify/shopify-api/dist/utils/load-offline-session.js";
-import { Shopify } from '@shopify/shopify-api';
-
-const handleQuery = async (shop, bulkOperationId) => {
-  const offlineSession = await loadOfflineSession.default(shop)
-  const gqlClient = new Shopify.Clients.Graphql(shop, offlineSession.accessToken)
+const extractDataFromBulkOperation = async (gqlClient, bulkOperationId) => {
 
   const BULK_OPERATION_QUERY = `query {
     node(id: "${bulkOperationId}") {
@@ -26,9 +22,11 @@ const handleQuery = async (shop, bulkOperationId) => {
 
   const bulkOperationData = bulkOperation.body.data.node
 
-  await downloadFile(bulkOperationData.url, './data.jsonl')
+  fs.unlinkSync(OUTPUT_FILE)
 
-  const fileStream = fs.createReadStream('./data.jsonl');
+  await downloadFile(bulkOperationData.url, OUTPUT_FILE)
+
+  const fileStream = fs.createReadStream(OUTPUT_FILE);
 
   const rl = readline.createInterface({
     input: fileStream,
@@ -44,5 +42,5 @@ const handleQuery = async (shop, bulkOperationId) => {
 }
 
 export {
-  handleQuery
+  extractDataFromBulkOperation
 }

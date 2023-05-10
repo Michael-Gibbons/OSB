@@ -1,27 +1,29 @@
+import path from 'path'
+import fs from 'fs'
+
 const performBulkQuery = async ({ gqlClient, query, key }) => {
-  const BULK_QUERY = `mutation {
-    bulkOperationRunQuery(
-      query:"""${query}"""
-    ) {
-      bulkOperation {
-        id
+  const HOST_PATH = path.resolve(process.cwd(), '../../', 'HOST.txt')
+  const host = fs.readFileSync(HOST_PATH, {encoding:'utf8', flag:'r'});
+
+  const CURRENT_BULK_OPERATION = `
+    query BulkOperation {
+      currentBulkOperation{
         status
       }
-      userErrors {
-        field
-        message
-      }
     }
-  }`
-
-  await gqlClient.query({
+  `
+  
+  const currentBulkOperation = await gqlClient.query({
     data: {
-      query: BULK_QUERY
+      query: CURRENT_BULK_OPERATION,
     },
   });
 
-  const HOST_PATH = path.resolve(process.cwd(), '../../', 'HOST.txt')
-  const host = fs.readFileSync(HOST_PATH, {encoding:'utf8', flag:'r'});
+  const currentBulkOperationStatus = currentBulkOperation.body.data.currentBulkOperation.status
+
+  if(currentBulkOperationStatus === 'RUNNING'){
+    throw new Error("Bulk Operation Collision! Shopify enforces a limit of one bulk operation at a time.")
+  }
 
   const WEBHOOK_SUBSCRIPTION_QUERY = `mutation {
     webhookSubscriptionCreate(
@@ -40,13 +42,32 @@ const performBulkQuery = async ({ gqlClient, query, key }) => {
     }
   }`
 
-  gqlClient.query({
+  await gqlClient.query({
     data: {
       query: WEBHOOK_SUBSCRIPTION_QUERY
     },
   });
 
-  return 'OK'
+  const BULK_QUERY = `mutation {
+    bulkOperationRunQuery(
+      query:"""${query}"""
+    ) {
+      bulkOperation {
+        id
+        status
+      }
+      userErrors {
+        field
+        message
+      }
+    }
+  }`
+
+  return gqlClient.query({
+    data: {
+      query: BULK_QUERY
+    },
+  });
 }
 
 export {
