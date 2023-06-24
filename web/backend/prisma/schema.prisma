@@ -21,3 +21,22 @@ model Settings {
   shop   Shop @relation(fields: [shopId], references: [id], onDelete: Cascade)
   shopId String  @unique
 }
+
+model Session {
+  id String @id
+  shop String
+  state String
+  isOnline Boolean
+  accessToken String
+  scope String?
+  expires DateTime?
+  associated_user_scope String?
+  associated_user_id BigInt?
+  associated_user_first_name String?
+  associated_user_last_name String?
+  associated_user_email String?
+  associated_user_locale String?
+  associated_user_email_verified Boolean?
+  associated_user_account_owner Boolean?
+  associated_user_collaborator Boolean?
+}

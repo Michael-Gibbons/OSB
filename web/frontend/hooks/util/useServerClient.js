@@ -1,18 +1,10 @@
 import axios from 'axios'
 import { useAppBridge } from "@shopify/app-bridge-react";
-import { getSessionToken, authenticatedFetch } from "@shopify/app-bridge-utils";
+import { getSessionToken } from "@shopify/app-bridge-utils";
 import { Redirect } from "@shopify/app-bridge/actions";
-import { useQuery } from 'react-query';
 
 export function useServerClient(axiosOptions = {}){
   const app = useAppBridge();
-  const fetchFunction = authenticatedFetch(app);
-
-  const { refetch: authCheck } = useQuery('authCheck', () => {
-    return fetchFunction('/api/authCheck').then((response) => { // Axios does not update response headers for some reason, so on 403 we're using a regular fetch to verify the headers we need to redirect to auth
-      checkHeadersForReauthorization(response.headers, app);
-    });
-  }, {enabled: false, retry: false})
 
   function checkHeadersForReauthorization(headers, app) {
     if (headers.get("X-Shopify-API-Request-Failure-Reauthorize") === "1") {
@@ -51,15 +43,6 @@ export function useServerClient(axiosOptions = {}){
     });
   });
 
-  serverClient.interceptors.request.use(function (config) {
-    return getSessionToken(app) // requires a Shopify App Bridge instance
-      .then((token) => {
-        // Append your request headers with an authenticated token
-        config.headers["Authorization"] = `Bearer ${token}`;
-        return config;
-      });
-    });
-
   serverClient.interceptors.response.use(function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
@@ -69,8 +52,10 @@ export function useServerClient(axiosOptions = {}){
     // Do something with response error
 
     if (error.response.status === 403) {
-      authCheck()
+      checkHeadersForReauthorization(error.response.headers, app)
     }
+
+    return Promise.reject(error);
   });
 
   return serverClient

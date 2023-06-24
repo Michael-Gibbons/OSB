@@ -16,6 +16,7 @@
     "start": "npm run migrate && node web/backend/index.js",
     "osb": "node ./cli/index.js",
     "migrate": "cd web/backend && npx prisma migrate deploy",
+    "migrate-dev": "cd web/backend && npx prisma migrate diff --from-empty --to-schema-datamodel ./prisma/schema.prisma --script > ./prisma/migrations/000000000000_squashed_migrations/migration.sql && npx prisma migrate dev",
     "update-package-lock": "npm i --package-lock-only && cd web/frontend && npm i --package-lock-only && cd ../.. && cd web/backend && npm i --package-lock-only",
     "prune-branches": "git checkout main && git pull && git branch --merged | grep -v \\* | xargs git branch -D && git fetch --prune"
   },

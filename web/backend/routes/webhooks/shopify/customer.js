@@ -1,5 +1,5 @@
 import Shopify from '../../../helpers/shopify-context.js'
-import loadOfflineSession from "@shopify/shopify-api/dist/utils/load-offline-session.js";
+// import loadOfflineSession from "@shopify/shopify-api/dist/utils/load-offline-session.js";// TODO: fix
 
 const ACTIVE_WEBHOOKS = [
   // {

@@ -1,5 +1,5 @@
 import { Shopify } from "@shopify/shopify-api";
-import { gdprTopics } from "@shopify/shopify-api/dist/webhooks/registry.js";
+import { gdprTopics } from "@shopify/shopify-api";
 import logger from "../services/logger/index.js";
 
 export default async function registerShopifyWebhooks(session){

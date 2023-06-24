@@ -1,5 +1,5 @@
-import { Shopify } from "@shopify/shopify-api";
-import loadOfflineSession from "@shopify/shopify-api/dist/utils/load-offline-session.js";
+import shopify from "./shopify-context.js";
+import { loadSession } from "./session.js";
 
 export default async function redirectToAuth(req, res, app = {}) {
   if (!req.query.shop) {
@@ -11,7 +11,8 @@ export default async function redirectToAuth(req, res, app = {}) {
     return clientSideRedirect(req, res);
   }
 
-  const offlineSession = await loadOfflineSession.default(req.query.shop)
+  const offlineSessionId = await shopify.session.getOfflineId(req.query.shop);
+  const offlineSession = await loadSession(offlineSessionId)
 
   if(!offlineSession){
     return await offlineServerSideRedirect(req, res, app)
@@ -21,7 +22,7 @@ export default async function redirectToAuth(req, res, app = {}) {
 }
 
 function clientSideRedirect(req, res) {
-  const shop = Shopify.Utils.sanitizeShop(req.query.shop);
+  const shop = req.query.shop
   const redirectUriParams = new URLSearchParams({
     shop,
     host: req.query.host,
@@ -29,32 +30,28 @@ function clientSideRedirect(req, res) {
   const queryParams = new URLSearchParams({
     ...req.query,
     shop,
-    redirectUri: `https://${Shopify.Context.HOST_NAME}/api/auth?${redirectUriParams}`,
+    redirectUri: `https://${shopify.config.hostName}/api/auth?${redirectUriParams}`,
   }).toString();
 
   return res.redirect(`/exitiframe?${queryParams}`);
 }
 
 async function serverSideRedirect(req, res, app) {
-  const redirectUrl = await Shopify.Auth.beginAuth(
-    req,
-    res,
-    req.query.shop,
-    "/api/auth/callback",
-    true
-  );
-
-  return res.redirect(redirectUrl);
+  await shopify.auth.begin({
+    rawRequest: req,
+    rawResponse: res,
+    shop: req.query.shop,
+    callbackPath: "/api/auth/callback",
+    isOnline: true
+  });
 }
 
 async function offlineServerSideRedirect(req, res, app) {
-  const redirectUrl = await Shopify.Auth.beginAuth(
-    req,
-    res,
-    req.query.shop,
-    "/api/auth/callback",
-    false
-  );
-
-  return res.redirect(redirectUrl);
+  await shopify.auth.begin({
+    rawRequest: req,
+    rawResponse: res,
+    shop: req.query.shop,
+    callbackPath: "/api/auth/callback",
+    isOnline: false
+  });
 }

@@ -21,7 +21,7 @@ cleanEnv(process.env, {
 import express from "express";
 import requestID from 'express-request-id'
 import cookieParser from "cookie-parser";
-import Shopify from "./helpers/shopify-context.js";
+import shopify from "./helpers/shopify-context.js";
 
 import applyAuthMiddleware from "./middleware/auth.js";
 import setSecurityPolicy from './middleware/set-security-policy.js';
@@ -32,7 +32,6 @@ import errorHandler from './middleware/error-handler.js';
 
 import './redis/index.js'
 import './services/webhook-manager/index.js'
-import logger from './services/logger/index.js';
 import httpLogger from './middleware/httpLogger.js';
 
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
@@ -43,6 +42,7 @@ import routeLogger from './helpers/routeLogger.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { readFileSync } from "fs";
+import cors from 'cors'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -55,16 +55,33 @@ const STATIC_INDEX_FILE = path.join(STATIC_PATH, 'index.html')
 
 import { registerBackendAddons } from './addons/index.js';
 
-// export for test use only
-export async function createServer() {
+import logger from './services/logger/index.js';
+// Use the logger >:(
+// logger.warn('my super cool warning', {someError: 'hey this is some warning data'})
+// logger.error('my super cool error', {someError: 'hey this is some error data'})
+// logger.debug('my super cool debug', {someError: 'hey this is some debug data'})
+// logger.info('my super cool info', {someError: 'hey this is some info data'})
+
+async function createServer() {
   const app = express();
+
+  // Expose Auth failure headers so the client side knows when to redirect to auth.
+  app.use(cors(
+    {
+      exposedHeaders: ["X-Shopify-API-Request-Failure-Reauthorize", "X-Shopify-API-Request-Failure-Reauthorize-Url"]
+    }
+  ))
 
   app.use(requestID())// Generates unique id for every request for logging and debugging purposes
 
-  // Makes Cookies accessible to the Shopify context, using the API_SECRET_KEY to sign the cookies
-  app.use(cookieParser(Shopify.Context.API_SECRET_KEY));
+  // Makes Cookies accessible to the shopify context, using the API_SECRET_KEY to sign the cookies
+  app.use(cookieParser(shopify.config.apiSecretKey));
 
-  // Defines /auth routes for Shopify's OAuth handshake
+  // All endpoints after this point will have access to a request.body
+  // attribute, as a result of the express.json() middleware
+  app.use(express.json());
+
+  // Defines /auth routes for shopify's OAuth handshake
   applyAuthMiddleware(app, {
     billing: BILLING_SETTINGS,
   });
@@ -72,13 +89,8 @@ export async function createServer() {
   // Prevents iframes from being injected into the shopify admin.
   app.use(setSecurityPolicy);
 
-  // Shopify Webhooks included in here, do not use body parsers on this router, ie this goes before express.json().
-  // If you're using routes that do require the express.json() middleware in here, simply apply it as needed directly on the route, making sure it is *not* applied to the shopify webhook route.
+  // Applies all defined routes
   app.use("/", rootRouter)
-
-  // All endpoints after this point will have access to a request.body
-  // attribute, as a result of the express.json() middleware
-  app.use(express.json());
 
   app.use(httpLogger())// Logs all http requests sent to this server.
 
@@ -104,11 +116,6 @@ export async function createServer() {
     .set("Content-Type", "text/html")
     .send(readFileSync(STATIC_INDEX_FILE));
   });
-
-  // logger.warn('my super cool warning', {someError: 'hey this is some warning data', time: Date.now()})
-  // logger.error('my super cool error', {someError: 'hey this is some error data', time: Date.now()})
-  // logger.debug('my super cool debug', {someError: 'hey this is some debug data', time: Date.now()})
-  // logger.info('my super cool info', {someError: 'hey this is some info data', time: Date.now()})
 
   // Handles all server side errors, make sure that this is the last middleware.
   app.use(errorHandler)

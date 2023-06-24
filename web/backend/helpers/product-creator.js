@@ -80,6 +80,7 @@ const CREATE_PRODUCTS_MUTATION = `
 `
 
 export default async function productCreator(session, count = DEFAULT_PRODUCTS_COUNT) {
+  return //TODO: remove
   const client = new Shopify.Clients.Graphql(session.shop, session.accessToken);
 
   try {

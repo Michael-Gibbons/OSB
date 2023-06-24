@@ -29,6 +29,6 @@ export default async (err, req, res, next) => {
     response: resData,
     error
   })
-
+  // TODO: update
   res.status(500).send("Unhandled Error, a log has been sent to a developer.")
 }
