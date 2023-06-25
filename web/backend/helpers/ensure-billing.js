@@ -1,4 +1,4 @@
-import shopify from "./shopify-context";
+import shopify from "./shopify-context.js";
 
 export const BillingInterval = {
   OneTime: "ONE_TIME",

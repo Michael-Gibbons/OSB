@@ -77,6 +77,21 @@ async function createServer() {
   // Makes Cookies accessible to the shopify context, using the API_SECRET_KEY to sign the cookies
   app.use(cookieParser(shopify.config.apiSecretKey));
 
+  // All Shopify webhooks get processed here, before the body parser.
+  // Shopify webhooks that require access to protected customer data will not be able to be registered until you go to the link included in the webhook registration error and confirm your privacy policies.
+  // Define your handlers in /backend/webhook-handlers/shopify/index.js
+  app.post('/api/webhooks/shopify', express.text({type: '*/*'}), async (req, res) => {
+    try {
+      await shopify.webhooks.process({
+        rawBody: req.body,
+        rawRequest: req,
+        rawResponse: res,
+      });
+    } catch (error) {
+      console.log(error );
+    }
+  });
+
   // All endpoints after this point will have access to a request.body
   // attribute, as a result of the express.json() middleware
   app.use(express.json());

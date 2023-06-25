@@ -8,6 +8,8 @@ import prisma from '../prisma/index.js'
 import { loadSession, storeSession } from "../helpers/session.js";
 import { InvalidOAuthError, CookieNotFound } from '@shopify/shopify-api'
 
+import { registerShopifyWebhooks } from "../helpers/shopify-webhooks.js";
+
 export default function applyAuthMiddleware(
   app,
   { billing = { required: false } } = { billing: { required: false } }
@@ -41,7 +43,11 @@ export default function applyAuthMiddleware(
         await lifecycleHooks.installed(session)
       }
 
-      // await registerShopifyWebhooks(session) // TODO: fix
+      if(session.isOnline){
+        const offlineSessionId = await shopify.session.getOfflineId(req.query.shop);
+        const offlineSession = await loadSession(offlineSessionId)
+        await registerShopifyWebhooks(shopify, offlineSession)
+      }
 
       // If billing is required, check if the store needs to be charged right away to minimize the number of redirects.
       if (billing.required) {
