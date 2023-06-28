@@ -8,6 +8,8 @@ import { resolve } from 'path'
 import fs from 'fs'
 
 import { defineShopifyWebhookHandlers } from './shopify-webhooks.js';
+import logger from '../services/logger/index.js'
+
 
 const shopify = shopifyApi({
   apiKey: process.env.SHOPIFY_API_KEY,
@@ -23,6 +25,38 @@ const shopify = shopifyApi({
       amount: 5.0,
       currencyCode: 'USD',
       interval: BillingInterval.Every30Days,
+    },
+  },
+  logger: {
+    log: (severity, message) => {
+      const logTitle = message.split("|")[0]
+      const logData = message.split("|")[1].slice(1)
+
+      switch(severity){
+        case 0:
+          logger.error(logTitle, {logData})
+          break
+        case 1:
+          logger.warn(logTitle, {logData})
+          break
+        case 2:
+          logger.info(logTitle, {logData})
+          break
+        case 3:
+          logger.http(logTitle, {logData})
+          break
+        case 4:
+          logger.verbose(logTitle, {logData})
+          break
+        case 5:
+          logger.debug(logTitle, {logData})
+          break
+        case 6:
+          logger.silly(logTitle, {logData})
+          break
+        default:
+          break
+      }
     },
   },
 });
