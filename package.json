@@ -21,11 +21,11 @@
     "prune-branches": "git checkout main && git pull && git branch --merged | grep -v \\* | xargs git branch -D && git fetch --prune"
   },
   "dependencies": {
-    "@shopify/app": "^3.44.1",
-    "@shopify/cli": "^3.44.1",
-    "commander": "^10.0.0",
-    "fs-extra": "^11.1.0",
-    "inquirer": "^9.1.4",
+    "@shopify/app": "^3.47.0",
+    "@shopify/cli": "^3.47.0",
+    "commander": "^10.0.1",
+    "fs-extra": "^11.1.1",
+    "inquirer": "^9.2.7",
     "shelljs": "^0.8.5"
   },
   "devDependencies": {
