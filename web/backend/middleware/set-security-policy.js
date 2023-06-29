@@ -1,8 +1,8 @@
-import { Shopify } from "@shopify/shopify-api";
+import shopify from "../helpers/shopify-context.js";
 
 export default function setSecurityPolicy(req, res, next){
-  const shop = Shopify.Utils.sanitizeShop(req.query.shop);
-  if (Shopify.Context.IS_EMBEDDED_APP && shop) {
+  const shop = req.query.shop
+  if (shopify.config.isEmbeddedApp && shop) {
     res.setHeader(
       "Content-Security-Policy",
       `frame-ancestors https://${encodeURIComponent(

@@ -6,8 +6,6 @@ The core functionality of this package is in the `useQuery` and `useMutation` ho
 
 I've created a wrapper around these hooks which toggles the app loading state, queries the defined data, and informs the user of the error if one occurred, as well as logging the error to the logging service. See the [Logging](./backend/logging) section for more info.
 
-!> The following hooks are meant to be used to create resource specific hooks. You can use them on their own, which I've done in the `ProductsCard.jsx` component. However this is an anti-pattern and will become cumbersome as your application grows. Extract logic to a reusable hook for use throughout your application whenever you can.
-
 For example you may use `useAppQuery` to create a `useProducts` query which you can use with any application that needs access to products.
 
 ?> For the `queryFunction` and `mutateFunction` shown in this example, you should be using the `serverClient` created by the `useServerClient` hook, explained in [Utility Hooks](./frontend/utility-hooks.md)

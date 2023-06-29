@@ -1,30 +1,66 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-import { Shopify, LATEST_API_VERSION } from "@shopify/shopify-api";
+import '@shopify/shopify-api/adapters/node';
+import { shopifyApi, LATEST_API_VERSION, BillingInterval } from "@shopify/shopify-api";
 
 import { resolve } from 'path'
 import fs from 'fs'
 
-Shopify.Context.initialize({
-  API_KEY: process.env.SHOPIFY_API_KEY,
-  API_SECRET_KEY: process.env.SHOPIFY_API_SECRET,
-  SCOPES: process.env.SCOPES.split(","),
-  HOST_NAME: process.env.HOST.replace(/https?:\/\//, ""),
-  HOST_SCHEME: process.env.HOST.split("://")[0],
-  API_VERSION: LATEST_API_VERSION,
-  IS_EMBEDDED_APP: true,
-  // This should be replaced with your preferred storage strategy
-  // See note below regarding using CustomSessionStorage with this template.
-  SESSION_STORAGE: new Shopify.Session.PostgreSQLSessionStorage(process.env.DATABASE_URL),
+import { defineShopifyWebhookHandlers } from './shopify-webhooks.js';
+import logger from '../services/logger/index.js'
+
+
+const shopify = shopifyApi({
+  apiKey: process.env.SHOPIFY_API_KEY,
+  apiSecretKey: process.env.SHOPIFY_API_SECRET,
+  scopes: process.env.SCOPES.split(","),
+  hostName: process.env.HOST.replace(/https?:\/\//, ""),
+  hostScheme: process.env.HOST.split("://")[0],
+  apiVersion: LATEST_API_VERSION,
+  isEmbeddedApp: true,
   ...(process.env.SHOP_CUSTOM_DOMAIN && { CUSTOM_SHOP_DOMAINS: [process.env.SHOP_CUSTOM_DOMAIN] }),
+  billing: {
+    'My plan': {
+      amount: 5.0,
+      currencyCode: 'USD',
+      interval: BillingInterval.Every30Days,
+    },
+  },
+  logger: {
+    log: (severity, message) => {
+      const logTitle = message.split("|")[0]
+      const logData = message.split("|")[1].slice(1)
+
+      switch(severity){
+        case 0:
+          logger.error(logTitle, {logData})
+          break
+        case 1:
+          logger.warn(logTitle, {logData})
+          break
+        case 2:
+          logger.info(logTitle, {logData})
+          break
+        case 3:
+          logger.http(logTitle, {logData})
+          break
+        case 4:
+          logger.verbose(logTitle, {logData})
+          break
+        case 5:
+          logger.debug(logTitle, {logData})
+          break
+        case 6:
+          logger.silly(logTitle, {logData})
+          break
+        default:
+          break
+      }
+    },
+  },
 });
 
-// NOTE: If you choose to implement your own storage strategy using
-// Shopify.Session.CustomSessionStorage, you MUST implement the optional
-// findSessionsByShopCallback and deleteSessionsCallback methods. These are
-// required for the app_installations.js component in this template to
-// work properly.
 
 // Writes host to file on dev so addons can have access to the dynamic ngrok url at all stages in build
 if(process.env.NODE_ENV === 'development'){
@@ -35,4 +71,7 @@ if(process.env.NODE_ENV === 'development'){
   });
 
 }
-export default Shopify
+
+await defineShopifyWebhookHandlers(shopify)
+
+export default shopify

@@ -1,4 +1,4 @@
-import { Shopify } from "@shopify/shopify-api";
+import shopify from "./shopify-context.js";
 
 export const BillingInterval = {
   OneTime: "ONE_TIME",
@@ -50,7 +50,7 @@ export default async function ensureBilling(
 }
 
 async function hasActivePayment(session, { chargeName, interval }) {
-  const client = new Shopify.Clients.Graphql(session.shop, session.accessToken);
+  const client = new shopify.clients.Graphql({session});
 
   if (isRecurring(interval)) {
     const currentInstallations = await client.query({
@@ -102,8 +102,8 @@ async function requestPayment(
   session,
   { chargeName, amount, currencyCode, interval }
 ) {
-  const client = new Shopify.Clients.Graphql(session.shop, session.accessToken);
-  const returnUrl = `https://${Shopify.Context.HOST_NAME}?shop=${
+  const client = new shopify.clients.Graphql({session});
+  const returnUrl = `https://${shopify.config.hostName}?shop=${
     session.shop
   }&host=${Buffer.from(`${session.shop}/admin`).toString('base64')}`;
 

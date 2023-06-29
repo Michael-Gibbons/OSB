@@ -4,14 +4,27 @@ Webhooks are the lifeblood of most applications. In the context of shopify apps,
 
 ## Shopify Webhooks
 
-Since this is a shopify app boiler, shopify webhooks have first-class support. I have added entry points for the following webhooks:
+Since the v7 update of the shopify api package, shopify has streamlined webhooks. I have streamlined them further. In `/web/backend/webhook-handlers/shopify/index.js` you will find an array `osbShopifyWebhooks`.
 
-- GDPR webhooks, required for your application to be listed on the app store
-- App Uninstalled, required
-- All order webhooks, most apps need an order webhook, simply uncomment the ones you need and add a handler function
-- All customer webhooks, most apps need an customer webhook, simply uncomment the ones you need and add a handler function
+`osbShopifyWebhooks` is an array of objects of the following form:
 
-Feel free to copy the pattern and expand it to any webhooks you need for your application, orders and customers are just the most common.
+```
+{
+  topic: "WEBHOOK_TOPIC", (string)
+  callback: webhookTopicCallback, (function)
+}
+```
+
+The topic may be of the form "WEBHOOK_TOPIC" or "webhook/topic"
+example: order/create or ORDER_CREATE
+See shopify webhook documentation for more information.
+
+The callback returns 3 parameters
+topic, shop, and payload in that order
+
+If you update these webhooks you will need to go to `/api/auth`
+in the shopify admin to re-register the webhooks
+otherwise you will not get a response because shopify does not know the webhooks changed.
 
 ?> It is recommended to pass the data from the webhooks directly to a redis queue.
 
