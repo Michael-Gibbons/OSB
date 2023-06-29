@@ -30,7 +30,7 @@ const shopify = shopifyApi({
   logger: {
     log: (severity, message) => {
       const logTitle = message.split("|")[0]
-      const logData = message.split("|")[1].slice(1)
+      const logData = message.split("|")[1]?.slice(1) || ""
 
       switch(severity){
         case 0:
