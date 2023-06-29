@@ -31,8 +31,14 @@ export default function verifyRequest(
       res.locals.shopify = {}
     }
 
-    res.locals.shopify.session = session
-    // TODO: add api clients here
+    const gqlClient = new shopify.clients.Graphql({session})
+    const restClient = new shopify.clients.Rest({session})
+
+    res.locals.shopify = {
+      session,
+      gqlClient,
+      restClient
+    }
 
     const referrer = req.get("Referrer")
     const urlParams = new URLSearchParams(referrer);

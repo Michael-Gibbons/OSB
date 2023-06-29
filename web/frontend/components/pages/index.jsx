@@ -11,8 +11,6 @@ import {
 
 import { trophyImage } from "../../assets";
 
-import { ProductsCard } from "../ProductsCard.jsx";
-
 export default function HomePage() {
   return (
     <Page narrowWidth>
@@ -74,9 +72,6 @@ export default function HomePage() {
               </Stack.Item>
             </Stack>
           </Card>
-        </Layout.Section>
-        <Layout.Section>
-          <ProductsCard />
         </Layout.Section>
       </Layout>
     </Page>
