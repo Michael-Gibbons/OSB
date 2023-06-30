@@ -4,6 +4,55 @@ Can you tell I like custom hooks?
 
 Well if you couldn't here is a comprehensive list of utility hooks I added to bootstrap react development. Some of them are shamelessly stolen from [WebDevSimplified](https://www.youtube.com/@WebDevSimplified).
 
+## useArrayState
+I created this hook, I haven't seen it anywhere else. Very useful.
+
+This is a hook to return utility methods to create, read, update, and delete an array of objects. Most applications have a scenario where you want to display a list of items and perform actions on those items depending on some sort of user input. There is usually a lot of duplicate code in such scenarios so I extrapolated it into this utility hook.
+
+```js
+import { useArrayState } from '/path/to/hooks/index.js'
+
+const INITIAL_VALUE = [] // Required, must be array
+const SORT_FUNCTION = () => {} // optional
+const IDENTIFIER_KEY = 'id' // optional
+
+const [names, setNames, addName, editName, removeName] = useArrayState(INITIAL_VALUE, SORT_FUNCTION, IDENTIFIER_KEY)
+
+const nameToAdd = {
+  id: 1,
+  name: "Michael",
+  age: 26
+}
+addSchedule(nameToAdd)
+
+const nameToEdit = {
+  name: "Matt"// only need to put in properties to update, others will be unchanged
+}
+editName(1, nameToEdit)
+// {
+//   id: 1,
+//   name: "Matt",
+//   age: 26
+// }
+
+deleteName(1)// deletes item with identifier key value of 1
+
+const handleResetNames = () => {
+  setNames([])// manually set entire array to specific value
+}
+
+// Iterate over array to display items.
+// {
+//   names.map(name => <YourComponent name={name}>)
+// }
+```
+
+For this hook to work, all items in the array must have an identifier key. By default this is `id`. But it can be any string representing a unique identifier for that object.
+
+Every time an item is added, set, edited, or removed the sort function is called on the array, by default it is `() => {}`. Which does nothing.
+
+This can be used with the `List` component in `frontend/components/util/List.jsx` to further remove duplicate code for displaying an empty state and rendering items.
+
 ## useDebounce
 
 This is a hook that will not run the supplied callback function until a certain amount of time has elapsed. This is useful for search bars for example, you don't want to query your database every time a user presses a key, you want to wait until they stop typing then run the query function.
@@ -148,3 +197,28 @@ toggleActive(true) // true
 
 ```
 
+
+## useEventBus
+
+This is a hook that allows for event based communication between components. Sometimes you just need to send a trigger from one component to another to perform a certain action, like clearing a form for example. Transferring the data can be a bit tricky depending on the situation and the complexity of the component tree. Using Broadcast channels to streamline this process is helpful.
+
+```js
+import {useEffect} from 'react'
+import {useEventBus} from '/path/to/hooks/index.js'
+
+const [bus] = useEventBus()
+
+bus.postMessage({
+  type: "your_custom_event", // send event
+  someData: 42
+})
+
+useEffect(() => {
+  bus.on('your_custom_event', yourCoolHandlerFunction) // receive event (in different component)
+}, [])
+
+const yourCoolHandlerFunction = (event) => {
+  console.log(event.someData) // 42
+}
+
+```
