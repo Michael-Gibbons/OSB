@@ -1,5 +1,7 @@
+export { useArrayState } from './useArrayState.js'
 export { useDebounce } from './useDebounce.js'
 export { useDebugInformation } from './useDebugInformation.js'
+export { useEventBus } from './useEventBus.js'
 export { useLocalStorage } from './useLocalStorage.js'
 export { useLogger } from './useLogger.js'
 export { usePreferences } from './usePreferences.js'
